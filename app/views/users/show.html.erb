@@ -1,0 +1,10 @@
+<% flash.each do |message_type, message| %>
+
+  <%= message %>
+
+<% end %>
+
+<p>Username: <%= @user.name %></p>
+<p>Email: <%= @user.email %></p>
+
+<%= link_to "Home", home_path %>
