@@ -15,6 +15,7 @@ class UsersController < ApplicationController
     if @user.save
 
       #handle success
+      log_in(@user)
       flash[:success] = "Thank you for signing up!"
       redirect_to @user
 
