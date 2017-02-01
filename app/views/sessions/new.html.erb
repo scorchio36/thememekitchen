@@ -10,6 +10,11 @@
 
   <%= f.submit "Log in" %>
 
+  <%= f.label :remember_me do %>
+    <%= f.check_box :remember_me %>
+    <span>Remember me on this computer</span>
+  <% end %>
+
 <% end %>
 
 <%= link_to "Home", home_path %>
