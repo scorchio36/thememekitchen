@@ -1,20 +1,24 @@
 class User < ApplicationRecord
 
+  MINIMUM_NAME_LENGTH = 6
+  MAXIMUM_NAME_LENGTH = 30
+  MAXIMUM_EMAIL_LENGTH = 255
+  MINIMUM_PASSWORD_LENGTH = 6
+
   before_save { self.email = self.email.downcase }
 
+  has_many :posts
   has_secure_password
   attr_accessor :remember_token
 
 
-  validates :name, presence: true, length: {minimum: 6, maximum: 30},
+  validates :name, presence: true, length: {minimum: MINIMUM_NAME_LENGTH, maximum: MAXIMUM_NAME_LENGTH},
                                                               uniqueness: {case_sensitive: false}
-
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :email, presence: true, length: {maximum: 255},
+  validates :email, presence: true, length: {maximum: MAXIMUM_EMAIL_LENGTH},
                               format: {with: VALID_EMAIL_REGEX},
                                   uniqueness: {case_sensitive: false}
-
-  validates :password, presence:true, length:{minimum: 6}
+  validates :password, presence:true, length:{minimum: MINIMUM_PASSWORD_LENGTH}
 
 
 
@@ -57,7 +61,7 @@ class User < ApplicationRecord
     else
       BCrypt::Password.new(remember_digest).is_password?(remember_token)
     end
-    
+
   end
 
   #you dont have to nil the remember_token for the user because it will just get reassigned anyway
