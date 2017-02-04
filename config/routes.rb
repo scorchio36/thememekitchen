@@ -1,12 +1,10 @@
 Rails.application.routes.draw do
 
-  get 'sessions/new'
-
   get '/home', to: 'static_pages#home'
 
   get '/buffet', to: 'static_pages#buffet'
 
-  get '/kitchen', to: 'static_pages#kitchen'
+  get '/kitchen', to: 'posts#new'
 
   get '/signup', to: 'users#new'
 
@@ -21,5 +19,7 @@ Rails.application.routes.draw do
   root 'static_pages#home'
 
   resources :users
+  resources :posts
+
 
 end

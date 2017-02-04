@@ -1,10 +1,24 @@
-<% flash.each do |message_type, message| %>
-
-  <%= message %>
-
-<% end %>
+<h1>Profile</h1>
 
 <p>Username: <%= @user.name %></p>
-<p>Email: <%= @user.email %></p>
+<p>Email: <%= @user.email %></p><br><br>
 
+<h2>Posts</h2>
+
+<% if @posts.any? %>
+  <ul>
+    <% @posts.each do |post| %>
+      <li>
+        <p>Title: <%= post.title %></p><br>
+        <%= image_tag post.picture.url if post.picture? %>
+        <% if !post.description.nil? %>
+          <p>Description: <%= post.description %></p>
+        <% end %>
+        <p><small>Posted <%=time_ago_in_words(post.created_at) %> ago</p></small><hr>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= link_to "Make another post", kitchen_path %><br>
 <%= link_to "Home", home_path %>

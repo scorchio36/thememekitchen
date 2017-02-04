@@ -1,10 +1,10 @@
-<% if @user.errors.any? %>
+<% if object.errors.any? %>
 
-  <p><%= pluralize(@user.errors.count, "error")%> prevented this page from being submitted.</p>
+  <p><%= pluralize(object.errors.count, "error")%> prevented this page from being submitted.</p>
 
   <ul>
 
-    <% @user.errors.full_messages.each do |error| %>
+    <% object.errors.full_messages.each do |error| %>
 
       <li><%= error %></li>
 

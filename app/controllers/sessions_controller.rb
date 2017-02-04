@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
 
       #log user in
       log_in(user)
-      
+
       if params[:session][:remember_me] == '1'
         remember user
       else
