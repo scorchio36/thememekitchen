@@ -3,6 +3,7 @@ class StaticPagesController < ApplicationController
   end
 
   def buffet
+    @all_posts = Post.all
   end
 
   def kitchen

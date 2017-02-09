@@ -1,0 +1,91 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+
+//Header Stuff
+
+#logo
+{
+  float: left;
+  margin-left: -60px;
+  font-size: 2.5em;
+  font-weight: bold;
+  color: #fff;
+
+  &:hover
+  {
+    text-decoration: none;
+    //font-size: 2.45em;
+  }
+}
+
+header
+{
+  ul
+  {
+
+    li
+    {
+      float: right;
+      margin-bottom: -4px;
+      padding-top: 4px;
+      font-size: 1.5em;
+
+    }
+  }
+}
+
+.dropdown-menu
+{
+  li
+  {
+    float: left;
+    width: 180px;
+    max-width: 180px;
+
+  }
+
+}
+
+
+#myButtonMenu
+{
+  margin-top: -2px;
+  margin-right: -45px;
+  float: right;
+}
+
+
+
+
+#overheadList
+{
+
+  width: 50%;
+  margin: auto;
+
+  li
+  {
+    font-size: 1.4em;
+    margin-top: -20px;
+    padding-left: 12px;
+    padding-right:12px;
+  }
+}
+
+//Carousels
+
+#mainCarousel
+{
+
+  width: 820px;
+  height: 425px;
+  margin: auto;
+
+  .item img
+  {
+    max-width: 860px;
+    max-height: 425px;
+    margin: auto;
+  }
+}

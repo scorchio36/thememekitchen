@@ -1,21 +1,35 @@
-<h1>Home Page</h1>
+<div class="container">
+  <ul class="nav nav-pills" id="overheadList">
+    <li><%= link_to "Main Course", home_path %></li>
+    <li><%= link_to "Buffet", buffet_path %></li>
+    <li><%= link_to "Personal Chefs", "#" %></li>
+    <li><%= link_to "Bar", "#" %></li>
+  </ul>
+</div>
 
-<%= link_to "Main Course", home_path %><br>
-<%= link_to "Buffet", buffet_path %><br>
+<div class="container">
+  <div id="mainCarousel" class="carousel slide">
+          <!--Carousel items-->
+          <div class="carousel-inner">
+            <div class="item active">
+              <%= image_tag("bork.png", alt: "first image") %>
+            </div>
 
+            <div class="item center">
+              <%= image_tag("jurassic.jpg", alt: "second image")%>
+            </div>
 
-<% if logged_in? %>
+            <div class="item">
+              <%= image_tag("astrobork.jpg", alt: "third image")%>
+            </div>
+          </div>
 
-  <%= link_to "Kitchen", kitchen_path %><br>
-  <%= link_to "Profile", current_user %><br>
-  <%= link_to "Logout", logout_path, method: :delete %>
-  <p><%=current_user.name %> is logged in</p><br><br>
+          <a class="carousel-control left" href="#mainCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+          </a>
 
-
-<% else %>
-
-<%= link_to "Sign up", new_user_path %><br>
-<%= link_to "Log in", login_path %>
-
-
-<% end %>
+          <a class="carousel-control right" href="#mainCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+          </a>
+  </div>
+</div>
