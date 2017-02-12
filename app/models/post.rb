@@ -13,6 +13,7 @@ class Post < ApplicationRecord
   validates :description, length: {maximum: MAXIMUM_DESCRIPTION_LENGTH}
   validate :picture_size
 
+
 #ensures that the uploaded picture is not too large
   private
 

@@ -1,5 +1,6 @@
 
 <div class="container">
+  
   <ul class="nav nav-pills" id="overheadList">
     <li><%= link_to "Main Course", home_path %></li>
     <li><%= link_to "Buffet", buffet_path %></li>
@@ -9,30 +10,60 @@
 </div>
 
 <div class="container">
-  <div id="mainCarousel" class="carousel slide">
-          <!--Carousel items-->
+  <div class="row">
+
+    <div class="col-md-2">
+      <%= button_to "<", {:controller => "static_pages", :action => "handle_prev"},
+                remote: true, class: "btn btn-primary btn-lg", id: "buffetPrevButton" %>
+    </div>
+
+    <div class="col-md-8">
+      <div id="buffetPostImage">
+        <%= image_tag @all_posts.find_by(id: session[:currentIndex]).picture.url %>
+      </div>
+    </div>
+
+    <div class="col-md-2">
+      <%= button_to ">", {:controller => "static_pages", :action => "handle_next"},
+                remote: true, class: "btn btn-primary btn-lg", id: "buffetNextButton" %>
+    </div>
+
+  </div>
+</div>
+
+<!--<div class="container">
+  <div id="buffetCarousel" class="carousel slide">
 
           <div class="carousel-inner">
 
             <div class="item active">
-              <%= image_tag("jurassic.jpg", alt: "second image")%>
+              <%= image_tag("jurassic.jpg", alt: "start image") %>
             </div>
 
-            <% @all_posts.each do |post| %>
-              <% if post.picture? %>
-                <div class="item">
-                  <%= image_tag(post.picture.url, alt: post.title) %>
-                </div>
-              <% end %>
-            <% end %>
-          </div>
+            <div class="item">
+              <div id="buffetPostImage"></div>
+            </div>
 
-          <a class="carousel-control left" href="#mainCarousel" data-slide="prev">
+          <a class="carousel-control left" href="#buffetCarousel" data-slide="prev">
             <span class="glyphicon glyphicon-chevron-left"></span>
           </a>
 
-          <a class="carousel-control right" href="#mainCarousel" data-slide="next">
+          <a class="carousel-control right" href="#buffetCarousel" data-slide="next">
             <span class="glyphicon glyphicon-chevron-right"></span>
           </a>
   </div>
+
+  </div>
+</div>-->
+
+<div class="container">
+
+
+
+
+  <p class="postTitle">Title: <%= @current_post.title %></p>
+  <p class="postOwner">Poster: <%= (User.find_by(id: @current_post.user_id)).name %></p>
+  <p class="postDescription">Description: <%= @current_post.description %></p>
+
+
 </div>

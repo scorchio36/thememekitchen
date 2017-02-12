@@ -14,6 +14,10 @@ Rails.application.routes.draw do
 
   delete '/logout', to: 'sessions#destroy'
 
+  post 'static_pages/handle_next' => 'static_pages#handle_next'
+
+  post 'static_pages/handle_prev' => 'static_pages#handle_prev'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   root 'static_pages#home'
