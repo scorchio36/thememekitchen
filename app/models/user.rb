@@ -7,6 +7,8 @@ class User < ApplicationRecord
 
   before_save { self.email = self.email.downcase }
 
+  mount_uploader :picture, ProfilePicUploader
+
   has_many :posts
   has_secure_password
   attr_accessor :remember_token
@@ -19,6 +21,8 @@ class User < ApplicationRecord
                               format: {with: VALID_EMAIL_REGEX},
                                   uniqueness: {case_sensitive: false}
   validates :password, presence:true, length:{minimum: MINIMUM_PASSWORD_LENGTH}
+
+  validate :picture_size
 
 
 
@@ -71,5 +75,15 @@ class User < ApplicationRecord
 
   end
 
+
+  def picture_size
+
+    if picture.size > 5.megabytes
+
+      errors.add(:picture, "should be less than 5MB")
+
+    end
+
+  end
 
 end

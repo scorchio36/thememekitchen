@@ -93,16 +93,16 @@ header
 #buffetPostImage
 {
 
-  width: 752px;
-  height: 400px;
+  width: 825px;
+  height: 425px;
   margin: auto;
   border: 1px solid black;
   margin-right: 75px;
 
   img
   {
-    max-width: 752px;
-    max-height: 400px;
+    max-width: 825px;
+    max-height: 425px;
     display: block;
     margin: auto;
     vertical-align: middle;
@@ -112,8 +112,8 @@ header
 
 #buffetPrevButton
 {
-  margin-top: 100px;
-  margin-left: 145px;
+  margin-top: -215px;
+  margin-left: -858px;
   height: 200px;
   width: 25px;
 }
@@ -121,7 +121,69 @@ header
 #buffetNextButton
 {
   margin-top: 100px;
-  margin-left: -15px;
+  margin-left: -85px;
   height: 200px;
   width: 25px;
+}
+
+
+.profilePicture
+{
+
+  width: 75px;
+  height: 75px;
+  border: 1px solid black;
+  border-radius: 50px;
+
+  img
+  {
+    max-width: 75px;
+    max-height: 75px;
+    vertical-align: middle;
+    height: 100%;
+  }
+
+}
+
+.postOwner
+{
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+.postTime
+{
+  font-size: 0.8em;
+
+  &:hover
+  {
+    text-decoration: none;
+  }
+}
+
+
+//The upper left media object on each post
+.postMediaObject
+{
+  border: 1px solid black;
+  border-radius: 5px; padding:
+  5px; padding-right: 5px;
+  width: 200px;
+}
+
+.postDescription
+{
+  text-align: center;
+  border: 1px solid black;
+  margin-top: 12px;
+  width: 825px;
+  border-radius: 15px;
+
+  h2
+  {
+    margin: auto;
+    text-align:center;
+    font-weight: bold;
+    padding: 10px;
+  }
 }

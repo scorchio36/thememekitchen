@@ -7,6 +7,8 @@ class StaticPagesController < ApplicationController
     Rails.cache.write("posts", @all_posts)
     session[:currentIndex] = @all_posts.count
     @current_post = @all_posts.find_by(id: session[:currentIndex]);
+    @poster = User.find_by(id: @current_post.user_id)
+
   end
 
   def kitchen
@@ -16,7 +18,8 @@ class StaticPagesController < ApplicationController
 
     @all_posts = Post.all
     session[:currentIndex] = (session[:currentIndex]-1)
-
+    @current_post = @all_posts.find_by(id: session[:currentIndex]);
+    @poster = User.find_by(id: @current_post.user_id)
 
     respond_to do |format|
       format.js
@@ -27,6 +30,8 @@ class StaticPagesController < ApplicationController
 
     @all_posts = Post.all
     session[:currentIndex] = (session[:currentIndex]+1)
+    @current_post = @all_posts.find_by(id: session[:currentIndex]);
+    @poster = User.find_by(id: @current_post.user_id)
 
     respond_to do |format|
       format.js

@@ -1,6 +1,6 @@
 
 <div class="container">
-  
+
   <ul class="nav nav-pills" id="overheadList">
     <li><%= link_to "Main Course", home_path %></li>
     <li><%= link_to "Buffet", buffet_path %></li>
@@ -9,23 +9,47 @@
   </ul>
 </div>
 
-<div class="container">
+<div class="container-fluid">
   <div class="row">
-
     <div class="col-md-2">
-      <%= button_to "<", {:controller => "static_pages", :action => "handle_prev"},
-                remote: true, class: "btn btn-primary btn-lg", id: "buffetPrevButton" %>
+
+
+      <%= link_to @poster, class: "linkToProfile" do %>
+        <div class="media postMediaObject">
+          <div class="media-left">
+            <div class="profilePicture">
+                <%= image_tag @poster.picture.url, class: "img-circle" %>
+            </div>
+          </div>
+
+          <div class="media-body">
+            <h3 class="media-heading postOwner">
+              <%= (User.find_by(id: @current_post.user_id)).name %>
+            </h3>
+            <small class="postTime">Posted at <%= time_ago_in_words(@current_post.created_at) %> ago</small>
+          </div>
+        </div>
+      <% end %>
+
+
     </div>
 
     <div class="col-md-8">
       <div id="buffetPostImage">
         <%= image_tag @all_posts.find_by(id: session[:currentIndex]).picture.url %>
       </div>
+
+        <div class="postDescription">
+          <h2><%= @current_post.description %></h2>
+        </div>
     </div>
 
     <div class="col-md-2">
       <%= button_to ">", {:controller => "static_pages", :action => "handle_next"},
                 remote: true, class: "btn btn-primary btn-lg", id: "buffetNextButton" %>
+
+      <%= button_to "<", {:controller => "static_pages", :action => "handle_prev"},
+                remote: true, class: "btn btn-primary btn-lg", id: "buffetPrevButton" %>
     </div>
 
   </div>
@@ -61,9 +85,7 @@
 
 
 
-  <p class="postTitle">Title: <%= @current_post.title %></p>
-  <p class="postOwner">Poster: <%= (User.find_by(id: @current_post.user_id)).name %></p>
-  <p class="postDescription">Description: <%= @current_post.description %></p>
+  <!--<p class="postTitle">Title: <%= @current_post.title %></p>-->
 
 
 </div>

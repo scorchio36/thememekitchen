@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
 
   def show
-    @user = User.find(params[:id])
+    @user = User.find_by(id: params[:id])
     @posts = @user.posts
   end
 
@@ -11,6 +11,7 @@ class UsersController < ApplicationController
   end
 
   def create
+
     @user = User.new(user_params)
 
     if @user.save
@@ -28,8 +29,16 @@ class UsersController < ApplicationController
     end
   end
 
+  def update
+
+    @user = User.find_by(id: params[:id])
 
 
+    if @user.update_attribute(:picture, params[:user][:picture])
+      redirect_to @user
+    end
+
+  end
 
 
 
@@ -37,7 +46,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :picture)
   end
 
 end

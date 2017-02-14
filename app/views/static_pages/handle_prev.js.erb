@@ -1,7 +1,12 @@
 $(function() {
-  $('.postTitle').html("<p>Title: <%= (@all_posts.find_by(id: session[:currentIndex])).title %></p>");
-  $('.postOwner').html("<p> Poster: <%= User.find_by(id: (@all_posts.find_by(id: session[:currentIndex])).user_id).name %></p>");
-  $('.postDescription').html("Description: <p><%= (@all_posts.find_by(id: session[:currentIndex])).description %></p>");
-  $('#buffetPostImage').html("<%= escape_javascript image_tag((@all_posts.find_by(id: session[:currentIndex])).picture.url, alt: "first image") if (@all_posts.find_by(id: session[:currentIndex])).picture? %>");
+  //$('.postTitle').html("<p>Title: <%= @current_post.title %></p>");
+  $('.postOwner').html("<p><%= @poster.name %></p>");
+  $('.postDescription').html("<h2><%= @current_post.description %></h2>");
+  $('#buffetPostImage').html("<%= escape_javascript image_tag(@current_post.picture.url, alt: "current image") if (@current_post).picture? %>");
+  $('.profilePicture').html("<%= escape_javascript image_tag(@poster.picture.url, alt: "profile image", class: "img-circle") %>");
+
+
+  $('.linkToProfile').attr("href", "<%= user_path(@poster) %>");
+  $('.postTime').html("<p>Posted <%= time_ago_in_words(@current_post.created_at) %> ago</p>");
 
 });
