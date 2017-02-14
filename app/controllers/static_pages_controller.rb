@@ -38,4 +38,11 @@ class StaticPagesController < ApplicationController
     end
   end
 
+  def handle_like
+
+  end
+
+  def handle_dislike
+
+  end
 end
