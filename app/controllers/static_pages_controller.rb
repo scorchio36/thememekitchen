@@ -40,9 +40,15 @@ class StaticPagesController < ApplicationController
 
   def handle_like
 
+    @current_post = Post.find_by(id: session[currentIndex])
+    current_user.liked_posts.push(@current_post)
+
   end
 
   def handle_dislike
+
+    @current_post = Post.find_by(id: session[currentIndex])
+    current_user.disliked_posts.push(@current_post)
 
   end
 end
