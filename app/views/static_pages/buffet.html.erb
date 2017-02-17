@@ -24,6 +24,7 @@
 
           <div class="media-body">
             <h3 class="media-heading postOwner">
+              <!-- Just a heads up. This (@current_post.user_id) will fail when there are no users in the database -->
               <%= (User.find_by(id: @current_post.user_id)).name %>
             </h3>
             <small class="postTime">Posted at <%= time_ago_in_words(@current_post.created_at) %> ago</small>
@@ -33,12 +34,37 @@
 
 
       <% if logged_in? %>
-        <div class="btn-group" style="margin-top: 25px;">
-          <%= button_to "Like", {:controller => "static_pages", :action => "handle_like"},
-            remote: true, class: "btn btn-primary btn-lg" %>
-          <%= button_to "Dislike", {:controller => "static_pages", :action => "handle_dislike"},
-            remote: true, class: "btn btn-primary btn-lg" %>
-        </div>
+        <!-- If the current user has already liked this post, then show a different button state-->
+
+          <!--Like button-->
+          <%= link_to({:controller => "static_pages", :action => "handle_like"},
+            remote: true, class: "btn btn-primary btn-lg", method: "post") do %>
+
+            <% if @current_post.liked_by(current_user) %>
+              <p class="likeButton">Liked</p>
+            <% else %>
+              <p class="likeButton">Like</p>
+            <% end %>
+
+          <% end %>
+
+          <h5 class="postLikes">Likes: <%= @current_post.likes %></h5>
+
+
+          <!--Dislike button-->
+          <%= link_to({:controller => "static_pages", :action => "handle_dislike"},
+            remote: true, class: "btn btn-primary btn-lg", method: "post") do %>
+
+            <% if @current_post.disliked_by(current_user) %>
+              <p class="dislikeButton">Disliked</p>
+            <% else %>
+              <p class="dislikeButton">Dislike</p>
+            <% end %>
+
+          <% end %>
+
+          <h5 class="postDislikes">Dislikes: <%= @current_post.dislikes %></h5>
+
       <% end %>
 
 
@@ -91,7 +117,6 @@
 </div>-->
 
 <div class="container">
-
 
 
 

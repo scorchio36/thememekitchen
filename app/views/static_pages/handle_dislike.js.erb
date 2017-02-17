@@ -1,0 +1,21 @@
+//dislike button stuff
+<% if @current_post.disliked_by(current_user) %>
+  $('.dislikeButton').html("Disliked");
+
+<% else %>
+  $('.dislikeButton').html("Dislike");
+
+<% end %>
+
+$('.postDislikes').html("Dislikes: <%= @current_post.dislikes %> ");
+
+//like button stuff
+<% if @current_post.liked_by(current_user) %>
+  $('.likeButton').html("Liked");
+
+<% else %>
+  $('.likeButton').html("Like");
+
+<% end %>
+
+$('.postLikes').html("Likes: <%= @current_post.likes %> ");

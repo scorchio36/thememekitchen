@@ -13,7 +13,6 @@ class User < ApplicationRecord
   has_secure_password
   attr_accessor :remember_token
 
-
   validates :name, presence: true, length: {minimum: MINIMUM_NAME_LENGTH, maximum: MAXIMUM_NAME_LENGTH},
                                                               uniqueness: {case_sensitive: false}
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -23,9 +22,6 @@ class User < ApplicationRecord
   validates :password, presence:true, length:{minimum: MINIMUM_PASSWORD_LENGTH}
 
   validate :picture_size
-
-
-
 
 
   #give this method a string and it will return a hash using the BCrypt gem
@@ -56,7 +52,6 @@ class User < ApplicationRecord
     #Let's say a user has two different browsers open. In one browser, the user logs out. The other browser just gets
     #closed. When the user comes back to the second browser, the user_id cookie will still be in memory and the user
     #will be attempted to be pulled out of the db. This cannot happen though because the remember_digest of the user will
-    #be nil because the user was logged out of the first browser (which makes the digest nil). We use this
     #authenticate_token method when attempting to authenticate a user using conditionals, so we can just make the method
     #return false if the remember_digest is nil
 
@@ -75,6 +70,42 @@ class User < ApplicationRecord
 
   end
 
+  #The following two functions are for pushing and removing liked post ID's from the User model
+  def pushLikedPost(postID)
+
+    posts = self.liked_posts
+    posts.push(postID)
+    update_attribute(:liked_posts, posts)
+
+  end
+
+  def removeLikedPost(postID)
+
+    posts = self.liked_posts
+    posts.delete(postID)
+    update_attribute(:liked_posts, posts)
+
+  end
+
+  def pushDislikedPost(postID)
+
+    posts = self.disliked_posts
+    posts.push(postID)
+    update_attribute(:disliked_posts, posts)
+
+  end
+
+  def removeDislikedPost(postID)
+
+    posts = self.disliked_posts
+    posts.delete(postID)
+    update_attribute(:disliked_posts, posts)
+
+  end
+
+
+
+  private
 
   def picture_size
 

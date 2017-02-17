@@ -14,6 +14,21 @@ class Post < ApplicationRecord
   validate :picture_size
 
 
+
+
+  def liked_by(user)
+
+      user.liked_posts.include?(self.id)
+
+  end
+
+  def disliked_by(user)
+
+      user.disliked_posts.include?(self.id)
+
+  end
+
+
 #ensures that the uploaded picture is not too large
   private
 
@@ -26,5 +41,14 @@ class Post < ApplicationRecord
     end
 
   end
+
+  #return true if the post is liked by the given user
+
+  #return true if the post if disliked by the given user
+  #def disliked_by(user)
+
+    #user.
+
+  #end
 
 end
