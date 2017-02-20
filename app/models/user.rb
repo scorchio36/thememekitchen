@@ -10,6 +10,8 @@ class User < ApplicationRecord
   mount_uploader :picture, ProfilePicUploader
 
   has_many :posts
+  has_many :comments
+
   has_secure_password
   attr_accessor :remember_token
 

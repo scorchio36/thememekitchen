@@ -5,6 +5,7 @@ class Post < ApplicationRecord
   MAXIMUM_DESCRIPTION_LENGTH = 300
 
   belongs_to :user
+  has_many :comments
   mount_uploader :picture, PictureUploader
 
   default_scope -> {order(created_at: :desc)}

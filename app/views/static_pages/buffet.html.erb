@@ -81,12 +81,40 @@
     </div>
 
     <div class="col-md-2">
+
       <%= button_to ">", {:controller => "static_pages", :action => "handle_next"},
                 remote: true, class: "btn btn-primary btn-lg", id: "buffetNextButton" %>
 
       <%= button_to "<", {:controller => "static_pages", :action => "handle_prev"},
                 remote: true, class: "btn btn-primary btn-lg", id: "buffetPrevButton" %>
-    </div>
+
+
+
+
+      <% if logged_in? %>
+      <div class="commentBlock"">
+        <h2 style="text-decoration: underline;">Comments</h2>
+
+          <%= form_for(@comment, remote: true) do |f| %>
+
+            <%= f.text_field :comment, placeholder: "Write a comment" %>
+
+            <%= f.submit "Post Comment" %>
+
+          <% end %>
+
+          <ul class="list-unstyled">
+            <div class="postComments">
+
+                <%= render(:partial => 'comments') %>
+
+            </div>
+          </ul>
+
+      </div>
+      <% end %>
+
+
 
   </div>
 </div>

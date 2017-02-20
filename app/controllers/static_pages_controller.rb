@@ -8,6 +8,8 @@ class StaticPagesController < ApplicationController
     session[:currentIndex] = @all_posts.count
     @current_post = @all_posts.find_by(id: session[:currentIndex]);
     @poster = User.find_by(id: @current_post.user_id)
+    @comment = current_user.comments.build
+    @post_comments = @current_post.comments
 
   end
 
@@ -20,6 +22,7 @@ class StaticPagesController < ApplicationController
     session[:currentIndex] = (session[:currentIndex]-1)
     @current_post = @all_posts.find_by(id: session[:currentIndex]);
     @poster = User.find_by(id: @current_post.user_id)
+    @post_comments = @current_post.comments
 
     respond_to do |format|
       format.js
@@ -32,6 +35,7 @@ class StaticPagesController < ApplicationController
     session[:currentIndex] = (session[:currentIndex]+1)
     @current_post = @all_posts.find_by(id: session[:currentIndex]);
     @poster = User.find_by(id: @current_post.user_id)
+    @post_comments = @current_post.comments
 
     respond_to do |format|
       format.js

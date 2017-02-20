@@ -1,0 +1,20 @@
+<li>
+  <div class="media commentMedia">
+    <div class="media-left">
+      <%= image_tag @comment.user.picture.url, class: "img-rounded commentPicture" %>
+    </div>
+
+    <div class="media-body">
+      <h5 class="media-heading">
+        <%= @comment.user.name %>
+      </h5>
+      <p>
+        <%= @comment.comment %>
+      </p>
+    </div>
+  </div>
+
+  <%= link_to "Like", "#", class: "btn btn-primary btn-xs" %>
+  <%= link_to "Dislike", "#", class: "btn btn-primary btn-xs" %>
+  
+</li>
