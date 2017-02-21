@@ -8,15 +8,11 @@ class Comment < ApplicationRecord
 
 
   def liked_by(user)
-
       user.liked_comments.include?(self.id)
-
   end
 
   def disliked_by(user)
-
       user.disliked_comments.include?(self.id)
-
   end
 
 end

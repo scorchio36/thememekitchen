@@ -26,6 +26,8 @@ class User < ApplicationRecord
   validate :picture_size
 
 
+
+  #Session methods
   #give this method a string and it will return a hash using the BCrypt gem
   def User.digest(string)
    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
@@ -72,6 +74,12 @@ class User < ApplicationRecord
 
   end
 
+
+
+
+
+
+  #Post and comment functions
   #The following two functions are for pushing and removing liked post ID's from the User model
   def pushLikedPost(postID)
 
@@ -140,6 +148,10 @@ class User < ApplicationRecord
     update_attribute(:disliked_comments, comments)
 
   end
+
+
+
+
 
 
 

@@ -5,7 +5,7 @@
     <li><%= link_to "Main Course", home_path %></li>
     <li><%= link_to "Buffet", buffet_path %></li>
     <li><%= link_to "Personal Chefs", "#" %></li>
-    <li><%= link_to "Bar", "#" %></li>
+    <!--<li><%= link_to "Bar", "#" %></li>-->
   </ul>
 </div>
 
@@ -89,8 +89,6 @@
                 remote: true, class: "btn btn-primary btn-lg", id: "buffetPrevButton" %>
 
 
-
-
       <% if logged_in? %>
       <div class="commentBlock">
         <h2 style="text-decoration: underline;">Comments</h2>
@@ -116,39 +114,6 @@
 
 
 
+    </div>
   </div>
-</div>
-
-<!--<div class="container">
-  <div id="buffetCarousel" class="carousel slide">
-
-          <div class="carousel-inner">
-
-            <div class="item active">
-              <%= image_tag("jurassic.jpg", alt: "start image") %>
-            </div>
-
-            <div class="item">
-              <div id="buffetPostImage"></div>
-            </div>
-
-          <a class="carousel-control left" href="#buffetCarousel" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left"></span>
-          </a>
-
-          <a class="carousel-control right" href="#buffetCarousel" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right"></span>
-          </a>
-  </div>
-
-  </div>
-</div>-->
-
-<div class="container">
-
-
-
-  <!--<p class="postTitle">Title: <%= @current_post.title %></p>-->
-
-
 </div>

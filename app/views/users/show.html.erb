@@ -1,37 +1,60 @@
-<h1>Profile</h1>
+<div class="container userProfileTitle">
+
+  <div class="media userProfileTitleMedia">
+    <div class="media-left">
+      <%= image_tag @user.picture.url, class: "userProfilePicture"%>
+    </div>
+
+    <div class="media-body">
+      <h1 class="media-heading"><%= @user.name %></h1>
+    </div>
+
+  </div>
+
+  <%= link_to  kitchen_path, class: "btn btn-default makeMemesProfileButton" do %>
+    <p><b class="glyphicon glyphicon-fire"></b> Cook up a new Meme!</p>
+  <% end %>
+  <%= link_to  "#", class: "btn btn-default settingsProfileButton" do %>
+    <p style="padding-bottom: -15px;"><b class="glyphicon glyphicon-cog"></b> Edit Profile</p>
+  <% end %>
+
+</div>
 
 
-<%= image_tag @user.picture.url, class: "profilePicture"%>
-
-
-<p>Username: <%= @user.name %></p>
-<p>Email: <%= @user.email %></p><br><br>
-
-<%= form_for(@user, html: {multipart: true}) do |f| %>
+<!--<%= form_for(@user, html: {multipart: true}) do |f| %>
 
   <%= f.label :picture, "Upload a Profile Picture"%>
   <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
 
   <%= f.submit "Submit Profile Picture" %>
 
-<% end %>
+<% end %>-->
 
-<h2>Posts</h2>
 
-<% if @posts.any? %>
-  <ul>
-    <% @posts.each do |post| %>
-      <li>
-        <p>Title: <%= post.title %></p><br>
-        <%= image_tag post.picture.url if post.picture? %>
-        <% if !post.description.nil? %>
-          <p>Description: <%= post.description %></p>
-        <% end %>
-        <p><small>Posted <%=time_ago_in_words(post.created_at) %> ago</p></small><hr>
-      </li>
+<div class="container">
+  <div class="row">
+
+    <% if @posts.any? %>
+      <% @posts.each do |post| %>
+        <div class="col-md-3 postThumbnail">
+          <div class="thumbnail">
+            <%= link_to({:controller => "posts", :action => "destroy", }, class:" deleteProfilePostButton",
+              method: "delete", data: {confirm: "Are you sure you want to delete your dank meme?"}) do %>
+              <b class="glyphicon glyphicon-remove-sign"></b>
+            <% end %>
+            <%= image_tag post.picture.url if post.picture? %>
+          </div>
+
+          <div class="caption">
+            <% if post.title.nil? %>
+              <h4>Dank Meme</h4>
+            <% else %>
+              <h4><%= post.title %></h4>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
     <% end %>
-  </ul>
-<% end %>
 
-<%= link_to "Make another post", kitchen_path %><br>
-<%= link_to "Home", home_path %>
+  </div>
+</div>

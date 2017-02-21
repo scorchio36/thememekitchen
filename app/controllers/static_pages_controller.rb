@@ -3,12 +3,16 @@ class StaticPagesController < ApplicationController
   end
 
   def buffet
+
     @all_posts = Post.all
-    Rails.cache.write("posts", @all_posts)
     session[:currentIndex] = @all_posts.count
     @current_post = @all_posts.find_by(id: session[:currentIndex]);
     @poster = User.find_by(id: @current_post.user_id)
-    @comment = current_user.comments.build
+
+    if logged_in?
+      @comment = current_user.comments.build
+    end
+    
     @post_comments = @current_post.comments
 
   end
