@@ -107,6 +107,42 @@ class User < ApplicationRecord
 
 
 
+
+  #The following functions are just like the ones for pushing and removing liked posts from user arrays but they are for comments
+  def pushLikedComment(commentID)
+
+    comments = self.liked_comments
+    comments.push(commentID)
+    update_attribute(:liked_comments, comments)
+
+  end
+
+  def removeLikedComment(commentID)
+
+    comments = self.liked_comments
+    comments.delete(commentID)
+    update_attribute(:liked_comments, comments)
+
+  end
+
+  def pushDislikedComment(commentID)
+
+    comments = self.disliked_comments
+    comments.push(commentID)
+    update_attribute(:disliked_comments, comments)
+
+  end
+
+  def removeDislikedComment(commentID)
+
+    comments = self.disliked_comments
+    comments.delete(commentID)
+    update_attribute(:disliked_comments, comments)
+
+  end
+
+
+
   private
 
   def picture_size

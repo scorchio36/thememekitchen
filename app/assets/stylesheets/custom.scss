@@ -130,15 +130,15 @@ header
 .profilePicture
 {
 
-  width: 75px;
-  height: 75px;
+  width: 55px;
+  height: 55px;
   border: 1px solid black;
   border-radius: 50px;
 
   img
   {
-    max-width: 75px;
-    max-height: 75px;
+    max-width: 55px;
+    max-height: 55px;
     vertical-align: middle;
     height: 100%;
   }
@@ -166,9 +166,22 @@ header
 .postMediaObject
 {
   border: 1px solid black;
-  border-radius: 5px; padding:
-  5px; padding-right: 5px;
+  border-radius: 5px;
+  padding:5px;
+  padding-right: 5px;
   width: 200px;
+
+  h3
+  {
+    padding-right: 15px;
+    margin-right: 15px;
+    font-size: 1.0em;
+  }
+
+  small
+  {
+    font-size:0.85em;
+  }
 }
 
 .postDescription
@@ -229,7 +242,6 @@ header
 
   h5
   {
-    text-decoration: underline;
     font-weight: bold;
     margin-top: 5px;
   }
@@ -237,6 +249,27 @@ header
   p
   {
     line-height: 0.9em;
-    font-size: 0.97em;
+    font-size: 1.1em;
   }
+}
+
+.commentLikeButton
+{
+  width: 22px;
+  height: 20px;
+  float: left;
+  margin-left: 5px;
+}
+
+.commentDislikeButton
+{
+  width: 22px;
+  height: 20px;
+  float: left;
+  margin-left: 5px;
+}
+
+.commentLikes
+{
+  margin-top:-10px;
 }

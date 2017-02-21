@@ -19,13 +19,16 @@ Rails.application.routes.draw do
   post 'static_pages/handle_like' => 'static_pages#handle_like'
   post 'static_pages/handle_dislike' => 'static_pages#handle_dislike'
 
+  post 'comments/handle_like' => 'comments#handle_like'
+  post 'comments/handle_dislike' => 'comments#handle_dislike'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   root 'static_pages#home'
 
   resources :users
   resources :posts
-  resources :comments
+  resources :comments, except: [:show]
 
 
 end

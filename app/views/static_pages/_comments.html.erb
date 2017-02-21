@@ -4,6 +4,25 @@
     <div class="media commentMedia">
       <div class="media-left">
         <%= image_tag comment.user.picture.url, class: "img-rounded commentPicture" %>
+
+        <% if comment.liked_by(current_user) %>
+            <%= link_to "", {:controller => 'comments', :action => 'handle_like', :comment_id => comment.id},
+                      class: "btn btn-success btn-xs glyphicon glyphicon-thumbs-up commentLikeButton", remote: true, method: "post" %>
+        <% else %>
+            <%= link_to "", {:controller => 'comments', :action => 'handle_like', :comment_id => comment.id},
+                      class: "btn btn-default btn-xs glyphicon glyphicon-thumbs-up commentLikeButton", remote: true, method: "post" %>
+        <% end %>
+
+        <% if comment.disliked_by(current_user) %>
+          <%= link_to "", {:controller => 'comments', :action => 'handle_dislike', :comment_id => comment.id},
+                  class: "btn btn-success btn-xs glyphicon glyphicon-thumbs-down commentDislikeButton", remote: true, method: "post" %>
+        <% else %>
+          <%= link_to "", {:controller => 'comments', :action => 'handle_dislike', :comment_id => comment.id},
+                class: "btn btn-default btn-xs glyphicon glyphicon-thumbs-down commentDislikeButton", remote: true, method: "post" %>
+        <% end %>
+
+
+
       </div>
 
       <div class="media-body">
@@ -14,13 +33,14 @@
           <%= comment.comment %>
         </p>
 
-      </div>
+        <small class="commentLikes">Likes: <%= comment.likes %></small>
+        <small class="commentLikes">Dislikes: <%= comment.dislikes %></small>
 
+      </div>
 
     </div>
 
-    <%= link_to "Like", "#", class: "btn btn-primary btn-xs" %>
-    <%= link_to "Dislike", "#", class: "btn btn-primary btn-xs" %>
+
 
   </li>
 
