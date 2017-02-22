@@ -288,8 +288,6 @@ header
 .userProfileTitleMedia
 {
   padding: 10px;
-  margin: 0 auto;
-  width: 350px;
 
   h1
   {
@@ -367,17 +365,19 @@ header
 .makeMemesProfileButton
 {
   float: right;
-  margin-top: -30px;
+  margin-top: -50px;
   margin-bottom: 10px;
   margin-right: 5px;
+  font-weight: bold;
 }
 
 .settingsProfileButton
 {
   float: right;
-  margin-top: -30px;
+  margin-top: -50px;
   margin-bottom: 10px;
   margin-right: 5px;
+  font-weight: bold;
 }
 
 .deleteProfilePostButton

@@ -9,8 +9,8 @@ class User < ApplicationRecord
 
   mount_uploader :picture, ProfilePicUploader
 
-  has_many :posts
-  has_many :comments
+  has_many :posts, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   has_secure_password
   attr_accessor :remember_token
@@ -148,9 +148,6 @@ class User < ApplicationRecord
     update_attribute(:disliked_comments, comments)
 
   end
-
-
-
 
 
 

@@ -11,11 +11,14 @@
 
   </div>
 
-  <%= link_to  kitchen_path, class: "btn btn-default makeMemesProfileButton" do %>
-    <p><b class="glyphicon glyphicon-fire"></b> Cook up a new Meme!</p>
-  <% end %>
-  <%= link_to  "#", class: "btn btn-default settingsProfileButton" do %>
-    <p style="padding-bottom: -15px;"><b class="glyphicon glyphicon-cog"></b> Edit Profile</p>
+  <!-- Dont let other users edit another user's profile or make memes for them -->
+  <% if current_user.id == @user.id %>
+    <%= link_to  kitchen_path, class: "btn btn-default makeMemesProfileButton" do %>
+      <p><b class="glyphicon glyphicon-fire"></b> Cook up a new Meme!</p>
+      <% end %>
+      <%= link_to  "#", class: "btn btn-default settingsProfileButton" do %>
+      <p style="padding-bottom: -15px;"><b class="glyphicon glyphicon-cog"></b> Edit Profile</p>
+      <% end %>
   <% end %>
 
 </div>
@@ -34,27 +37,9 @@
 <div class="container">
   <div class="row">
 
-    <% if @posts.any? %>
-      <% @posts.each do |post| %>
-        <div class="col-md-3 postThumbnail">
-          <div class="thumbnail">
-            <%= link_to({:controller => "posts", :action => "destroy", }, class:" deleteProfilePostButton",
-              method: "delete", data: {confirm: "Are you sure you want to delete your dank meme?"}) do %>
-              <b class="glyphicon glyphicon-remove-sign"></b>
-            <% end %>
-            <%= image_tag post.picture.url if post.picture? %>
-          </div>
-
-          <div class="caption">
-            <% if post.title.nil? %>
-              <h4>Dank Meme</h4>
-            <% else %>
-              <h4><%= post.title %></h4>
-            <% end %>
-          </div>
-        </div>
-      <% end %>
-    <% end %>
+    <div class="userProfilePosts">
+      <%= render(:partial => 'user_profile_posts') %>
+    </div>
 
   </div>
 </div>
