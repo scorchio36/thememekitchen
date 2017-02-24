@@ -16,8 +16,8 @@
     <%= link_to  kitchen_path, class: "btn btn-default makeMemesProfileButton" do %>
       <p><b class="glyphicon glyphicon-fire"></b> Cook up a new Meme!</p>
       <% end %>
-      <%= link_to  "#", class: "btn btn-default settingsProfileButton" do %>
-      <p style="padding-bottom: -15px;"><b class="glyphicon glyphicon-cog"></b> Edit Profile</p>
+      <%= link_to  edit_user_path(@user), class: "btn btn-default settingsProfileButton" do %>
+      <p><b class="glyphicon glyphicon-cog"></b> Edit Profile</p>
       <% end %>
   <% end %>
 

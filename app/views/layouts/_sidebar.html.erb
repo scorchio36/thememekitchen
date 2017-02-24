@@ -1,0 +1,36 @@
+<!--This is the left sidebar menu for the website -->
+<div class="sidebar">
+
+  <%= link_to(home_path) do %>
+    <h1 id="logo">Frizzleskillet</h1>
+  <% end %>
+
+  <ul class="nav nav-pills nav-stacked">
+    <li class="nav-divider"></li>
+    <li><%= link_to(home_path) do %>
+          <b class="glyphicon glyphicon-star"></b> Main Course</li><% end %>
+    <li><%= link_to(buffet_path) do %>
+          <b class="glyphicon glyphicon-cutlery"></b> Buffet</li><% end %>
+    <% if logged_in? %>
+    <li><%= link_to("#") do %>
+          <b class="glyphicon glyphicon-heart"></b> Personal Chefs</li><% end %>
+      <li><%= link_to("#") do %>
+            <b class="glyphicon glyphicon-glass"></b> Bar</li><% end %>
+      <li class="nav-divider"></li>
+      <li><%= link_to(kitchen_path) do %>
+            <b class="glyphicon glyphicon-fire"></b> Kitchen</li><% end %>
+      <li><%= link_to(current_user) do %>
+            <b class="glyphicon glyphicon-user"></b> Profile</li><% end %>
+    <% end %>
+    <li class="nav-divider"></li>
+    <% if logged_in? %>
+    <li><%= link_to(logout_path, method: "delete") do %>
+          <b class="glyphicon glyphicon-log-out"></b> Logout</li><% end %>
+    <% else %>
+    <li><%= link_to(login_path) do %>
+          <b class="glyphicon glyphicon-log-in"></b> Login</li><% end %>
+    <% end %>
+    <li class="nav-divider"></li>
+  </ul>
+
+</div>

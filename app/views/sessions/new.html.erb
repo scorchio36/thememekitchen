@@ -1,20 +1,26 @@
-<h1>Login</h1>
+<!--Birthday present ideas for Anna:
 
-<%= form_for(:session, url: login_path) do |f| %>
+  Tsum Tsum Mancala
 
-  <%= f.label :name %>
-  <%= f.text_field :name %><br>
+-->
+<div class="container">
+  <h1>Login</h1>
 
-  <%= f.label :password %>
-  <%= f.password_field :password %><br>
+  <%= form_for(:session, url: login_path) do |f| %>
 
-  <%= f.submit "Log in" %>
+    <%= f.label :name %>
+    <%= f.text_field :name %><br>
 
-  <%= f.label :remember_me do %>
-    <%= f.check_box :remember_me %>
-    <span>Remember me on this computer</span>
-  <% end %>
+    <%= f.label :password %>
+    <%= f.password_field :password %><br>
 
-<% end %><br><br>
+    <%= f.submit "Log in" %>
+
+    <%= f.label :remember_me do %>
+      <%= f.check_box :remember_me %>
+      <span>Remember me on this computer</span>
+    <% end %>
+
+  <% end %><br><br>
 
 <%= link_to "Home", home_path %>

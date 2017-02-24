@@ -1,115 +1,109 @@
-
-<div class="container">
-
-  <ul class="nav nav-pills" id="overheadList">
-    <li><%= link_to "Main Course", home_path %></li>
-    <li><%= link_to "Buffet", buffet_path %></li>
-    <li><%= link_to "Personal Chefs", "#" %></li>
-    <!--<li><%= link_to "Bar", "#" %></li>-->
-  </ul>
-</div>
+<!-- The buffet page serves up every post that has been posted, starting with the most recent -->
+<%= render(:partial => 'layouts/sidebar') %>
 
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-2">
 
+    <!-- offset by 1 to account for the sidebar -->
+    <div class="col-md-offset-1 col-md-8">
+      <div class="postHeading">
 
-      <%= link_to @poster, class: "linkToProfile" do %>
-        <div class="media postMediaObject">
-          <div class="media-left">
+        <%= link_to(@poster, class: "linkToProfile") do %>
+          <div class="postMediaObject">
             <div class="profilePicture">
-                <%= image_tag @poster.picture.url, class: "img-circle" %>
+              <%= image_tag @poster.picture.url, class: "img-circle" %>
             </div>
-          </div>
 
-          <div class="media-body">
-            <h3 class="media-heading postOwner">
+
+            <h3 style="display: inline-block;">
               <!-- Just a heads up. This (@current_post.user_id) will fail when there are no users in the database -->
-              <%= (User.find_by(id: @current_post.user_id)).name %>
+              <p class="postOwner"><%= (User.find_by(id: @current_post.user_id)).name %></p><br>
+              <small class="postTime" style="float: left;">Posted <%= time_ago_in_words(@current_post.created_at) %> ago</small>
             </h3>
-            <small class="postTime">Posted at <%= time_ago_in_words(@current_post.created_at) %> ago</small>
+
           </div>
-        </div>
-      <% end %>
+        <% end %>
 
-
-      <% if logged_in? %>
-        <!-- If the current user has already liked this post, then show a different button state-->
-
-          <!--Like button-->
-          <%= link_to({:controller => "static_pages", :action => "handle_like"},
-            remote: true, class: "btn btn-primary btn-lg", method: "post") do %>
-
-            <% if @current_post.liked_by(current_user) %>
-              <p class="likeButton">Liked</p>
-            <% else %>
-              <p class="likeButton">Like</p>
-            <% end %>
-
-          <% end %>
-
-          <h5 class="postLikes">Likes: <%= @current_post.likes %></h5>
-
+        <% if logged_in? %>
+          <!-- If the current user has already liked this post, then show a different button state-->
 
           <!--Dislike button-->
           <%= link_to({:controller => "static_pages", :action => "handle_dislike"},
-            remote: true, class: "btn btn-primary btn-lg", method: "post") do %>
+            remote: true, class: "btn btn-default btn-lg", method: "post", style:"display: inline-block; float: right; font-weight: bold; margin-top: -10px; margin-right: 5px;") do %>
 
             <% if @current_post.disliked_by(current_user) %>
-              <p class="dislikeButton">Disliked</p>
+              <p class="dislikeButton">Disliked</p><p class="postDislikes"><%= @current_post.dislikes %></p>
             <% else %>
-              <p class="dislikeButton">Dislike</p>
+              <p class="dislikeButton">Dislike</p><p class="postDislikes"><%= @current_post.dislikes %></p>
             <% end %>
 
           <% end %>
 
-          <h5 class="postDislikes">Dislikes: <%= @current_post.dislikes %></h5>
 
+            <!--Like button-->
+
+
+            <%= link_to({:controller => "static_pages", :action => "handle_like"},
+              remote: true, class: "btn btn-default btn-lg", method: "post", style:"display: inline-block; float: right; font-weight: bold; margin-top: -10px; margin-right: 5px;") do %>
+
+              <% if @current_post.liked_by(current_user) %>
+                <p class="likeButton">Liked</p><p class="postLikes"><%= @current_post.likes %></p>
+              <% else %>
+                <p class="likeButton">Like</p><p class="postLikes"><%= @current_post.likes %></p>
+              <% end %>
+
+            <% end %>
+
+        <% end %> <!--If logged_in? %> -->
+
+      </div>
+
+      <div class="buffetPostImage">
+        <%= image_tag @all_posts.find_by(id: session[:currentIndex]).picture.url %>
+      </div>
+
+      <%= link_to({:controller => "static_pages", :action => "handle_next"},
+          remote: true, class: "btn btn-default btn-lg buffetNextButton", method: "post") do %>
+            <b class="glyphicon glyphicon-chevron-right"></b>
+      <% end %>
+
+      <%= link_to({:controller => "static_pages", :action => "handle_prev"},
+          remote: true, class: "btn btn-default btn-lg buffetPrevButton", method: "post") do %>
+            <b class="glyphicon glyphicon-chevron-left"></b>
       <% end %>
 
 
-    </div>
-
-    <div class="col-md-8">
-      <div id="buffetPostImage">
-        <%= image_tag @all_posts.find_by(id: session[:currentIndex]).picture.url %>
-      </div>
 
         <div class="postDescription">
           <h2><%= @current_post.description %></h2>
         </div>
+
     </div>
 
     <div class="col-md-2">
 
-      <%= button_to ">", {:controller => "static_pages", :action => "handle_next"},
-                remote: true, class: "btn btn-primary btn-lg", id: "buffetNextButton" %>
-
-      <%= button_to "<", {:controller => "static_pages", :action => "handle_prev"},
-                remote: true, class: "btn btn-primary btn-lg", id: "buffetPrevButton" %>
-
 
       <% if logged_in? %>
-      <div class="commentBlock">
-        <h2 style="text-decoration: underline;">Comments</h2>
+        <div class="commentBlock">
+          <h2 style="font-weight: bold;">Comments</h2>
 
-          <%= form_for(@comment, remote: true) do |f| %>
+            <%= form_for(@comment, remote: true) do |f| %>
 
-            <%= f.text_field :comment, placeholder: "Write a comment" %>
+              <%= f.text_field :comment, placeholder: "Write a comment" %>
 
-            <%= f.submit "Post Comment" %>
+              <%= f.submit "Post Comment" %>
 
-          <% end %>
+            <% end %>
 
-          <ul class="list-unstyled">
-            <div class="postComments">
+            <ul class="list-unstyled">
+              <div class="postComments">
 
-                <%= render(:partial => 'comments') %>
+                  <%= render(:partial => 'comments') %>
 
-            </div>
-          </ul>
+              </div>
+            </ul>
 
-      </div>
+        </div>
       <% end %>
 
 

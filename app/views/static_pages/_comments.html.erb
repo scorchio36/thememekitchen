@@ -5,22 +5,6 @@
       <div class="media-left">
         <%= image_tag comment.user.picture.url, class: "img-rounded commentPicture" %>
 
-        <% if comment.liked_by(current_user) %>
-            <%= link_to "", {:controller => 'comments', :action => 'handle_like', :comment_id => comment.id},
-                      class: "btn btn-success btn-xs glyphicon glyphicon-thumbs-up commentLikeButton", remote: true, method: "post" %>
-        <% else %>
-            <%= link_to "", {:controller => 'comments', :action => 'handle_like', :comment_id => comment.id},
-                      class: "btn btn-default btn-xs glyphicon glyphicon-thumbs-up commentLikeButton", remote: true, method: "post" %>
-        <% end %>
-
-        <% if comment.disliked_by(current_user) %>
-          <%= link_to "", {:controller => 'comments', :action => 'handle_dislike', :comment_id => comment.id},
-                  class: "btn btn-success btn-xs glyphicon glyphicon-thumbs-down commentDislikeButton", remote: true, method: "post" %>
-        <% else %>
-          <%= link_to "", {:controller => 'comments', :action => 'handle_dislike', :comment_id => comment.id},
-                class: "btn btn-default btn-xs glyphicon glyphicon-thumbs-down commentDislikeButton", remote: true, method: "post" %>
-        <% end %>
-
 
 
       </div>
@@ -28,13 +12,37 @@
       <div class="media-body">
         <h5 class="media-heading">
           <%= comment.user.name %>
+
+          <% if comment.liked_by(current_user) %>
+            <%= link_to({:controller => 'comments', :action => 'handle_like', :comment_id => comment.id},
+              class: "btn btn-success btn-xs commentLikeButton", remote: true, method: "post") do %>
+                <b class="glyphicon glyphicon-thumbs-up"></b> <small class="commentLikes" style="color: white;"><%= comment.likes %></small>
+              <% end %>
+          <% else %>
+          <%= link_to({:controller => 'comments', :action => 'handle_like', :comment_id => comment.id},
+            class: "btn btn-default btn-xs commentLikeButton", remote: true, method: "post") do %>
+              <b class="glyphicon glyphicon-thumbs-up"></b> <small class="commentLikes" style="color: black;"><%= comment.likes %></small>
+            <% end %>
+          <% end %>
+
+
+          <% if comment.disliked_by(current_user) %>
+            <%= link_to({:controller => 'comments', :action => 'handle_dislike', :comment_id => comment.id},
+              class: "btn btn-success btn-xs commentDislikeButton", remote: true, method: "post") do %>
+                <b class="glyphicon glyphicon-thumbs-down"></b> <small class="commentLikes" style="color: white;"><%= comment.dislikes %></small>
+            <% end %>
+          <% else %>
+            <%= link_to({:controller => 'comments', :action => 'handle_dislike', :comment_id => comment.id},
+              class: "btn btn-default btn-xs commentDislikeButton", remote: true, method: "post") do %>
+                <b class="glyphicon glyphicon-thumbs-down"></b> <small class="commentLikes" style="color: black;"><%= comment.dislikes %></small>
+            <% end %>
+          <% end %>
+
         </h5>
+
         <p>
           <%= comment.comment %>
         </p>
-
-        <small class="commentLikes">Likes: <%= comment.likes %></small>
-        <small class="commentLikes">Dislikes: <%= comment.dislikes %></small>
 
       </div>
 

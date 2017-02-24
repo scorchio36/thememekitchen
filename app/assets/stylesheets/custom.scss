@@ -2,21 +2,44 @@
 @import "bootstrap";
 
 
-//Header Stuff
+//Left-hand sidebar menu for the site
+.sidebar
+{
+  position: fixed;
+  height: 100%;
+  width: 150px;
+  background-color: #444444;
+  z-index: 1000; //Make sure that the menu is always the frontmost div
+
+  li
+  {
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.2em;
+    width: 100%;
+  }
+
+  a
+  {
+    color: #ffffff;
+
+    &:hover
+    {
+      color: #0000ff;
+    }
+  }
+}
+
 
 #logo
 {
-  float: left;
-  margin-left: -60px;
-  font-size: 2.5em;
+  font-size: 1.7em;
   font-weight: bold;
   color: #fff;
+  margin: auto;
+  text-align: center;
+  margin-top: 15px;
 
-  &:hover
-  {
-    text-decoration: none;
-    //font-size: 2.45em;
-  }
 }
 
 header
@@ -90,71 +113,26 @@ header
   }
 }
 
-#buffetPostImage
+
+
+
+//Post feed stuff (Should be able to use these class for main course, buffet, profile, bar, and personal chef feeds)
+//Heading above main post image (Contains Poster, Poster picture, timestamp, and like/dislike buttons)
+
+//container for header stuff
+.postHeading
 {
-
-  width: 825px;
-  height: 425px;
-  margin: auto;
-  border: 1px solid black;
-  margin-right: 75px;
-
-  img
-  {
-    max-width: 825px;
-    max-height: 425px;
-    display: block;
-    margin: auto;
-    vertical-align: middle;
-    height: 100%;
-  }
+  //border: 1px solid black;
+  margin-bottom: 1%;
+  margin-top: 2%;
+  margin-left: 5%;
 }
 
-#buffetPrevButton
+//For some reason the link for the picture and username are taking up the entire block. Adding a idsplay option to the link
+//makes it take up the right amount of space
+.linkToProfile
 {
-  margin-top: -215px;
-  margin-left: -858px;
-  height: 200px;
-  width: 25px;
-}
-
-#buffetNextButton
-{
-  margin-top: 100px;
-  margin-left: -85px;
-  height: 200px;
-  width: 25px;
-}
-
-
-.profilePicture
-{
-
-  width: 55px;
-  height: 55px;
-  border: 1px solid black;
-  border-radius: 50px;
-
-  img
-  {
-    max-width: 55px;
-    max-height: 55px;
-    vertical-align: middle;
-    height: 100%;
-  }
-
-}
-
-.postOwner
-{
-  font-size: 1.3em;
-  font-weight: bold;
-}
-
-.postTime
-{
-  font-size: 0.8em;
-
+  display: inline-block;
   &:hover
   {
     text-decoration: none;
@@ -165,32 +143,111 @@ header
 //The upper left media object on each post
 .postMediaObject
 {
-  border: 1px solid black;
-  border-radius: 5px;
-  padding:5px;
-  padding-right: 5px;
-  width: 200px;
-
-  h3
-  {
-    padding-right: 15px;
-    margin-right: 15px;
-    font-size: 1.0em;
-  }
-
   small
   {
-    font-size:0.85em;
+  }
+  margin-top: -15px;
+}
+
+.profilePicture
+{
+  width: 75px;
+  height: 75px;
+  border: 1px solid black;
+  border-radius: 50px;
+  display: inline-block;
+
+  img
+  {
+    max-width: 75px;
+    max-height: 75px;
+    vertical-align: middle;
+    height: 100%;
+  }
+
+}
+
+.postOwner
+{
+  font-size: 1.3em;
+  font-weight: bold;
+  padding-right: 15px;
+  margin-right: 15px;
+  margin-bottom: -25px;
+  text-decoration: none;
+}
+
+
+
+.buffetPostImage
+{
+
+  width: 800px;
+  height: 433px;
+  margin: auto;
+  border: 1px solid #aaaaaa;
+  margin-left: 5%;
+  padding: 4px;
+
+  img
+  {
+    max-width: 790px;
+    max-height: 425px;
+    display: block;
+    margin: auto;
+    vertical-align: middle;
+    height: 100%;
+  }
+
+  //~ means look for siblings
+  &:hover ~ .buffetPrevButton
+  {
+    visibility: visible;
+  }
+
+  &:hover ~ .buffetNextButton
+  {
+    visibility: visible;
   }
 }
+
+.buffetPrevButton
+{
+  position: absolute;
+  top:180px;
+  left:63px;
+  //margin-top: -215px;
+  //margin-left: -858px;
+  padding-top: 35px;
+  height: 100px;
+  -webkit-backface-visibility: hidden; //This prevents the buttons from flickering (Works like freaking magic)
+}
+
+.buffetNextButton
+{
+  position: absolute;
+  top:180px;
+  left:800px;
+  //margin-top: 100px;
+  //margin-left: -85px;
+  padding-top: 35px;
+  height: 100px;
+  -webkit-backface-visibility: hidden;
+}
+
+.postTime
+{
+  font-size:0.65em;
+}
+
 
 .postDescription
 {
   text-align: center;
-  border: 1px solid black;
   margin-top: 12px;
-  width: 825px;
+  border: 1px solid #777777;
   border-radius: 15px;
+  margin-left: 5%;
 
   h2
   {
@@ -201,30 +258,48 @@ header
   }
 }
 
-
+.postLikes
+{
+  display: inline;
+  //float: right;
+  font-size: 1.0em;
+  margin: 5px;
+  font-weight: bold;
+}
+.postDislikes
+{
+  display: inline;
+  //float: right;
+  font-size: 1.0em;
+  margin: 5px;
+  font-weight: bold;
+}
 
 .commentBlock
 {
-  margin-top: -350px;
-  margin-left: -25px;
-  height: 550px;
-  background-color: white;
-}
-
-.commentPicture
-{
-  width: 50px;
-  height: 50px;
-  border: 1px solid black;
-  border-radius: 5px;
-  margin-left: 5px;
+  height: 620px;
+  width: 300px;
+  background-color: #eeeeee;
+  margin-left: -5px;
+  overflow: auto;
   margin-top: 5px;
 
 }
 
+.commentPicture
+{
+  width: 32px;
+  height: 32px;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-left: 5px;
+  margin-top: 5px;
+}
+
 .postComments
 {
-  width: 225px;
+  width: 90%;
+  margin-left: 10px;
 
   li
   {
@@ -232,10 +307,15 @@ header
   }
 }
 
+
+
+
+
+
 .commentMedia
 {
-  border: 1px solid black;
-  border-radius: 5px;
+  //border: 1px solid black;
+  //border-radius: 5px;
   margin-left: -10px;
   margin-top: 10px;
   padding-bottom: 5px;
@@ -256,18 +336,20 @@ header
 
 .commentLikeButton
 {
-  width: 22px;
-  height: 20px;
-  float: left;
-  margin-left: 5px;
+  //width: 22px;
+  //height: 20px;
+  //float: right;
+  margin-bottom: 5px;
+  display: inline;
 }
 
 .commentDislikeButton
 {
-  width: 22px;
-  height: 20px;
-  float: left;
-  margin-left: 5px;
+  //width: 22px;
+  //height: 20px;
+  //float: right;
+  margin-bottom: 5px;
+  display: inline;
 }
 
 .commentLikes
@@ -398,4 +480,24 @@ header
     color: #ff2233;
   }
 
+}
+
+
+
+
+//Edit Page
+body
+{
+  //background-image: url("signup_plate.jpg");
+  //background-repeat: no-repeat;
+  //background-position: top;
+}
+
+
+
+//Signup Page
+.signupPage
+{
+  background-image: url("signup_plate.jpg");
+  background-repeat: no-repeat;
 }
