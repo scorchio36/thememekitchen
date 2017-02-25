@@ -1,12 +1,11 @@
 $(function() {
   //$('.postTitle').html("<p>Title: <%= @current_post.title %></p>");
+  $('.postCaption').html("<h2><%= @current_post.description %></h2>");
+  $('.mainPostImage').html("<%= escape_javascript image_tag(@current_post.picture.url, alt: "current image") if (@current_post).picture? %>");
+  $('.posterPicture').html("<%= escape_javascript image_tag(@poster.picture.url, alt: "profile image", class: "img-circle") %>");
+
   $('.postOwner').html("<%= @poster.name %>");
-  $('.postDescription').html("<h2><%= @current_post.description %></h2>");
-  $('.buffetPostImage').html("<%= escape_javascript image_tag(@current_post.picture.url, alt: "current image") if (@current_post).picture? %>");
-  $('.profilePicture').html("<%= escape_javascript image_tag(@poster.picture.url, alt: "profile image", class: "img-circle") %>");
-
-
-  $('.linkToProfile').attr("href", "<%= user_path(@poster) %>");
+  $('.linkToPosterProfile').attr("href", "<%= user_path(@poster) %>");
   $('.postTime').html("Posted <%= time_ago_in_words(@current_post.created_at) %> ago");
 
 
@@ -14,10 +13,10 @@ $(function() {
   $('.postLikes').html("<%= @current_post.likes %>");
 
   <% if @current_post.liked_by(current_user) %>
-    $('.likeButton').html("Liked");
+    $('.likeButtonText').html("Liked");
 
   <% else %>
-    $('.likeButton').html("Like");
+    $('.likeButtonText').html("Like");
 
   <% end %>
 
@@ -25,13 +24,13 @@ $(function() {
   $('.postDislikes').html("<%= @current_post.dislikes %>");
 
   <% if @current_post.disliked_by(current_user) %>
-    $('.dislikeButton').html("Disliked");
+    $('.dislikeButtonText').html("Disliked");
 
   <% else %>
-    $('.dislikeButton').html("Dislike");
+    $('.dislikeButtonText').html("Dislike");
 
   <% end %>
 
   $('.postComments').html("<%= escape_javascript(render(:partial => 'comments')) %>");
-
+  //$('.commentTextArea').val('');
 });

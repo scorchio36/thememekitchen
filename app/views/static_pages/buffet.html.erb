@@ -5,15 +5,15 @@
   <div class="row">
 
     <!-- offset by 1 to account for the sidebar -->
-    <div class="col-md-offset-1 col-md-8">
-      <div class="postHeading">
+    <div class="col-md-offset-1 col-md-8"> <!--Main middle column holds post image scroller, post heading, and post caption -->
 
-        <%= link_to(@poster, class: "linkToProfile") do %>
-          <div class="postMediaObject">
-            <div class="profilePicture">
+      <div class="postHeading">
+        <%= link_to(@poster, class: "linkToPosterProfile") do %>
+          <!--Post media object is just the timestamp, poster, and picture as a group. -->
+          <div class="posterMediaObject">
+            <div class="posterPicture">
               <%= image_tag @poster.picture.url, class: "img-circle" %>
             </div>
-
 
             <h3 style="display: inline-block;">
               <!-- Just a heads up. This (@current_post.user_id) will fail when there are no users in the database -->
@@ -24,41 +24,38 @@
           </div>
         <% end %>
 
-        <% if logged_in? %>
-          <!-- If the current user has already liked this post, then show a different button state-->
-
           <!--Dislike button-->
           <%= link_to({:controller => "static_pages", :action => "handle_dislike"},
-            remote: true, class: "btn btn-default btn-lg", method: "post", style:"display: inline-block; float: right; font-weight: bold; margin-top: -10px; margin-right: 5px;") do %>
+            remote: true, class: "btn btn-default btn-lg postDislikeButton", method: "post") do %>
 
+            <!-- If the current user has already liked this post, then show a different button state-->
             <% if @current_post.disliked_by(current_user) %>
-              <p class="dislikeButton">Disliked</p><p class="postDislikes"><%= @current_post.dislikes %></p>
+              <p class="dislikeButtonText">Disliked</p><p class="postDislikes"><%= @current_post.dislikes %></p>
             <% else %>
-              <p class="dislikeButton">Dislike</p><p class="postDislikes"><%= @current_post.dislikes %></p>
+              <p class="dislikeButtonText">Dislike</p><p class="postDislikes"><%= @current_post.dislikes %></p>
             <% end %>
 
           <% end %>
 
 
             <!--Like button-->
-
-
             <%= link_to({:controller => "static_pages", :action => "handle_like"},
-              remote: true, class: "btn btn-default btn-lg", method: "post", style:"display: inline-block; float: right; font-weight: bold; margin-top: -10px; margin-right: 5px;") do %>
+              remote: true, class: "btn btn-default btn-lg postLikeButton", method: "post") do %>
 
               <% if @current_post.liked_by(current_user) %>
-                <p class="likeButton">Liked</p><p class="postLikes"><%= @current_post.likes %></p>
+                <p class="likeButtonText">Liked</p><p class="postLikes"><%= @current_post.likes %></p>
               <% else %>
-                <p class="likeButton">Like</p><p class="postLikes"><%= @current_post.likes %></p>
+                <p class="likeButtonText">Like</p><p class="postLikes"><%= @current_post.likes %></p>
               <% end %>
 
             <% end %>
 
-        <% end %> <!--If logged_in? %> -->
 
-      </div>
+      </div> <!--postHeading-->
 
-      <div class="buffetPostImage">
+
+
+      <div class="mainPostImage">
         <%= image_tag @all_posts.find_by(id: session[:currentIndex]).picture.url %>
       </div>
 
@@ -74,40 +71,42 @@
 
 
 
-        <div class="postDescription">
+        <div class="postCaption">
           <h2><%= @current_post.description %></h2>
         </div>
 
-    </div>
+    </div> <!-- end of main middle column-->
 
+
+    <!--comment section -->
     <div class="col-md-2">
 
-
-      <% if logged_in? %>
-        <div class="commentBlock">
+        <div class="commentHeader">
           <h2 style="font-weight: bold;">Comments</h2>
 
-            <%= form_for(@comment, remote: true) do |f| %>
+            <% if logged_in? %>
+              <%= form_for(@comment, remote: true) do |f| %>
 
-              <%= f.text_field :comment, placeholder: "Write a comment" %>
+                <%= f.text_area :comment, placeholder: "Write a comment", class: "commentTextArea", maxlength: 255 %>
 
-              <%= f.submit "Post Comment" %>
+                <%= f.submit "Post Comment", style: "float: right;" %>
 
+              <% end %>
             <% end %>
+        </div>
 
+        <div class="commentBlock">
             <ul class="list-unstyled">
               <div class="postComments">
-
                   <%= render(:partial => 'comments') %>
-
               </div>
             </ul>
 
         </div>
-      <% end %>
 
 
 
-    </div>
-  </div>
-</div>
+    </div><!-- comment section -->
+
+  </div><!-- row -->
+</div><!-- container -->

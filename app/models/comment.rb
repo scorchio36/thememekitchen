@@ -2,9 +2,9 @@ class Comment < ApplicationRecord
   belongs_to :user
   belongs_to :post
 
-  validates :comment, length: {minimum: 1, maximum: 175}, presence: true
+  validates :comment, length: {minimum: 1, maximum: 255}, presence: true
 
-  default_scope -> {order(created_at: :desc)}
+  default_scope -> {order(likes: :desc)}
 
 
   def liked_by(user)

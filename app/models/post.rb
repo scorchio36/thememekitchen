@@ -18,11 +18,15 @@ class Post < ApplicationRecord
 
 
   def liked_by(user)
-      user.liked_posts.include?(self.id)
+      if !(user.nil?)
+        user.liked_posts.include?(self.id)
+      end
   end
 
   def disliked_by(user)
-      user.disliked_posts.include?(self.id)
+      if !(user.nil?)
+        user.disliked_posts.include?(self.id)
+      end
   end
 
 

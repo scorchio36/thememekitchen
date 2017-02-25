@@ -130,7 +130,7 @@ header
 
 //For some reason the link for the picture and username are taking up the entire block. Adding a idsplay option to the link
 //makes it take up the right amount of space
-.linkToProfile
+.linkToPosterProfile
 {
   display: inline-block;
   &:hover
@@ -141,21 +141,19 @@ header
 
 
 //The upper left media object on each post
-.postMediaObject
+.posterMediaObject
 {
-  small
-  {
-  }
   margin-top: -15px;
 }
 
-.profilePicture
+.posterPicture
 {
   width: 75px;
   height: 75px;
   border: 1px solid black;
   border-radius: 50px;
   display: inline-block;
+  margin-top: -15px;
 
   img
   {
@@ -177,9 +175,52 @@ header
   text-decoration: none;
 }
 
+.postTime
+{
+  font-size:0.65em;
+}
+
+.postLikes
+{
+  display: inline;
+  //float: right;
+  font-size: 1.0em;
+  margin: 5px;
+  font-weight: bold;
+}
+
+.postDislikes
+{
+  display: inline;
+  //float: right;
+  font-size: 1.0em;
+  margin: 5px;
+  font-weight: bold;
+}
+
+.postLikeButton
+{
+  display: inline-block;
+  float: right;
+  font-weight: bold;
+  margin-top: -10px;
+  margin-right: 5px;
+}
+
+.postDislikeButton
+{
+  display: inline-block;
+  float: right;
+  font-weight: bold;
+  margin-top: -10px;
+  margin-right: 5px;
+}
+
+//end of post heading stuff
 
 
-.buffetPostImage
+//Main post image on the page (holds all the memes)
+.mainPostImage
 {
 
   width: 800px;
@@ -202,12 +243,12 @@ header
   //~ means look for siblings
   &:hover ~ .buffetPrevButton
   {
-    visibility: visible;
+    opacity: 1.0;
   }
 
   &:hover ~ .buffetNextButton
   {
-    visibility: visible;
+    opacity: 1.0;
   }
 }
 
@@ -220,7 +261,13 @@ header
   //margin-left: -858px;
   padding-top: 35px;
   height: 100px;
-  -webkit-backface-visibility: hidden; //This prevents the buttons from flickering (Works like freaking magic)
+  //-webkit-backface-visibility: hidden; //This prevents the buttons from flickering (Works like freaking magic)
+  opacity: 0.0;
+
+  &:hover
+  {
+    opacity: 1.0;
+  }
 }
 
 .buffetNextButton
@@ -232,16 +279,20 @@ header
   //margin-left: -85px;
   padding-top: 35px;
   height: 100px;
-  -webkit-backface-visibility: hidden;
+  //-webkit-backface-visibility: hidden;
+  opacity: 0.0;
+
+  &:hover
+  {
+    opacity: 1.0;
+  }
 }
-
-.postTime
-{
-  font-size:0.65em;
-}
+//end of main post image section
 
 
-.postDescription
+
+
+.postCaption
 {
   text-align: center;
   margin-top: 12px;
@@ -258,34 +309,27 @@ header
   }
 }
 
-.postLikes
-{
-  display: inline;
-  //float: right;
-  font-size: 1.0em;
-  margin: 5px;
-  font-weight: bold;
-}
-.postDislikes
-{
-  display: inline;
-  //float: right;
-  font-size: 1.0em;
-  margin: 5px;
-  font-weight: bold;
-}
 
-.commentBlock
+
+
+.commentHeader
 {
-  height: 620px;
   width: 300px;
   background-color: #eeeeee;
-  margin-left: -5px;
-  overflow: auto;
   margin-top: 5px;
-
+  float:left;
+  border-bottom: 1px solid #999999;
+  padding: 3px;
 }
-
+//div that contains all of the comments
+.commentBlock
+{
+  width: 300px;
+  background-color: #eeeeee;
+  float: left;
+  height: 480px;
+  overflow: auto;
+}
 .commentPicture
 {
   width: 32px;
@@ -306,10 +350,6 @@ header
     padding: 3px;
   }
 }
-
-
-
-
 
 
 .commentMedia
@@ -355,6 +395,12 @@ header
 .commentLikes
 {
   margin-top:-10px;
+}
+
+.commentTextArea
+{
+  width: 295px;
+  height: 75px;
 }
 
 
