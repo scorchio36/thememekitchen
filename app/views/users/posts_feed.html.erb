@@ -1,0 +1,79 @@
+<%= render(:partial => 'layouts/sidebar') %>
+
+<div class="container-fluid">
+  <div class="row">
+
+    <!-- offset by 1 to account for the sidebar -->
+    <div class="col-md-offset-1 col-md-8">
+
+      <div class="postHeading">
+        <%= link_to(@poster, class: "linkToPosterProfile") do %>
+          <!--Post media object is just the timestamp, poster, and picture as a group. -->
+          <div class="posterMediaObject">
+            <div class="posterPicture">
+              <%= image_tag @poster.picture.url, class: "img-circle" %>
+            </div>
+
+            <h3 style="display: inline-block;">
+              <!-- Just a heads up. This (@current_post.user_id) will fail when there are no users in the database -->
+              <p class="postOwner"><%= @poster.name %></p><br>
+              <small class="postTime" style="float: left;">Posted <%= time_ago_in_words(@current_post.created_at) %> ago</small>
+            </h3>
+
+          </div>
+        <% end %>
+
+        <!--Dislike button-->
+        <%= link_to({:controller => "static_pages", :action => "handle_dislike"},
+          remote: true, class: "btn btn-default btn-lg postDislikeButton", method: "post") do %>
+
+          <!-- If the current user has already liked this post, then show a different button state-->
+          <% if @current_post.disliked_by(current_user) %>
+            <p class="dislikeButtonText">Disliked</p><p class="postDislikes"><%= @current_post.dislikes %></p>
+          <% else %>
+            <p class="dislikeButtonText">Dislike</p><p class="postDislikes"><%= @current_post.dislikes %></p>
+          <% end %>
+
+        <% end %>
+
+
+          <!--Like button-->
+          <%= link_to({:controller => "static_pages", :action => "handle_like"},
+            remote: true, class: "btn btn-default btn-lg postLikeButton", method: "post") do %>
+
+            <% if @current_post.liked_by(current_user) %>
+              <p class="likeButtonText">Liked</p><p class="postLikes"><%= @current_post.likes %></p>
+            <% else %>
+              <p class="likeButtonText">Like</p><p class="postLikes"><%= @current_post.likes %></p>
+            <% end %>
+
+          <% end %>
+      </div> <!-- post heading -->
+
+
+      <div class="mainPostImage">
+        <%= image_tag @all_posts[session[:currentIndex]].picture.url %>
+      </div>
+
+
+      <%= link_to({:controller => "users", :action => "handle_next", :user_id => @poster.id},
+          remote: true, class: "btn btn-default btn-lg buffetNextButton", method: "post") do %>
+            <b class="glyphicon glyphicon-chevron-right"></b>
+      <% end %>
+
+      <%= link_to({:controller => "users", :action => "handle_prev", :user_id => @poster.id},
+          remote: true, class: "btn btn-default btn-lg buffetPrevButton", method: "post") do %>
+            <b class="glyphicon glyphicon-chevron-left"></b>
+      <% end %>
+
+
+
+      <div class="postCaption">
+        <h2><%= @current_post.description %></h2>
+      </div>
+
+
+
+    </div>
+  </div>
+</div>

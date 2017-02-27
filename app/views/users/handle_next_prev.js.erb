@@ -1,0 +1,13 @@
+/*Used by user profile feed*/
+
+$(function() {
+  //$('.postTitle').html("<p>Title: <%= @current_post.title %></p>");
+  $('.postCaption').html("<h2><%= @current_post.description %></h2>");
+  $('.mainPostImage').html("<%= escape_javascript image_tag(@current_post.picture.url, alt: "current image") if (@current_post).picture? %>");
+  $('.posterPicture').html("<%= escape_javascript image_tag(@poster.picture.url, alt: "profile image", class: "img-circle") %>");
+
+  $('.postOwner').html("<%= @poster.name %>");
+  $('.linkToPosterProfile').attr("href", "<%= user_path(@poster) %>");
+  $('.postTime').html("Posted <%= time_ago_in_words(@current_post.created_at) %> ago");
+
+});

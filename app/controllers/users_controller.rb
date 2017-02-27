@@ -44,7 +44,46 @@ class UsersController < ApplicationController
 
   end
 
+  def posts_feed
 
+    @poster = User.find(params[:id])
+    @all_posts = @poster.posts
+    @current_post = Post.find_by(id: params[:post_id])
+    session[:currentIndex] = @all_posts.index(@current_post)
+
+  end
+
+  def handle_next
+
+    @poster = User.find(params[:user_id])
+    @all_posts = @poster.posts
+    session[:currentIndex] = session[:currentIndex]+1
+    @current_post = @all_posts[session[:currentIndex]]
+    @post_comments = @current_post.comments
+
+    respond_to do |format|
+
+      format.js { render :file => 'users/handle_next_prev.js.erb' }
+
+    end
+
+  end
+
+  def handle_prev
+
+    @poster = User.find(params[:user_id])
+    @all_posts = @poster.posts
+    (session[:currentIndex] = session[:currentIndex]-1) unless (session[:currentIndex] == 0)
+    @current_post = @all_posts[session[:currentIndex]]
+    @post_comments = @current_post.comments
+
+    respond_to do |format|
+
+      format.js { render :file => 'users/handle_next_prev.js.erb' }
+
+    end
+
+  end
 
 
   private

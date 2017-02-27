@@ -1,3 +1,4 @@
+
 <!--This renders the posts on the user profile page -->
 <% if @posts.any? %>
   <% @posts.each do |post| %>
@@ -12,7 +13,9 @@
           <% end %>
         <% end %>
 
-        <%= image_tag post.picture.url if post.picture? %>
+        <%= link_to(posts_feed_user_path(@user, :post_id => post.id)) do %>
+          <%= image_tag post.picture.url if post.picture? %>
+        <% end %>
       </div>
 
       <div class="caption">
