@@ -31,6 +31,6 @@ $(function() {
 
   <% end %>
 
-  $('.postComments').html("<%= escape_javascript(render(:partial => 'comments')) %>");
+  $('.postComments').html("<%= escape_javascript(render(:partial => 'comments/comments')) %>");
   //$('.commentTextArea').val('');
 });

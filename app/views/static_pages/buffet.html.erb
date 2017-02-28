@@ -56,7 +56,7 @@
 
 
       <div class="mainPostImage">
-        <%= image_tag @all_posts.find_by(id: session[:currentIndex]).picture.url %>
+        <%= image_tag((@all_posts[session[:currentIndex]]).picture.url) %>
       </div>
 
       <%= link_to({:controller => "static_pages", :action => "handle_next"},
@@ -98,7 +98,7 @@
         <div class="commentBlock">
             <ul class="list-unstyled">
               <div class="postComments">
-                  <%= render(:partial => 'comments') %>
+                  <%= render(:partial => 'comments/comments') %>
               </div>
             </ul>
 

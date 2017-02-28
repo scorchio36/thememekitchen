@@ -7,10 +7,12 @@ class StaticPagesController < ApplicationController
 
   def buffet
 
+    @current_post = Post.first #always get the latest post from the buffet
     @all_posts = Post.all
-    session[:currentIndex] = @all_posts.count
-    @current_post = @all_posts.find_by(id: session[:currentIndex]);
+    session[:currentIndex] = @all_posts.index(@current_post)
     @poster = User.find_by(id: @current_post.user_id)
+
+    session[:current_post_id] = @current_post.id
 
     if logged_in?
       @comment = current_user.comments.build
@@ -26,32 +28,37 @@ class StaticPagesController < ApplicationController
   def handle_next
 
     @all_posts = Post.all
-    session[:currentIndex] = (session[:currentIndex]-1)
-    @current_post = @all_posts.find_by(id: session[:currentIndex]);
+    session[:currentIndex] = (session[:currentIndex]+1)
+    @current_post = @all_posts[session[:currentIndex]]
     @poster = User.find_by(id: @current_post.user_id)
     @post_comments = @current_post.comments
 
+    session[:current_post_id] = @current_post.id
+
     respond_to do |format|
-      format.js
+      format.js { render :file => 'static_pages/handle_next_prev.js.erb' }
     end
   end
 
   def handle_prev
 
     @all_posts = Post.all
-    session[:currentIndex] = (session[:currentIndex]+1)
-    @current_post = @all_posts.find_by(id: session[:currentIndex]);
+    (session[:currentIndex] = (session[:currentIndex]-1)) unless (session[:currentIndex] == 0)
+    @current_post = @all_posts[session[:currentIndex]]
     @poster = User.find_by(id: @current_post.user_id)
     @post_comments = @current_post.comments
 
+    session[:current_post_id] = @current_post.id
+
     respond_to do |format|
-      format.js
+      format.js { render :file => 'static_pages/handle_next_prev.js.erb' }
     end
   end
 
   def handle_like
 
-    @current_post = Post.find_by(id: session[:currentIndex])
+    @all_posts = Post.all
+    @current_post = @all_posts[session[:currentIndex]]
 
     if(@current_post.liked_by(current_user))
 
@@ -72,7 +79,7 @@ class StaticPagesController < ApplicationController
 
     respond_to do |format|
 
-      format.js 
+      format.js
 
     end
 
@@ -80,7 +87,8 @@ class StaticPagesController < ApplicationController
 
   def handle_dislike
 
-    @current_post = Post.find_by(id: session[:currentIndex])
+    @all_posts = Post.all
+    @current_post = @all_posts[session[:currentIndex]]
 
     if(@current_post.disliked_by(current_user))
 

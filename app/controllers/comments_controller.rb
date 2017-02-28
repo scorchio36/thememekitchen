@@ -7,8 +7,7 @@ class CommentsController < ApplicationController
   def create
 
     @comment = current_user.comments.build(comment_params)
-    @current_post = Post.find_by(id: session[:currentIndex])
-
+    @current_post = Post.find_by(id: session[:current_post_id])
     @comment.update_attribute(:post_id, @current_post.id)
 
     @comment.save
@@ -24,11 +23,10 @@ class CommentsController < ApplicationController
 
   def handle_like
 
-    #need current post to get the current comments which we need for the js-erb page
-    @current_post = Post.find_by(id: session[:currentIndex])
-    @post_comments = @current_post.comments
-
     @comment = Comment.find_by(id: params[:comment_id])
+    @current_post = @comment.post
+    @post_comments = @current_post.comments
+    @poster = @current_post.user
 
     if(@comment.liked_by(current_user))
 
@@ -49,17 +47,17 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
 
-      format.js { render :file => 'comments/handle_like.js.erb' }
+      format.js { render :file => 'comments/handle_like_dislike.js.erb' }
 
     end
   end
 
   def handle_dislike
 
-    @current_post = Post.find_by(id: session[:currentIndex])
-    @post_comments = @current_post.comments
-
     @comment = Comment.find_by(id: params[:comment_id])
+    @current_post = @comment.post
+    @post_comments = @current_post.comments
+    @poster = @current_post.user
 
     if(@comment.disliked_by(current_user))
 
@@ -80,7 +78,7 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
 
-      format.js { render :file => 'comments/handle_like.js.erb' }
+      format.js { render :file => 'comments/handle_like_dislike.js.erb' }
 
     end
   end

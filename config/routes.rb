@@ -20,8 +20,6 @@ Rails.application.routes.draw do
   post 'users/handle_prev' => 'users#handle_prev'
   post 'users/handle_post_like' => 'users#handle_post_like'
   post 'users/handle_post_dislike' => 'users#handle_post_dislike'
-  post 'users/handle_comment_like' => 'users#handle_comment_like'
-  post 'users/handle_comment_dislike' => 'users#handle_comment_dislike'
 
   post 'comments/handle_like' => 'comments#handle_like'
   post 'comments/handle_dislike' => 'comments#handle_dislike'
