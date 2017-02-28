@@ -1,23 +1,33 @@
-<h1>Sign Up</h1>
+<%= render :partial => 'layouts/sidebar' %>
 
-<%= form_for @user do |f| %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-offset-4 col-md-4">
+      <div class="signupBlock">
 
-  <%= render 'shared/error_messages', object:f.object %>
+        <h1>Sign Up</h1>
 
-  <%= f.label :name, "Username" %>
-  <%= f.text_field :name %><br>
+        <%= form_for @user do |f| %>
 
-  <%= f.label :email %>
-  <%= f.email_field :email %><br>
+          <%= render 'shared/error_messages', object:f.object, style:"position:absolute;" %>
 
-  <%= f.label :password %>
-  <%= f.password_field :password %><br>
+          <%= f.label :name, "Username" %>
+          <%= f.text_field :name, class:"form-control" %><br>
 
-  <%= f.label :password_confirmation, "Confirm Password" %>
-  <%= f.password_field :password_confirmation %><br>
+          <%= f.label :email %>
+          <%= f.email_field :email, class:"form-control" %><br>
 
-  <%= f.submit "Create Account" %><br>
+          <%= f.label :password %>
+          <%= f.password_field :password, class:"form-control" %><br>
 
-  <%= link_to "Back", home_path %>
+          <%= f.label :password_confirmation, "Confirm Password" %>
+          <%= f.password_field :password_confirmation, class:"form-control" %><br>
 
-<% end %>
+          <%= f.submit "Create Account", class: "btn btn-md btn-default", style: "float: right; margin-top: -10px;" %><br>
+
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>

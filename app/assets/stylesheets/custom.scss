@@ -58,6 +58,39 @@ header
   }
 }
 
+
+
+//login screen
+.loginBlock
+{
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 15px;
+  margin-top: 30%;
+
+  h1
+  {
+    font-size: 3.0em;
+    text-align: center;
+    font-weight: bold;
+  }
+}
+
+//signup screen
+.signupBlock
+{
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 15px;
+  margin-top: 30%;
+
+  h1
+  {
+    font-size: 3.0em;
+    text-align: center;
+    font-weight: bold;
+  }
+}
 .dropdown-menu
 {
   li

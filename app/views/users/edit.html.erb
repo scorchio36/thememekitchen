@@ -1,9 +1,21 @@
+<%= render :partial => 'layouts/sidebar' %>
 
 <div class="container">
+  <div class="row">
+    <div class="col-md-offset-4 col-md-5">
 
-  <%= link_to "Change Username", "#", class: "btn btn-default btn-lg" %><br>
-  <%= link_to "Change Email", "#", class: "btn btn-default btn-lg"%><br>
-  <%= link_to "Change Profile Picture", "#", class: "btn btn-default btn-lg"%><br>
-  <%= link_to "Change Password", "#", class: "btn btn-default btn-lg" %>
+      <%= form_for @user do |f| %>
 
+        <%= f.label :name, "Username" %>
+        <%= f.text_field :name, class: "form-control" %>
+
+        <%= f.submit "Change Username", class:"btn btn-lg btn-default", style: "float: right; margin-top: 5px;" %>
+
+      <% end %>
+
+      <!--<%= link_to "Change Email", "#", class: "btn btn-default btn-lg"%><br>
+      <%= link_to "Change Profile Picture", "#", class: "btn btn-default btn-lg"%><br>
+      <%= link_to "Change Password", "#", class: "btn btn-default btn-lg" %>-->
+    </div>
+  </div>
 </div>

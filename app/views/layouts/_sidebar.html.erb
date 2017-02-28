@@ -12,24 +12,28 @@
     <li><%= link_to(buffet_path) do %>
           <b class="glyphicon glyphicon-cutlery"></b> Buffet</li><% end %>
     <% if logged_in? %>
-    <li><%= link_to("#") do %>
-          <b class="glyphicon glyphicon-heart"></b> Personal Chefs</li><% end %>
       <li><%= link_to("#") do %>
-            <b class="glyphicon glyphicon-glass"></b> Bar</li><% end %>
-      <li class="nav-divider"></li>
-      <li><%= link_to(kitchen_path) do %>
-            <b class="glyphicon glyphicon-fire"></b> Kitchen</li><% end %>
-      <li><%= link_to(current_user) do %>
-            <b class="glyphicon glyphicon-user"></b> Profile</li><% end %>
+            <b class="glyphicon glyphicon-heart"></b> Personal Chefs</li><% end %>
+        <li><%= link_to("#") do %>
+              <b class="glyphicon glyphicon-glass"></b> Bar</li><% end %>
+        <li class="nav-divider"></li>
+        <li><%= link_to(kitchen_path) do %>
+              <b class="glyphicon glyphicon-fire"></b> Kitchen</li><% end %>
+        <li><%= link_to(current_user) do %>
+              <b class="glyphicon glyphicon-user"></b> Profile</li><% end %>
     <% end %>
     <li class="nav-divider"></li>
     <% if logged_in? %>
     <li><%= link_to(logout_path, method: "delete") do %>
           <b class="glyphicon glyphicon-log-out"></b> Logout</li><% end %>
     <% else %>
-    <li><%= link_to(login_path) do %>
-          <b class="glyphicon glyphicon-log-in"></b> Login</li><% end %>
+      <li><%= link_to(login_path) do %>
+            <b class="glyphicon glyphicon-log-in"></b> Login</li><% end %>
+      <li class="nav-divider"></li>
+      <li><%= link_to(signup_path) do %>
+            <b class="glyphicon glyphicon-sunglasses"></b> Signup</li><% end %>
     <% end %>
+
     <li class="nav-divider"></li>
   </ul>
 
