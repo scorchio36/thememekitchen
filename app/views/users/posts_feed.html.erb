@@ -72,8 +72,34 @@
         <h2><%= @current_post.description %></h2>
       </div>
 
+    </div> <!-- end of central feed div-->
 
+    <!--comment section -->
+    <div class="col-md-2">
 
-    </div>
+        <div class="commentHeader">
+          <h2 style="font-weight: bold;">Comments</h2>
+
+            <% if logged_in? %>
+              <%= form_for(@comment, remote: true) do |f| %>
+
+                <%= f.text_area :comment, placeholder: "Write a comment", class: "commentTextArea", maxlength: 255 %>
+
+                <%= f.submit "Post Comment", style: "float: right;" %>
+
+              <% end %>
+            <% end %>
+        </div>
+
+        <div class="commentBlock">
+            <ul class="list-unstyled">
+              <div class="postComments">
+                  <%= render(:partial => 'users/comments') %>
+              </div>
+            </ul>
+
+        </div>
+
+    </div><!-- comment section -->
   </div>
 </div>

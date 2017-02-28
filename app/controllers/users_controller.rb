@@ -50,6 +50,11 @@ class UsersController < ApplicationController
     @all_posts = @poster.posts
     @current_post = Post.find_by(id: params[:post_id])
     session[:currentIndex] = @all_posts.index(@current_post)
+    if logged_in?
+      @comment = current_user.comments.build
+    end
+
+    @post_comments = @current_post.comments
 
   end
 
@@ -85,6 +90,74 @@ class UsersController < ApplicationController
 
   end
 
+  def handle_comment_like
+
+    #need current post to get the current comments which we need for the js-erb page
+
+    @poster = User.find(params[:user_id])
+    @all_posts = @poster.posts
+    @current_post = @all_posts[session[:currentIndex]]
+    @post_comments = @current_post.comments
+
+    @comment = Comment.find_by(id: params[:comment_id])
+
+    if(@comment.liked_by(current_user))
+
+      @comment.update_attribute(:likes, (@comment.likes-1))
+      current_user.removeLikedComment(@comment.id) #remove the comment from the current user's liked comments
+
+    else
+
+      @comment.update_attribute(:likes, (@comment.likes+1))
+      current_user.pushLikedComment(@comment.id) #add the comment to the current_user's liked comments
+
+      if(@comment.disliked_by(current_user))
+        @comment.update_attribute(:dislikes, (@comment.dislikes-1))
+        current_user.removeDislikedComment(@comment.id)
+      end
+
+    end
+
+    respond_to do |format|
+
+      format.js { render :file => 'users/handle_comment_like_dislike.js.erb' }
+
+    end
+  end
+
+
+  def handle_comment_dislike
+
+    @poster = User.find(params[:user_id])
+    @all_posts = @poster.posts
+    @current_post = @all_posts[session[:currentIndex]]
+    @post_comments = @current_post.comments
+
+    @comment = Comment.find_by(id: params[:comment_id])
+
+    if(@comment.disliked_by(current_user))
+
+      @comment.update_attribute(:dislikes, (@comment.dislikes-1))
+      current_user.removeDislikedComment(@comment.id) #remove the comment from the current user's liked comments
+
+    else
+
+      @comment.update_attribute(:dislikes, (@comment.dislikes+1))
+      current_user.pushDislikedComment(@comment.id) #add the comment to the current_user's liked comments
+
+      if(@comment.liked_by(current_user))
+        @comment.update_attribute(:likes, (@comment.likes-1))
+        current_user.removeLikedComment(@comment.id)
+      end
+
+    end
+
+    respond_to do |format|
+
+      format.js { render :file => 'users/handle_comment_like_dislike.js.erb' }
+
+    end
+  end
 
   private
 
