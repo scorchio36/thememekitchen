@@ -90,6 +90,69 @@ class UsersController < ApplicationController
 
   end
 
+  def handle_post_like
+
+    @poster = User.find(params[:user_id])
+    @all_posts = @poster.posts
+    @current_post = @all_posts[session[:currentIndex]]
+
+    if(@current_post.liked_by(current_user))
+
+      @current_post.update_attribute(:likes, (@current_post.likes-1))
+      current_user.removeLikedPost(@current_post.id) #remove the post from the current user's liked posts
+
+    else
+
+      @current_post.update_attribute(:likes, (@current_post.likes+1))
+      current_user.pushLikedPost(@current_post.id) #add the post to the current_user's liked posts
+
+      if(@current_post.disliked_by(current_user))
+        @current_post.update_attribute(:dislikes, (@current_post.dislikes-1))
+        current_user.removeDislikedPost(@current_post.id)
+      end
+
+    end
+
+    respond_to do |format|
+
+      format.js {render :file => 'users/handle_post_like_dislike.js.erb'}
+
+    end
+
+  end
+
+
+  def handle_post_dislike
+
+    @poster = User.find(params[:user_id])
+    @all_posts = @poster.posts
+    @current_post = @all_posts[session[:currentIndex]]
+
+    if(@current_post.disliked_by(current_user))
+
+      @current_post.update_attribute(:dislikes, (@current_post.dislikes-1))
+      current_user.removeDislikedPost(@current_post.id) #remove the post from the current user's liked posts
+
+    else
+
+      @current_post.update_attribute(:dislikes, (@current_post.dislikes+1))
+      current_user.pushDislikedPost(@current_post.id) #add the post to the current_user's liked posts
+
+      if @current_post.liked_by(current_user)
+        @current_post.update_attribute(:likes, (@current_post.likes-1))
+        current_user.removeLikedPost(@current_post.id)
+      end
+
+    end
+
+    respond_to do |format|
+
+      format.js {render :file => 'users/handle_post_like_dislike.js.erb'}
+
+    end
+
+  end
+
   def handle_comment_like
 
     #need current post to get the current comments which we need for the js-erb page
