@@ -2,20 +2,57 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-offset-4 col-md-5">
 
-      <%= form_for @user do |f| %>
+    <div class="col-md-offset-2">
+      <div class="editProfilePictureBlock">
+        <%= image_tag(@user.picture.url, class: "editProfilePicture") %>
 
-        <%= f.label :name, "Username" %>
-        <%= f.text_field :name, class: "form-control" %>
+        <%= form_for @user do |f| %>
 
-        <%= f.submit "Change Username", class:"btn btn-lg btn-default", style: "float: right; margin-top: 5px;" %>
+          <%= f.file_field :picture %>
+          <%= f.submit "Submit New Profile Picture",
+                class:"btn btn-md btn-default", style: "margin-top: 5px;", name: 'change_picture' %>
+        <% end %>
+      </div>
+    </div>
 
-      <% end %>
+    <div class="col-md-offset-4 col-md-7">
+      <div class="editProfileBlock">
 
-      <!--<%= link_to "Change Email", "#", class: "btn btn-default btn-lg"%><br>
-      <%= link_to "Change Profile Picture", "#", class: "btn btn-default btn-lg"%><br>
-      <%= link_to "Change Password", "#", class: "btn btn-default btn-lg" %>-->
+        <h1>Edit Profile</h1>
+        <%= form_for @user do |f| %>
+
+          <%= f.label :name, "New Username" %>
+          <%= f.text_field :name, class: "form-control" %>
+
+          <%= f.submit "Submit New Username", class:"btn btn-md btn-default",
+                  style: "float: right; margin-top: 5px;", name: 'change_username' %><br><br>
+
+
+          <%= f.label :email, "New Email" %>
+          <%= f.email_field :email, class: "form-control" %>
+
+          <%= f.submit "Submit New Email", class:"btn btn-md btn-default",
+                  style: "float: right; margin-top: 5px;", name: 'change_email' %><br><br>
+
+
+          <%= f.label :password, "New Password" %>
+          <%= f.password_field :password, class: "form-control" %><br>
+
+          <%= f.label :password_confirmation, "Confirm New Password" %>
+          <%= f.password_field :password_confirmation, class: "form-control" %>
+
+          <%= f.submit "Submit New Password", class:"btn btn-md btn-default",
+                  style: "float: right; margin-top: 5px;", name: 'change_password' %><br><br><br>
+
+        <% end %>
+
+        <%= link_to "< Back to Profile", @user, style: "display: block; float: right;" %>
+
+        <!--<%= link_to "Change Email", "#", class: "btn btn-default btn-lg"%><br>
+        <%= link_to "Change Profile Picture", "#", class: "btn btn-default btn-lg"%><br>
+        <%= link_to "Change Password", "#", class: "btn btn-default btn-lg" %>-->
+      </div>
     </div>
   </div>
 </div>

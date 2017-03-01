@@ -35,11 +35,48 @@ class UsersController < ApplicationController
 
   def update
 
-    @user = User.find_by(id: params[:id])
+    #@user = User.find_by(id: params[:id])
 
 
-    if @user.update_attribute(:picture, params[:user][:picture])
-      redirect_to @user
+    #if @user.update_attribute(:picture, params[:user][:picture])
+    #  redirect_to @user
+    #end
+
+    @user = User.find(params[:id])
+
+    if(params[:change_username])
+
+      if @user.update_attribute(:name, params[:user][:name])
+        flash[:success] = "Username successfully updated"
+        redirect_to @user
+      end
+
+    end
+
+    if(params[:change_email])
+
+      if @user.update_attribute(:email, params[:user][:email])
+        flash[:success] = "Email successfully updated"
+        redirect_to @user
+      end
+    end
+
+    if(params[:change_password])
+
+      if @user.update_attribute(:password, params[:user][:password])
+        if @user.update_attribute(:password_confirmation, params[:user][:password])
+          flash[:success] = "Password successfully updated"
+          redirect_to @user
+        end
+      end
+    end
+
+    if(params[:change_picture])
+
+      if @user.update_attribute(:picture, params[:user][:picture])
+          flash[:success] = "Profile Picture successfully updated"
+          redirect_to @user
+      end
     end
 
   end
@@ -158,6 +195,15 @@ class UsersController < ApplicationController
     end
 
   end
+
+  def update_username
+
+    @user = User.find(params[:id])
+
+    @user.update_attribute(:name, params[:name])
+
+  end
+
 
   private
 
