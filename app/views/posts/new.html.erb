@@ -1,6 +1,6 @@
 <h1>Welcome to the Kitchen. Time to cook up some dank memes...</h1>
 
-<%= form_for(@post, html: {multipart: true}) do |f| %>
+<%= form_for(@post) do |f| %>
 
   <%= render 'shared/error_messages', object: f.object%>
 
