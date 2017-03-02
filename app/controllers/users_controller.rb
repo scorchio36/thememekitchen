@@ -8,6 +8,8 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+
+
   end
 
   def edit
@@ -22,7 +24,8 @@ class UsersController < ApplicationController
 
       #handle success
       log_in(@user)
-      flash[:success] = "Thank you for signing up!"
+      flash[:success] = "Welcome aboard ;D Take a seat and enjoy the delicious memes we have to offer
+                                                        or get in the kitchen and start cooking up your own!"
       redirect_to @user
 
     else

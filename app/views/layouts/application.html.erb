@@ -17,9 +17,10 @@
   <body>
 
     <% flash.each do |message_type, message| %>
-
-      <%= message %>
-
+      <div class="alert alert-<%= message_type %>" data-dismiss="alert"   style="font-weight: bold; position: absolute; right: 0px; width: 100%; z-index: 1001;">
+          <%= message %>
+        <a href="#" class="close" style="float:right;">&times;</a>
+      </div>
     <% end %>
 
     <%= yield %>
