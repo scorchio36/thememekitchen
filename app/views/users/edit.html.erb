@@ -1,15 +1,37 @@
 <%= render :partial => 'layouts/sidebar' %>
 
+
+<!-- Script code for preview generation. Credit: https://www.spencerdixon.com/blog/image-preview-with-carrierwave-and-rails.html -->
+<script>
+$(function() {
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        $('#editProfilePicture').attr('src', e.target.result);
+      }
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  $("#newProfilePicture").change(function(){
+    $('#editProfilePicture').removeClass('hidden');
+    readURL(this);
+  });
+});
+</script>
+
 <div class="container">
   <div class="row">
 
     <div class="col-md-offset-2">
       <div class="editProfilePictureBlock">
-        <%= image_tag(@user.picture.url, class: "editProfilePicture") %>
+        <%= image_tag(@user.picture.url, id: "editProfilePicture", class: "img-thumbnail") %>
 
         <%= form_for @user do |f| %>
 
-          <%= f.file_field :picture %>
+          <%= f.file_field :picture, id:"newProfilePicture" %>
           <%= f.submit "Submit New Profile Picture",
                 class:"btn btn-md btn-default", style: "margin-top: 5px;", name: 'change_picture' %>
         <% end %>
