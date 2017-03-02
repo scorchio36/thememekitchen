@@ -41,7 +41,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :description, :picture)
+    params.require(:post).permit(:title, :description, :pictures)
   end
 
   def user_must_be_logged_in

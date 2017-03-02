@@ -1,11 +1,11 @@
-class StaticPagesController < ApplicationController
+class MainCoursesController < ApplicationController
 
-  before_action :post_like_dislike_filter, only: [:handle_like, :handle_dislike]
+  def home
 
-  def buffet
+    #reorder has to be used because default scope will not allow the order function to override the order
+    @all_posts = Post.reorder(main_course_added_at: :desc).where(main_course: true)
+    @current_post = @all_posts[0]
 
-    @current_post = Post.first #always get the latest post from the buffet
-    @all_posts = Post.all
     session[:currentIndex] = @all_posts.index(@current_post)
     @poster = User.find_by(id: @current_post.user_id)
 
@@ -19,12 +19,9 @@ class StaticPagesController < ApplicationController
 
   end
 
-  def kitchen
-  end
-
   def handle_next
 
-    @all_posts = Post.all
+    @all_posts = Post.reorder(main_course_added_at: :desc).where(main_course: true)
     session[:currentIndex] = (session[:currentIndex]+1)
     @current_post = @all_posts[session[:currentIndex]]
     @poster = User.find_by(id: @current_post.user_id)
@@ -33,13 +30,13 @@ class StaticPagesController < ApplicationController
     session[:current_post_id] = @current_post.id
 
     respond_to do |format|
-      format.js { render :file => 'static_pages/handle_next_prev.js.erb' }
+      format.js { render :file => 'main_courses/handle_next_prev.js.erb' }
     end
   end
 
   def handle_prev
 
-    @all_posts = Post.all
+    @all_posts = Post.reorder(main_course_added_at: :desc).where(main_course: true)
     (session[:currentIndex] = (session[:currentIndex]-1)) unless (session[:currentIndex] == 0)
     @current_post = @all_posts[session[:currentIndex]]
     @poster = User.find_by(id: @current_post.user_id)
@@ -48,13 +45,13 @@ class StaticPagesController < ApplicationController
     session[:current_post_id] = @current_post.id
 
     respond_to do |format|
-      format.js { render :file => 'static_pages/handle_next_prev.js.erb' }
+      format.js { render :file => 'main_courses/handle_next_prev.js.erb' }
     end
   end
 
   def handle_like
 
-    @all_posts = Post.all
+    @all_posts = Post.reorder(main_course_added_at: :desc).where(main_course: true)
     @current_post = @all_posts[session[:currentIndex]]
 
     if(@current_post.liked_by(current_user))
@@ -76,7 +73,7 @@ class StaticPagesController < ApplicationController
 
     respond_to do |format|
 
-      format.js
+      format.js { render :file => 'main_courses/handle_like_dislike.js.erb' }
 
     end
 
@@ -84,7 +81,7 @@ class StaticPagesController < ApplicationController
 
   def handle_dislike
 
-    @all_posts = Post.all
+    @all_posts = Post.reorder(main_course_added_at: :desc).where(main_course: true)
     @current_post = @all_posts[session[:currentIndex]]
 
     if(@current_post.disliked_by(current_user))
@@ -106,39 +103,10 @@ class StaticPagesController < ApplicationController
 
     respond_to do |format|
 
-      format.js
+      format.js { render :file => 'main_courses/handle_like_dislike.js.erb' }
 
     end
 
   end
-
-  #admin function
-  def handle_main_course
-
-    @current_post = Post.find(session[:current_post_id])
-
-    @current_post.toggle_main_course
-
-    respond_to do |format|
-
-      format.js { render :file => 'shared/handle_main_course.js.erb' }
-
-    end
-
-  end
-
-
-  private
-
-  #Just a filter to keep non-logged-in people from liking a post
-  def post_like_dislike_filter
-
-    unless logged_in?
-      redirect_to login_path
-      flash[:danger] = "You must be logged in to like/dislike a post"
-    end
-
-  end
-
 
 end

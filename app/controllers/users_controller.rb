@@ -196,11 +196,18 @@ class UsersController < ApplicationController
 
   end
 
-  def update_username
+  #admin function
+  def handle_main_course
 
-    @user = User.find(params[:id])
+    @current_post = Post.find(session[:current_post_id])
 
-    @user.update_attribute(:name, params[:name])
+    @current_post.toggle_main_course
+
+    respond_to do |format|
+
+      format.js { render :file => 'shared/handle_main_course.js.erb' }
+
+    end
 
   end
 

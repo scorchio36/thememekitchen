@@ -1,11 +1,9 @@
-<!-- The buffet page serves up every post that has been posted, starting with the most recent -->
 <%= render(:partial => 'layouts/sidebar') %>
 
 <div class="container-fluid">
   <div class="row">
 
-    <!-- offset by 1 to account for the sidebar -->
-    <div class="col-md-offset-1 col-md-8"> <!--Main middle column holds post image scroller, post heading, and post caption -->
+    <div class="col-md-offset-1 col-md-8">
 
       <div class="postHeading">
         <%= link_to(@poster, class: "linkToPosterProfile") do %>
@@ -24,60 +22,53 @@
           </div>
         <% end %>
 
-          <!--Dislike button-->
-          <%= link_to({:controller => "static_pages", :action => "handle_dislike"},
-            remote: true, class: "btn btn-default btn-lg postDislikeButton", method: "post") do %>
+        <!--Dislike button-->
+        <%= link_to({:controller => "main_courses", :action => "handle_dislike"},
+          remote: true, class: "btn btn-default btn-lg postDislikeButton", method: "post") do %>
 
-            <!-- If the current user has already liked this post, then show a different button state-->
-            <% if @current_post.disliked_by(current_user) %>
-              <p class="dislikeButtonText">Disliked</p><p class="postDislikes"><%= @current_post.dislikes %></p>
+          <!-- If the current user has already liked this post, then show a different button state-->
+          <% if @current_post.disliked_by(current_user) %>
+            <p class="dislikeButtonText">Disliked</p><p class="postDislikes"><%= @current_post.dislikes %></p>
+          <% else %>
+            <p class="dislikeButtonText">Dislike</p><p class="postDislikes"><%= @current_post.dislikes %></p>
+          <% end %>
+
+        <% end %>
+
+
+          <!--Like button-->
+          <%= link_to({:controller => "main_courses", :action => "handle_like"},
+            remote: true, class: "btn btn-default btn-lg postLikeButton", method: "post") do %>
+
+            <% if @current_post.liked_by(current_user) %>
+              <p class="likeButtonText">Liked</p><p class="postLikes"><%= @current_post.likes %></p>
             <% else %>
-              <p class="dislikeButtonText">Dislike</p><p class="postDislikes"><%= @current_post.dislikes %></p>
+              <p class="likeButtonText">Like</p><p class="postLikes"><%= @current_post.likes %></p>
             <% end %>
 
           <% end %>
 
-
-            <!--Like button-->
-            <%= link_to({:controller => "static_pages", :action => "handle_like"},
-              remote: true, class: "btn btn-default btn-lg postLikeButton", method: "post") do %>
-
-              <% if @current_post.liked_by(current_user) %>
-                <p class="likeButtonText">Liked</p><p class="postLikes"><%= @current_post.likes %></p>
-              <% else %>
-                <p class="likeButtonText">Like</p><p class="postLikes"><%= @current_post.likes %></p>
-              <% end %>
-
-            <% end %>
-
-
-      </div> <!--postHeading-->
-
-
+      </div>
 
       <div class="mainPostImage">
         <%= image_tag((@all_posts[session[:currentIndex]]).picture.url) %>
       </div>
 
-      <%= link_to({:controller => "static_pages", :action => "handle_next"},
+      <%= link_to({:controller => "main_courses", :action => "handle_next"},
           remote: true, class: "btn btn-default btn-lg buffetNextButton", method: "post") do %>
             <b class="glyphicon glyphicon-chevron-right"></b>
       <% end %>
 
-      <%= link_to({:controller => "static_pages", :action => "handle_prev"},
+      <%= link_to({:controller => "main_courses", :action => "handle_prev"},
           remote: true, class: "btn btn-default btn-lg buffetPrevButton", method: "post") do %>
             <b class="glyphicon glyphicon-chevron-left"></b>
       <% end %>
 
+      <div class="postCaption">
+        <h2><%= @current_post.description %></h2>
+      </div>
 
-
-        <div class="postCaption">
-          <h2><%= @current_post.description %></h2>
-        </div>
-        <div class="postMainCourseButton"><%= render 'shared/main_course_button' %></div>
-
-    </div> <!-- end of main middle column-->
-
+    </div>
 
     <!--comment section -->
     <div class="col-md-2">
@@ -108,6 +99,5 @@
 
 
     </div><!-- comment section -->
-
-  </div><!-- row -->
-</div><!-- container -->
+  </div>
+</div>

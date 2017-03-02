@@ -29,6 +29,21 @@ class Post < ApplicationRecord
       end
   end
 
+  def toggle_main_course
+
+    if self.main_course?
+
+      self.update_attribute(:main_course, false)
+
+    else
+
+      self.update_attribute(:main_course, true)
+      self.update_attribute(:main_course_added_at, Time.now)
+
+    end
+
+  end
+
 
 #ensures that the uploaded picture is not too large
   private

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  get '/home', to: 'static_pages#home'
+  get '/home', to: 'main_courses#home'
   get '/buffet', to: 'static_pages#buffet'
   get '/kitchen', to: 'posts#new'
   get '/users/user_posts_feed', to: 'users#user_posts_feed'
@@ -15,6 +15,14 @@ Rails.application.routes.draw do
   post 'static_pages/handle_prev' => 'static_pages#handle_prev'
   post 'static_pages/handle_like' => 'static_pages#handle_like'
   post 'static_pages/handle_dislike' => 'static_pages#handle_dislike'
+  post 'static_pages/handle_main_course' => 'static_pages#handle_main_course'
+
+  post 'main_courses/handle_next' => 'main_courses#handle_next'
+  post 'main_courses/handle_prev' => 'main_courses#handle_prev'
+  post 'main_courses/handle_like' => 'main_courses#handle_like'
+  post 'main_courses/handle_dislike' => 'main_courses#handle_dislike'
+  post 'main_courses/handle_main_course' => 'main_courses#handle_main_course'
+
 
   post 'users/handle_next' => 'users#handle_next'
   post 'users/handle_prev' => 'users#handle_prev'
@@ -27,7 +35,7 @@ Rails.application.routes.draw do
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  root 'static_pages#home'
+  root 'main_courses#home'
 
   resources :users do
     member do
