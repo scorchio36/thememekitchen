@@ -11,6 +11,10 @@ class User < ApplicationRecord
 
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
+  has_many :following, through: :active_relationships, source: :followed #following is the array of USERS that self is following
+  has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
+  has_many :followers, through: :passive_relationships, source: :follower #followers is the array of USERS that self is being followed by #Allows us to say User.followers
 
   has_secure_password
   attr_accessor :remember_token
@@ -147,6 +151,21 @@ class User < ApplicationRecord
     comments.delete(commentID)
     update_attribute(:disliked_comments, comments)
 
+  end
+
+
+
+  #functions for following
+  def follow(other_user)
+    active_relationship.create(followed_id: other_user.id)
+  end
+
+  def unfollow(other_user)
+    active_relationship.find_by(id: other_user.id).destroy
+  end
+
+  def following?(other_user)
+    self.following.include?(other_user) #this is possible from the has :through relationship we made
   end
 
 
