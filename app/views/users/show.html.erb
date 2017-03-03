@@ -1,53 +1,39 @@
-<div class="container">
-  <div class="container">
-    <ul class="nav nav-pills" id="overheadList">
-      <li><%= link_to "Main Course", home_path %></li>
-      <li><%= link_to "Buffet", buffet_path %></li>
-      <li><%= link_to "Personal Chefs", "#" %></li>
-      <li><%= link_to "Bar", "#" %></li>
-    </ul>
-  </div>
-</div>
-
-<div class="container userProfileTitle">
-
-  <div class="media userProfileTitleMedia">
-    <div class="media-left">
-      <%= image_tag @user.picture.url, class: "userProfilePicture"%>
-    </div>
-
-    <div class="media-body">
-      <h1 class="media-heading"><%= @user.name %></h1>
-    </div>
-
-  </div>
-
-  <!-- Dont let other users edit another user's profile or make memes for them -->
-  <% if logged_in? %>
-    <% if current_user.id == @user.id %>
-      <%= link_to  kitchen_path, class: "btn btn-default makeMemesProfileButton" do %>
-        <p><b class="glyphicon glyphicon-fire"></b> Cook up a new Meme!</p>
-        <% end %>
-        <%= link_to  edit_user_path(@user), class: "btn btn-default settingsProfileButton" do %>
-        <p><b class="glyphicon glyphicon-cog"></b> Edit Profile</p>
-        <% end %>
-    <% end %>
-  <% end %>
-
-</div>
-
-
-<!--<%= form_for(@user, html: {multipart: true}) do |f| %>
-
-  <%= f.label :picture, "Upload a Profile Picture"%>
-  <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
-
-  <%= f.submit "Submit Profile Picture" %>
-
-<% end %>-->
+<%= render 'layouts/sidebar' %>
 
 
 <div class="container">
+
+  <div class="row">
+    <div class="col-md-offset-1 col-md-11">
+      <div class="userProfileTitle">
+
+        <div class="media userProfileTitleMedia">
+          <div class="media-left">
+            <%= image_tag @user.picture.url, class: "userProfilePicture"%>
+          </div>
+
+          <div class="media-body">
+            <h1 class="media-heading"><%= @user.name %></h1>
+          </div>
+
+        </div>
+
+        <!-- Dont let other users edit another user's profile or make memes for them -->
+        <% if logged_in? %>
+          <% if current_user.id == @user.id %>
+            <%= link_to  kitchen_path, class: "btn btn-default makeMemesProfileButton" do %>
+              <p><b class="glyphicon glyphicon-fire"></b> Cook up a new Meme!</p>
+              <% end %>
+              <%= link_to  edit_user_path(@user), class: "btn btn-default settingsProfileButton" do %>
+              <p><b class="glyphicon glyphicon-cog"></b> Edit Profile</p>
+              <% end %>
+          <% end %>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+
   <div class="row">
 
     <div class="userProfilePosts">

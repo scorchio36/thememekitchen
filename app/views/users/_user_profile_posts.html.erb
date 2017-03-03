@@ -2,7 +2,7 @@
 <!--This renders the posts on the user profile page -->
 <% if @posts.any? %>
   <% @posts.each do |post| %>
-    <div class="col-md-3 postThumbnail">
+    <div class="col-md-offset-1 col-md-3 postThumbnail" style="width: 25%;">
       <div class="thumbnail">
 
         <!--If this is the current_user's profile then let them delete posts -->
