@@ -14,6 +14,7 @@
 
           <div class="media-body">
             <h1 class="media-heading"><%= @user.name %></h1>
+                <%= link_to("#", class:"userProfileSubscribersLink") do %>Subscribers: <span class="profileSubCount"><%= @user.followers.count %></span><% end %>
           </div>
 
         </div>
@@ -27,7 +28,15 @@
               <%= link_to  edit_user_path(@user), class: "btn btn-default settingsProfileButton" do %>
               <p><b class="glyphicon glyphicon-cog"></b> Edit Profile</p>
               <% end %>
+
+          <% else %>
+            <div class="subButton">
+              <%= render 'users/sub_button' %>
+            </div>
           <% end %>
+
+        <% else %>
+          <!-- Add a button here for subscribe and redirect it -->
         <% end %>
 
       </div>

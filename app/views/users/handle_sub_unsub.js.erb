@@ -1,0 +1,3 @@
+$('.subButton').html("<%= escape_javascript(render('users/sub_button')) %>");
+
+$('.profileSubCount').html("<%= @user.followers.count %>");

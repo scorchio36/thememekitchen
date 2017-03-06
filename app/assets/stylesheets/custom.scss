@@ -506,7 +506,7 @@ header
   h1
   {
     font-weight: bold;
-    margin-top: 20px;
+    margin-top: 10px;
   }
 }
 
@@ -617,4 +617,18 @@ header
 .postMainCourseButton
 {
   float: right;
+}
+
+.userProfileSubscribersLink
+{
+  font-size: 1.5em;
+  margin-left: 10px;
+}
+
+.subscribeProfileButton
+{
+  float: right;
+  margin: 5px;
+  margin-top: -50px;
+  font-weight: bold;
 }

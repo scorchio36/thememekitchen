@@ -1,0 +1,11 @@
+<!--Subscription button partial-->
+
+<% if current_user.following?(@user) %>
+  <%= link_to({ :controller => "users", :action => "handle_unsubscribe", :user_id => @user.id },
+              class: "btn btn-default subscribeProfileButton", remote: true, method: "post") do %>
+                <p><b class="glyphicon glyphicon-heart"></b> Unsubscribe: <%= @user.followers.count %></p><% end %>
+<% else %>
+  <%= link_to({ :controller => "users", :action => "handle_subscribe", :user_id => @user.id },
+        class: "btn btn-default subscribeProfileButton", remote: true, method: "post") do %>
+          <p><b class="glyphicon glyphicon-heart"></b> Subscribe: <%= @user.followers.count %></p><% end %>
+<% end %>

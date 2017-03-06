@@ -214,6 +214,31 @@ class UsersController < ApplicationController
 
   end
 
+  def handle_subscribe
+
+    @user = User.find(params[:user_id])
+    current_user.follow(@user)
+
+    respond_to do |format|
+
+      format.js { render :file => 'users/handle_sub_unsub.js.erb' }
+
+    end
+
+  end
+
+  def handle_unsubscribe
+
+    @user = User.find(params[:user_id])
+    current_user.unfollow(@user)
+
+    respond_to do |format|
+
+      format.js { render :file => 'users/handle_sub_unsub.js.erb' }
+
+    end
+
+  end
 
   private
 
