@@ -12,7 +12,7 @@
     <li><%= link_to(buffet_path) do %>
           <b class="glyphicon glyphicon-cutlery"></b> Buffet</li><% end %>
     <% if logged_in? %>
-      <li><%= link_to("#") do %>
+      <li><%= link_to(personal_chefs_path) do %>
             <b class="glyphicon glyphicon-heart"></b> Personal Chefs</li><% end %>
         <li><%= link_to("#") do %>
               <b class="glyphicon glyphicon-glass"></b> Bar</li><% end %>

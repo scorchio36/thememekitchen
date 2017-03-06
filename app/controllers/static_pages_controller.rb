@@ -128,6 +128,14 @@ class StaticPagesController < ApplicationController
   end
 
 
+
+
+
+  def personal_chefs
+    @subscriptions = current_user.following
+  end
+
+
   private
 
   #Just a filter to keep non-logged-in people from liking a post
