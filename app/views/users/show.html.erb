@@ -14,7 +14,9 @@
 
           <div class="media-body">
             <h1 class="media-heading"><%= @user.name %></h1>
-                <%= link_to("#", class:"userProfileSubscribersLink") do %>Subscribers: <span class="profileSubCount"><%= @user.followers.count %></span><% end %>
+                <%= link_to({ :controller => 'static_pages', :action => 'subscribers', :user_id => @user.id},
+                            class:"userProfileSubscribersLink") do %>Subscribers: <span class="profileSubCount">
+                                                                          <%= @user.followers.count %></span><% end %>
           </div>
 
         </div>

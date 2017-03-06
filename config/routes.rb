@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get '/kitchen', to: 'posts#new'
   get '/users/user_posts_feed', to: 'users#user_posts_feed'
   get '/personal_chefs', to: "static_pages#personal_chefs"
+  get '/subscribers', to: 'static_pages#subscribers'
 
   get '/signup', to: 'users#new'
   get '/login', to: 'sessions#new'

@@ -135,6 +135,11 @@ class StaticPagesController < ApplicationController
     @subscriptions = current_user.following
   end
 
+  def subscribers
+    @user = User.find(params[:user_id])
+    @subscribers = @user.followers
+  end
+
 
   private
 
