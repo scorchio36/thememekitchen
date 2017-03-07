@@ -2,7 +2,7 @@ class Comment < ApplicationRecord
   belongs_to :user
   belongs_to :post
 
-  validates :comment, length: {minimum: 1, maximum: 255}, presence: true
+  validates :comment, length: {minimum: 1, maximum: 255}, presence: true, allow_blank: false
 
   default_scope -> {order(likes: :desc)}
 

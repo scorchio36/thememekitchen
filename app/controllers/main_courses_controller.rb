@@ -1,5 +1,7 @@
 class MainCoursesController < ApplicationController
 
+  before_action :post_like_dislike_filter, only: [:handle_like, :handle_dislike]
+
   def home
 
     #reorder has to be used because default scope will not allow the order function to override the order
@@ -105,6 +107,18 @@ class MainCoursesController < ApplicationController
 
       format.js { render :file => 'main_courses/handle_like_dislike.js.erb' }
 
+    end
+
+  end
+
+  private
+
+  #Just a filter to keep non-logged-in people from liking a post
+  def post_like_dislike_filter
+
+    unless logged_in?
+      redirect_to login_path
+      flash[:danger] = "You must be logged in to like/dislike a post"
     end
 
   end

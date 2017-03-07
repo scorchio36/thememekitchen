@@ -1,15 +1,18 @@
 <% if object.errors.any? %>
+  <div id="error_explanation">
+    <div class="alert alert-danger">
+      <p><%= pluralize(object.errors.count, "error")%> prevented this page from being submitted.</p>
 
-  <p><%= pluralize(object.errors.count, "error")%> prevented this page from being submitted.</p>
+      <ul>
 
-  <ul>
+        <% object.errors.full_messages.each do |error| %>
 
-    <% object.errors.full_messages.each do |error| %>
+          <li><%= error %></li>
 
-      <li><%= error %></li>
+        <% end %>
 
-    <% end %>
-
-  </ul>
+      </ul>
+    </div>
+  <div>
 
 <% end %>

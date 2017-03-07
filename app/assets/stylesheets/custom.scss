@@ -645,3 +645,14 @@ header
   margin-top: -10px;
   font-weight: bold;
 }
+
+#error_explanation
+{
+  color: red;
+
+  ul
+  {
+    color: red;
+    margin-bottom: 10px;
+  }
+}

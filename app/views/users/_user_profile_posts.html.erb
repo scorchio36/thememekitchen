@@ -1,32 +1,34 @@
 
 <!--This renders the posts on the user profile page -->
 <% if @posts.any? %>
-  <% @posts.each do |post| %>
-    <div class="col-md-offset-1 col-md-3 postThumbnail" style="width: 25%;">
-      <div class="thumbnail">
+  <div class="col-md-offset-1">
+    <% @posts.each do |post| %>
+      <div class="col-md-3 postThumbnail">
+        <div class="thumbnail">
 
-        <!--If this is the current_user's profile then let them delete posts -->
-        <% if logged_in? %>
-          <% if current_user.id == @user.id %>
-            <%= link_to({:controller => "posts", :action => "destroy", :post_id => post.id}, class:" deleteProfilePostButton",
-              method: "delete", data: {confirm: "Are you sure you want to delete your dank meme?", remote: true}) do %>
-              <b class="glyphicon glyphicon-remove-sign"></b>
+          <!--If this is the current_user's profile then let them delete posts -->
+          <% if logged_in? %>
+            <% if current_user.id == @user.id %>
+              <%= link_to({:controller => "posts", :action => "destroy", :post_id => post.id}, class:" deleteProfilePostButton",
+                method: "delete", data: {confirm: "Are you sure you want to delete your dank meme?", remote: true}) do %>
+                <b class="glyphicon glyphicon-remove-sign"></b>
+              <% end %>
             <% end %>
           <% end %>
-        <% end %>
 
-        <%= link_to(posts_feed_user_path(@user, :post_id => post.id)) do %>
-          <%= image_tag post.picture.url if post.picture? %>
-        <% end %>
-      </div>
+          <%= link_to(posts_feed_user_path(@user, :post_id => post.id)) do %>
+            <%= image_tag post.picture.url if post.picture? %>
+          <% end %>
+        </div>
 
-      <div class="caption">
-        <% if post.title.nil? %>
-          <h4>Dank Meme</h4>
-        <% else %>
-          <h4><%= post.title %></h4>
-        <% end %>
+        <div class="caption">
+          <% if post.title.nil? %>
+            <h4>Dank Meme</h4>
+          <% else %>
+            <h4><%= post.title %></h4>
+          <% end %>
+        </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 <% end %>

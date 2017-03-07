@@ -7,17 +7,50 @@ class CommentsController < ApplicationController
   def create
 
     @comment = current_user.comments.build(comment_params)
-    @current_post = Post.find_by(id: session[:current_post_id])
-    @comment.update_attribute(:post_id, @current_post.id)
+    #I do not want a comment to pass if it is empty. But I also want to be able to assign a post_id to the comment.
+    #Adding an arbitrary post initially allows me to run a save test on the comment to see if it is blank. If it is not
+    #blank, then it will pass the if test and within the if block I will find the real post and assign it to the comment.
+    @comment.update_attribute(:post_id, 1)
 
-    @comment.save
+    if @comment.save
 
-    respond_to do |format|
+      @current_post = Post.find_by(id: session[:current_post_id])
+      @comment.update_attribute(:post_id, @current_post.id)
 
-      format.js
+      respond_to do |format|
+
+        format.js
+
+      end
+
+    else
+
+      flash[:danger] = "Comment cannot be blank"
+
+      #respond_to do |format|
+
+        #format.js {render inline: "location.reload()"}
+
+      #end
+
+      redirect_to :back
 
     end
 
+  end
+
+  def destroy
+
+    @comment = Comment.find_by(id: params[:id])
+    @post_comments = @comment.post.comments #used to rerender all of the comments with ajax
+    @poster = @comment.post.user #used to rerender all of the comments with ajax
+    @comment.destroy
+
+    respond_to do |format|
+
+      format.js { render :file => 'comments/handle_like_dislike.js.erb' }
+
+    end
 
   end
 

@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
 
+  before_action :post_like_dislike_filter, only: [:handle_post_like, :handle_post_dislike]
 
   def show
     @user = User.find_by(id: params[:id])
@@ -244,6 +245,16 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation, :picture)
+  end
+
+  #Just a filter to keep non-logged-in people from liking a post
+  def post_like_dislike_filter
+
+    unless logged_in?
+      redirect_to login_path
+      flash[:danger] = "You must be logged in to like/dislike a post"
+    end
+
   end
 
 end
