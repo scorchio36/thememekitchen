@@ -308,8 +308,6 @@ header
 //Main post image on the page (holds all the memes)
 .mainPostImage
 {
-
-  width: 800px;
   height: 433px;
   margin: auto;
   border: 1px solid #aaaaaa;
@@ -342,8 +340,8 @@ header
 .buffetPrevButton
 {
   position: absolute;
-  top:180px;
-  left:63px;
+  top:40%;
+  left:9%;
   //margin-top: -215px;
   //margin-left: -858px;
   padding-top: 35px;
@@ -360,8 +358,8 @@ header
 .buffetNextButton
 {
   position: absolute;
-  top:180px;
-  left:800px;
+  top:40%;
+  left:90%;
   //margin-top: 100px;
   //margin-left: -85px;
   padding-top: 35px;
