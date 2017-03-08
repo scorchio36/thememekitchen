@@ -36,15 +36,15 @@ $(function() {
 
           <%= render 'shared/error_messages', object: f.object%>
 
-          <%= f.label :title %>
+          <%= f.label :title, "Name of your Dish" %>
           <%= f.text_field :title, class: "form-control" %><br>
 
           <img id="imagePreview" width=300 height=300 src="#" alt="your image" class="img-thumbnail hidden"/> <br/>
 
-          <%= f.label :picture, "Upload your meme", accept: 'image/jpeg,image/gif,image/png' %>
+          <%= f.label :picture, "Throw that meme on the pan!", accept: 'image/jpeg,image/gif,image/png' %>
           <%= f.file_field :picture, id: "memePicture" %><br>
 
-          <%= f.label :description, "Add a sick caption:" %>
+          <%= f.label :description, "How about a spicy caption?:" %>
           <%= f.text_area :description, class: "form-control" %><br>
 
           <%= f.submit "Send out this Meme", class:"btn btn-lg btn-danger", style: "float: right; font-weight: bold;" %>

@@ -12,6 +12,7 @@ class Post < ApplicationRecord
 
   validates :title, presence: true, length: {maximum: MAXIMUM_TITLE_LENGTH}
   validates :description, length: {maximum: MAXIMUM_DESCRIPTION_LENGTH}
+  validates :picture, presence: true
   validate :picture_size
 
 

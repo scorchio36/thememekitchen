@@ -2,6 +2,7 @@ class PostsController < ApplicationController
 
   before_action :user_must_be_logged_in, only: [:new, :create]
   before_action :must_be_current_users_page_to_destroy_post, only: [:destroy]
+  before_action :redirect_index_to_kitchen, only: [:index] #this is needed to fix some weird glitch with naming kitchen and new post path
 
   def new
     @post = current_user.posts.build
@@ -38,6 +39,9 @@ class PostsController < ApplicationController
 
   end
 
+  def index
+  end
+
   private
 
   def post_params
@@ -60,4 +64,10 @@ def must_be_current_users_page_to_destroy_post
       flash[:danger] = "This is not your profile page. Please log in if this is your account"
       redirect_to home_path
     end
+end
+
+def redirect_index_to_kitchen
+
+  redirect_to kitchen_path
+
 end
