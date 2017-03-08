@@ -28,14 +28,18 @@
         <%= @comment.comment %>
       </p>
 
-      <% if logged_in? %>
-        <% if @comment.user.id == current_user.id %>
-          <div class="media-bottom">
-            <%= link_to "delete", { :controller => "comments", :action => "destroy", :id => @comment.id }, style:"float: right;",
-                  method: "delete", data: {confirm: "You really wanna delete your sweet comment?"}, remote: true %>
-          </div>
+      <div class="media-bottom">
+        <% if logged_in? %>
+          <% if @comment.user.id == current_user.id %>
+
+              <%= link_to "delete", { :controller => "comments", :action => "destroy", :id => @comment.id }, style:"float: right; margin-left: 5px;",
+                    method: "delete", data: {confirm: "You really wanna delete your sweet comment?"}, remote: true %>
+
+          <% end %>
         <% end %>
-      <% end %>
+
+        <small class="commentTimestamp">Posted <%= time_ago_in_words(@comment.created_at) %> ago</small>
+      </div>
 
     </div>
   </div>

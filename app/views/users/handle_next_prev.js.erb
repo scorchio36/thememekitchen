@@ -1,7 +1,7 @@
 /*Used by user profile feed*/
 
 $(function() {
-  //$('.postTitle').html("<p>Title: <%= @current_post.title %></p>");
+  $('.postTitle').html("Dish Name: <%= @current_post.title %>");
   $('.postCaption').html("<h2><%= @current_post.description %></h2>");
   $('.mainPostImage').html("<%= escape_javascript image_tag(@current_post.picture.url, alt: "current image") if (@current_post).picture? %>");
   $('.posterPicture').html("<%= escape_javascript image_tag(@poster.picture.url, alt: "profile image", class: "img-circle") %>");

@@ -46,6 +46,10 @@ Rails.application.routes.draw do
     member do
      get :posts_feed
     end
+
+    member do
+      get :subscribers
+    end
   end
   resources :posts
   resources :comments, except: [:show]

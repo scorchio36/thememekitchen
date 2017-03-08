@@ -217,7 +217,7 @@ header
 //makes it take up the right amount of space
 .linkToPosterProfile
 {
-  display: inline-block;
+  display: inline-block; //keeps like/dislike button from jumping to the next line
   &:hover
   {
     text-decoration: none;
@@ -228,7 +228,9 @@ header
 //The upper left media object on each post
 .posterMediaObject
 {
-  margin-top: -15px;
+  margin-top: -10px;
+  margin-bottom: 5px;
+  //border: 1px solid black;
 }
 
 .posterPicture
@@ -238,7 +240,7 @@ header
   border: 1px solid black;
   border-radius: 50px;
   display: inline-block;
-  margin-top: -15px;
+  //margin-top: -15px;
 
   img
   {
@@ -253,17 +255,24 @@ header
 
 .postOwner
 {
-  font-size: 1.3em;
+  font-size: 1.2em;
   font-weight: bold;
-  padding-right: 15px;
-  margin-right: 15px;
-  margin-bottom: -25px;
+  //margin-bottom: -25px;
   text-decoration: none;
+}
+
+.postTitle
+{
+  font-size: 0.8em;
+  font-weight: bold;
+  //color: #ff6767;
 }
 
 .postTime
 {
-  font-size:0.65em;
+  margin-top: 5px;
+  font-size:0.5em;
+  color: #aaaaaa;
 }
 
 .postLikes
@@ -486,6 +495,12 @@ header
 {
   width: 295px;
   height: 75px;
+}
+
+.commentTimestamp
+{
+  float: right;
+  color: #aaaaaa;
 }
 
 

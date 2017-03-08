@@ -3,6 +3,17 @@
 <% provide(:subtitle, "All you can eat memes") %>
 <%= render(:partial => 'layouts/sidebar') %>
 
+<% if session[:comment_blank_error] == true %>
+
+  <script>BootstrapDialog.show({
+            title: 'Oops!',
+            message: 'Your comment cannot be blank!'
+        });</script>
+
+        <% session[:comment_blank_error] = false %>
+
+<% end %>
+
 <div class="container-fluid">
   <div class="row">
 
@@ -17,11 +28,18 @@
               <%= image_tag @poster.picture.url, class: "img-circle" %>
             </div>
 
-            <h3 style="display: inline-block;">
+            <!--<h3 style="display: inline-block;">
               <!-- Just a heads up. This (@current_post.user_id) will fail when there are no users in the database -->
-              <p class="postOwner"><%= @poster.name %></p><br>
+              <!--<p class="postOwner"><%= @poster.name %></p><br>
               <small class="postTime" style="float: left;">Posted <%= time_ago_in_words(@current_post.created_at) %> ago</small>
+            </h3>-->
+            <h3 style="display: inline-block; position: absolute; top: -12px; left: 140px;">
+                <span class="postOwner"><%= @poster.name %></span><br>
+                <small class="postTitle">Dish Name: <%= @current_post.title %></small><br>
+                <p class="postTime">Posted <%= time_ago_in_words(@current_post.created_at) %> ago</p>
+
             </h3>
+            <!--<h5 style="display: inline-block;">Dish Name: </h5>-->
 
           </div>
         <% end %>

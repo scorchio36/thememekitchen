@@ -1,6 +1,9 @@
 class CommentsController < ApplicationController
 
   def new
+
+    session[:comment_blank_error] = false
+
     @comment = current_user.comments.build
   end
 
@@ -23,15 +26,13 @@ class CommentsController < ApplicationController
 
       end
 
+      session[:comment_blank_error] = false
+
     else
 
-      flash[:danger] = "Comment cannot be blank"
+      #flash[:danger] = "Comment cannot be blank"
 
-      #respond_to do |format|
-
-        #format.js {render inline: "location.reload()"}
-
-      #end
+      session[:comment_blank_error] = true
 
       redirect_to :back
 

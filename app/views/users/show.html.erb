@@ -1,5 +1,5 @@
 <% provide(:title, "Profile") %>
-<% provide(:subtitle, "Meme Chef") %>
+<% provide(:subtitle, "Dank Memer") %>
 <%= render 'layouts/sidebar' %>
 
 <% if session[:show_signup_message] == true %>
@@ -47,7 +47,7 @@
         <!-- Dont let other users edit another user's profile or make memes for them -->
         <% if logged_in? %>
           <% if current_user.id == @user.id %>
-            <%= link_to  kitchen_path, class: "btn btn-default makeMemesProfileButton" do %>
+            <%= link_to  kitchen_path, class: "btn btn-danger makeMemesProfileButton" do %>
               <p><b class="glyphicon glyphicon-fire"></b> Cook up a new Meme!</p>
               <% end %>
               <%= link_to  edit_user_path(@user), class: "btn btn-default settingsProfileButton" do %>
