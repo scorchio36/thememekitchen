@@ -1,9 +1,6 @@
 <!--This is the left sidebar menu for the website -->
 <div class="sidebar">
-
-  <%= link_to(home_path) do %>
-    <h1 id="logo">Frizzleskillet</h1>
-  <% end %>
+    <h1 id="logo"><%= yield(:title) %><br><small><%= yield(:subtitle) %><br></small></h1>
 
   <ul class="nav nav-pills nav-stacked">
     <li class="nav-divider"></li>

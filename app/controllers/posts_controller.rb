@@ -6,6 +6,7 @@ class PostsController < ApplicationController
 
   def new
     @post = current_user.posts.build
+    session[:show_new_post_dialog] = false
   end
 
   def create
@@ -14,7 +15,7 @@ class PostsController < ApplicationController
       if @post.save
 
         #handle success
-        flash[:success] = "Nice post you dank memer!"
+        session[:show_new_post_dialog] = true
         redirect_to current_user
 
       else

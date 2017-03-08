@@ -9,8 +9,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-
-
+    session[:show_signup_message] = false #This is just a message to show or hide the signup modal
   end
 
   def edit
@@ -25,14 +24,14 @@ class UsersController < ApplicationController
 
       #handle success
       log_in(@user)
-      flash[:success] = "Welcome aboard ;D Take a seat and enjoy the delicious memes we have to offer
-                                                        or get in the kitchen and start cooking up your own!"
+      session[:show_signup_message] = true
       redirect_to @user
 
     else
 
       #handle error
       render 'new'
+      session[:show_signup_message] = false
 
     end
   end
