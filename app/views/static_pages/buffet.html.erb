@@ -33,7 +33,7 @@
               <!--<p class="postOwner"><%= @poster.name %></p><br>
               <small class="postTime" style="float: left;">Posted <%= time_ago_in_words(@current_post.created_at) %> ago</small>
             </h3>-->
-            <h3 style="display: inline-block; position: absolute; top: -12px; left: 140px;">
+            <h3 class="headingTitle">
                 <span class="postOwner"><%= @poster.name %></span><br>
                 <small class="postTitle">Dish Name: <%= @current_post.title %></small><br>
                 <p class="postTime">Posted <%= time_ago_in_words(@current_post.created_at) %> ago</p>
@@ -91,9 +91,14 @@
 
 
 
-          <div class="postCaption">
-              <h2><%= @current_post.description %></h2>
-          </div>
+
+            <div class="postCaption">
+              <% unless @current_post.description.empty? %>
+                  <h2><%= @current_post.description %></h2>
+                <% end %>
+            </div>
+
+
           <div class="postMainCourseButton"><%= render 'shared/main_course_button' %></div>
 
 

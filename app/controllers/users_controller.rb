@@ -112,7 +112,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
 
-      format.js { render :file => 'users/handle_next_prev.js.erb' }
+      format.js { render :file => 'shared/handle_next_prev.js.erb' }
 
     end
 
@@ -130,7 +130,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
 
-      format.js { render :file => 'users/handle_next_prev.js.erb' }
+      format.js { render :file => 'shared/handle_next_prev.js.erb' }
 
     end
 

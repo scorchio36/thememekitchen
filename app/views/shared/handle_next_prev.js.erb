@@ -1,6 +1,6 @@
 $(function() {
   $('.postTitle').html("Dish Name: <%= @current_post.title %>");
-  $('.postCaption').html("<h2><%= @current_post.description %></h2>");
+  $('.postCaption').html("<% unless @current_post.description.empty? %><h2><%= @current_post.description %></h2><% end %>");
   $('.mainPostImage').html("<%= escape_javascript image_tag(@current_post.picture.url, alt: "current image") if (@current_post).picture? %>");
   $('.posterPicture').html("<%= escape_javascript image_tag(@poster.picture.url, alt: "profile image", class: "img-circle") %>");
 
@@ -33,6 +33,9 @@ $(function() {
 
   $('.postComments').html("<%= escape_javascript(render(:partial => 'comments/comments')) %>");
   //$('.commentTextArea').val('');
+
+  $('.postMainCourseButton').html("<%= escape_javascript(render 'shared/main_course_button') %>");
+
 
   $('.postMainCourseButton').html("<%= escape_javascript(render 'shared/main_course_button') %>");
 });

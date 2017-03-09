@@ -32,7 +32,7 @@ class MainCoursesController < ApplicationController
     session[:current_post_id] = @current_post.id
 
     respond_to do |format|
-      format.js { render :file => 'main_courses/handle_next_prev.js.erb' }
+      format.js { render :file => 'shared/handle_next_prev.js.erb' }
     end
   end
 
@@ -47,7 +47,7 @@ class MainCoursesController < ApplicationController
     session[:current_post_id] = @current_post.id
 
     respond_to do |format|
-      format.js { render :file => 'main_courses/handle_next_prev.js.erb' }
+      format.js { render :file => 'shared/handle_next_prev.js.erb' }
     end
   end
 

@@ -33,7 +33,7 @@ class StaticPagesController < ApplicationController
     session[:current_post_id] = @current_post.id
 
     respond_to do |format|
-      format.js { render :file => 'static_pages/handle_next_prev.js.erb' }
+      format.js { render :file => 'shared/handle_next_prev.js.erb' }
     end
   end
 
@@ -48,7 +48,7 @@ class StaticPagesController < ApplicationController
     session[:current_post_id] = @current_post.id
 
     respond_to do |format|
-      format.js { render :file => 'static_pages/handle_next_prev.js.erb' }
+      format.js { render :file => 'shared/handle_next_prev.js.erb' }
     end
   end
 
