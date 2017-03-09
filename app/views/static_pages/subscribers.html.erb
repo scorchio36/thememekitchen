@@ -11,17 +11,17 @@
           <% if logged_in? %>
             <% if current_user.id == @user.id %>
               <br><small>
-                Other peeps who like <%= @user.name %>'s memes
+                Other peeps who like your memes
               </small>
             <% else %>
               <br><small>
-                Other peeps who like your memes
+                Other peeps who like <%= @user.name %>'s memes
               </small>
             <% end %>
 
           <% else %>
           <br><small>
-            Other peeps who like your memes
+            Other peeps who like <%= @user.name %>'s memes
           </small>
           <% end %>
 

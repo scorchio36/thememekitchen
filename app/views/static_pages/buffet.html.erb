@@ -107,14 +107,14 @@
     <div class="col-md-2">
 
         <div class="commentHeader">
-          <h2 style="font-weight: bold;">Comments</h2>
+          <h2 style="font-weight: bold; color: #676767;">Customer Reviews</h2>
 
             <% if logged_in? %>
               <%= form_for(@comment, remote: true) do |f| %>
 
                 <%= f.text_area :comment, placeholder: "Write a comment", class: "commentTextArea", maxlength: 255 %>
 
-                <%= f.submit "Post Comment", style: "float: right;" %>
+                <%= f.submit "Post Review", style: "float: right;" %>
 
               <% end %>
             <% end %>

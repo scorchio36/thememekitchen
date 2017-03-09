@@ -398,9 +398,10 @@ header
 {
   text-align: center;
   margin-top: 12px;
-  border: 1px solid #777777;
+  border: 1px solid #cccccc;
   border-radius: 15px;
   margin-left: 5%;
+  background-color: #eeeeee;
 
   h2
   {
@@ -408,6 +409,7 @@ header
     text-align:center;
     font-weight: bold;
     padding: 10px;
+    color: #444444;
   }
 }
 

@@ -32,7 +32,7 @@
 
             <% if comment.disliked_by(current_user) %>
               <%= link_to({:controller => 'comments', :action => 'handle_dislike', :comment_id => comment.id, :user_id => @poster.id},
-                class: "btn btn-success btn-xs commentDislikeButton", remote: true, method: "post") do %>
+                class: "btn btn-danger btn-xs commentDislikeButton", remote: true, method: "post") do %>
                   <b class="glyphicon glyphicon-thumbs-down"></b> <small class="commentLikes" style="color: white;"><%= comment.dislikes %></small>
               <% end %>
             <% else %>
