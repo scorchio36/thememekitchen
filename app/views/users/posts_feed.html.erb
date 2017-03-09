@@ -82,7 +82,9 @@
 
 
       <div class="postCaption">
-        <h2><%= @current_post.description %></h2>
+        <% unless @current_post.description.empty? %>
+          <h2><%= @current_post.description %></h2>
+        <% end %>
       </div>
       <div class="postMainCourseButton"><%= render 'shared/main_course_button' %></div>
 
