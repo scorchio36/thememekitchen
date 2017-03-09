@@ -37,7 +37,7 @@
 
         <!--Dislike button-->
         <%= link_to({:controller => "main_courses", :action => "handle_dislike"},
-          remote: true, class: "btn btn-default btn-lg postDislikeButton", method: "post") do %>
+          remote: true, class: "btn btn-danger btn-lg postDislikeButton", method: "post") do %>
 
           <!-- If the current user has already liked this post, then show a different button state-->
           <% if @current_post.disliked_by(current_user) %>
@@ -51,7 +51,7 @@
 
           <!--Like button-->
           <%= link_to({:controller => "main_courses", :action => "handle_like"},
-            remote: true, class: "btn btn-default btn-lg postLikeButton", method: "post") do %>
+            remote: true, class: "btn btn-success btn-lg postLikeButton", method: "post") do %>
 
             <% if @current_post.liked_by(current_user) %>
               <p class="likeButtonText">Liked</p><p class="postLikes"><%= @current_post.likes %></p>

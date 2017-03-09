@@ -49,7 +49,7 @@ $(function() {
           <%= f.label :description, "How about a spicy caption?:" %>
           <%= f.text_area :description, class: "form-control" %><br>
 
-          <%= f.submit "Send out this Meme", class:"btn btn-lg btn-danger", style: "float: right; font-weight: bold;" %>
+          <%= f.submit "Send out this Meme", class:"btn btn-lg btn-danger", style: "float: right; font-weight: bold;", data: {disable_with: "Loading...".html_safe}  %>
 
         <% end %>
 
