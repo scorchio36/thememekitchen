@@ -1,0 +1,52 @@
+<% provide(:title, "Notifications") %>
+<% provide(:subtitle, "The hippitty haps") %>
+<%= render 'layouts/sidebar' %>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-offset-2">
+      <h1>Notifications</h1>
+    </div>
+
+  <div class="row">
+    <div class="col-md-offset-2 col-md-9">
+      <ul>
+        <% if !(@notifications.nil?) %>
+          <% @notifications.each do |notification| %>
+          <% @from_user = User.find(notification.from_user_id) %>
+          <% unless notification.from_post_id.nil? %>
+            <% @from_post = Post.find(notification.from_post_id) %>
+          <% end %>
+          <% unless notification.from_comment_id.nil? %>
+            <% @from_comment = Comment.find(notification.from_comment_id) %>
+          <% end %>
+          <hr>
+            <div class="media">
+              <div class="media-body">
+                <div class="media-heading" style="margin-top: -15px;">
+
+                  <%= link_to(@from_user) do %>
+                    <h3><%= image_tag(@from_user.picture.url, height: "40px", width: "40px", style:"border: 1px solid #aaaaaa; padding: 2px;") %>
+                    <%= @from_user.name %><% end %>
+                    <%= notification.description %>
+                    <% unless notification.from_post_id.nil? %>
+                      <%= link_to(posts_feed_user_path(current_user, :post_id => notification.from_post_id)) do %>
+                        <%= image_tag(@from_post.picture.url, height: "100px", width: "100px", style:"border: 1px solid #aaaaaa; padding: 2px;") %></h3>
+                      <% end %>
+                    <% end %>
+                    <% unless notification.from_comment_id.nil? %>
+                        <h5>Comment: <%= @from_comment.comment %></h5>
+                    <% end %>
+                </div>
+              </div>
+
+              <div class="media-bottom">
+                <h5><small><%= time_ago_in_words(notification.created_at) %> ago</small></h5>
+            </div>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  </div>
+</div>

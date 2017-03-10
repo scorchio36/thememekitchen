@@ -53,6 +53,10 @@ Rails.application.routes.draw do
   end
   resources :posts
   resources :comments, except: [:show]
-
+  resources :notifications do
+    member do
+      get :notification_list
+    end
+  end
 
 end

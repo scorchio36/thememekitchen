@@ -56,6 +56,7 @@ class StaticPagesController < ApplicationController
 
     @all_posts = Post.all
     @current_post = @all_posts[session[:currentIndex]]
+    @poster = @current_post.user
 
     if(@current_post.liked_by(current_user))
 
@@ -73,6 +74,8 @@ class StaticPagesController < ApplicationController
       end
 
     end
+
+    @poster.notifications.create(description:"liked your post", from_user_id: current_user.id, from_post_id: @current_post.id)
 
     respond_to do |format|
 

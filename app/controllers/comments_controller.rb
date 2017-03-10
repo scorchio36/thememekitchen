@@ -20,6 +20,9 @@ class CommentsController < ApplicationController
       @current_post = Post.find_by(id: session[:current_post_id])
       @comment.update_attribute(:post_id, @current_post.id)
 
+      @current_post.user.notifications.create(description:"commented on your post", from_user_id: current_user.id,
+                                                        from_post_id: @current_post.id, from_comment_id: @comment.id)
+
       respond_to do |format|
 
         format.js
@@ -76,6 +79,8 @@ class CommentsController < ApplicationController
         @comment.update_attribute(:dislikes, (@comment.dislikes-1))
         current_user.removeDislikedComment(@comment.id)
       end
+
+      @comment.user.notifications.create(description:"liked your comment on this post", from_user_id: current_user.id, from_post_id: @current_post.id)
 
     end
 

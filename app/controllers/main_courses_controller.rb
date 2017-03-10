@@ -55,6 +55,7 @@ class MainCoursesController < ApplicationController
 
     @all_posts = Post.reorder(main_course_added_at: :desc).where(main_course: true)
     @current_post = @all_posts[session[:currentIndex]]
+    @poster = @current_post.user
 
     if(@current_post.liked_by(current_user))
 
@@ -72,6 +73,8 @@ class MainCoursesController < ApplicationController
       end
 
     end
+
+    @poster.notifications.create(description:"liked your post", from_user_id: current_user.id, from_post_id: @current_post.id)
 
     respond_to do |format|
 

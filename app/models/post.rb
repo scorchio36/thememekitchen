@@ -1,7 +1,7 @@
 class Post < ApplicationRecord
 
 
-  MAXIMUM_TITLE_LENGTH = 50
+  MAXIMUM_TITLE_LENGTH = 40
   MAXIMUM_DESCRIPTION_LENGTH = 300
 
   belongs_to :user

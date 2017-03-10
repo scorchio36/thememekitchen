@@ -15,6 +15,7 @@ class User < ApplicationRecord
   has_many :following, through: :active_relationships, source: :followed #following is the array of USERS that self is following
   has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
   has_many :followers, through: :passive_relationships, source: :follower #followers is the array of USERS that self is being followed by #Allows us to say User.followers
+  has_many :notifications, dependent: :destroy
 
   has_secure_password
   attr_accessor :remember_token

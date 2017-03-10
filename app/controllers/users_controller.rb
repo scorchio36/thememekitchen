@@ -159,6 +159,8 @@ class UsersController < ApplicationController
 
     end
 
+    @poster.notifications.create(description:"liked your post", from_user_id: current_user.id, from_post_id: @current_post.id)
+
     respond_to do |format|
 
       format.js {render :file => 'users/handle_post_like_dislike.js.erb'}
@@ -224,6 +226,8 @@ class UsersController < ApplicationController
       format.js { render :file => 'users/handle_sub_unsub.js.erb' }
 
     end
+
+    @user.notifications.create(description:"has subscribed to your memes!", from_user_id: current_user.id)
 
   end
 
