@@ -25,7 +25,7 @@
           <% if post.title.nil? %>
             <h4>Dank Meme</h4>
           <% else %>
-            <h4><%= post.title %></h4>
+            <h4><% if post.main_course %><b class="glyphicon glyphicon-star" style="position: absolute; right: 10%; top: 11%; color: #ffbb00; font-size: 1.75em;"></b><% end %><%= post.title %></h4>
           <% end %>
         </div>
       </div>

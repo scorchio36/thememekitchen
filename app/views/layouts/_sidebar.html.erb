@@ -17,7 +17,7 @@
         <li><%= link_to(kitchen_path) do %>
               <b class="glyphicon glyphicon-fire"></b> Kitchen</li><% end %>
         <li><%= link_to(current_user) do %>
-              <b class="glyphicon glyphicon-user"></b> Profile</li><% end %>
+              <% if(current_user.notifications.where(seen: false).count != 0) %><span class="badge"><%= current_user.notifications.where(seen: false).count %></span><% end %><b class="glyphicon glyphicon-user"></b> Profile</li><% end %>
     <% end %>
     <li class="nav-divider"></li>
     <% if logged_in? %>

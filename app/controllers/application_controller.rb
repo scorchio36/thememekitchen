@@ -6,4 +6,5 @@ class ApplicationController < ActionController::Base
   def hello_test
     render text: "Hello"
   end
+
 end

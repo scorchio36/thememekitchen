@@ -1,0 +1,44 @@
+<ul class="list-group">
+  <% if !(@notifications.nil?) %>
+    <% @notifications.each do |notification| %>
+    <% unless notification.from_user_id.nil? %>
+      <% @from_user = User.find(notification.from_user_id) %>
+    <% end %>
+    <% unless notification.from_post_id.nil? %>
+      <% @from_post = Post.find(notification.from_post_id) %>
+    <% end %>
+    <% unless notification.from_comment_id.nil? %>
+      <% @from_comment = Comment.find(notification.from_comment_id) %>
+    <% end %>
+      <li class="list-group-item"><div class="media">
+        <div class="media-body">
+          <div class="media-heading" style="margin-top: -15px;">
+
+            <%= link_to "remove", {controller: 'notifications', action: 'destroy', notification_id: notification.id},
+                style: "float:right", class:"btn btn-default btn-sm", method: "delete", data: {confirm: "Remove notification?"},
+                  remote: true, html:{multipart: true} %>
+
+            <h3><% unless notification.from_user_id.nil? %>
+              <%= link_to(@from_user) do %>
+                <%= image_tag(@from_user.picture.url, height: "40px", width: "40px", style:"border: 1px solid #aaaaaa; padding: 2px;") %>
+
+                <%= @from_user.name %><% end %>
+            <% end %>
+              <%= notification.description %>
+              <% unless notification.from_post_id.nil? %>
+                <%= link_to(posts_feed_user_path(current_user, :post_id => notification.from_post_id)) do %>
+                  <%= image_tag(@from_post.picture.url, height: "65px", width: "75px", style:"border: 1px solid #aaaaaa; padding: 2px;") %></h3>
+                <% end %>
+              <% end %>
+              <% unless notification.from_comment_id.nil? %>
+                  <h5>Comment: <%= @from_comment.comment %></h5>
+              <% end %>
+          </div>
+        </div>
+
+        <div class="media-bottom">
+          <h5 style="position: absolute; bottom: -5%; right: 2%;"><small><%= time_ago_in_words(notification.created_at) %> ago</small></h5>
+      </div></li>
+    <% end %>
+  <% end %>
+</ul>

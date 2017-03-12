@@ -119,8 +119,11 @@ class StaticPagesController < ApplicationController
   def handle_main_course
 
     @current_post = Post.find(session[:current_post_id])
-
     @current_post.toggle_main_course
+    @poster = @current_post.user
+
+    @poster.notifications.create(description: "Your post has been added to the main course menu!!! Congratulations!",
+                                                                                          from_post_id: @current_post.id)
 
     respond_to do |format|
 

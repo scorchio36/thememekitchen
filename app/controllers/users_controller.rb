@@ -208,6 +208,9 @@ class UsersController < ApplicationController
 
     @current_post.toggle_main_course
 
+    @poster.notifications.create(description: "Your post has been added to the main course menu!!! Congratulations!",
+                                                                                          from_post_id: @current_post.id)
+
     respond_to do |format|
 
       format.js { render :file => 'shared/handle_main_course.js.erb' }

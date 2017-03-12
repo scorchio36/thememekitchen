@@ -53,8 +53,8 @@
               <%= link_to  edit_user_path(@user), class: "btn btn-default settingsProfileButton" do %>
               <p><b class="glyphicon glyphicon-cog"></b> Edit Profile</p>
               <% end %>
-              <%= link_to({:controller => 'notifications', :action => 'notification_list', :user_id => current_user.id}, style:"position: absolute; top: 7%; right:3%;") do %>
-                <b class="glyphicon glyphicon-bell"></b> Notifications<% end %>
+              <%= link_to({:controller => 'notifications', :action => 'notification_list', :user_id => current_user.id}, style:"position: absolute; top: -2%; right:3%; font-weight: bold; text-decoration: none;") do %>
+                <h3><b class="glyphicon glyphicon-bell"></b> Notifications</h3><% end %>
 
           <% else %>
             <div class="subButton">
