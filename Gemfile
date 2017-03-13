@@ -21,6 +21,8 @@ gem 'coffee-rails', '~> 4.2'
 # gem 'therubyracer', platforms: :ruby
 
 gem 'pg'
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 
 
 # Use jquery as the JavaScript library
