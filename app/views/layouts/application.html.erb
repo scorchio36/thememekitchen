@@ -14,7 +14,7 @@
 
   </head>
 
-  <body>
+  <body class="<%= yield(:background_image)%>" >
 
     <% flash.each do |message_type, message| %>
       <div class="alert alert-<%= message_type %>" data-dismiss="alert"   style="font-weight: bold; position: absolute; right: 0px; width: 100%; z-index: 1001;">

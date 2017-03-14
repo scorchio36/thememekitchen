@@ -1,31 +1,43 @@
+<%= provide(:background_image, "memeBackground") %>
 <% provide(:title, "Sign Up") %>
 <% provide(:subtitle, "We have a table waiting for you") %>
 <%= render :partial => 'layouts/sidebar' %>
 
-<div class="container">
+
+
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-md-offset-2">
+      <div>
+        <h1 class="signupPageTitle">Frizzleskillet<br><small>-The Dankest Meme Restaurant on the Internet</small></h1>
+      </div>
+    </div>
+  </div>
+
   <div class="row">
     <div class="col-md-offset-4 col-md-5">
       <div class="signupBlock">
 
-        <h1>Sign Up</h1>
+        <h1 style= "color: #676767;">Sign Up</h1>
 
         <%= form_for @user do |f| %>
 
           <%= render 'shared/error_messages', object:f.object, style:"position:absolute;" %>
 
-          <%= f.label :name, "Username" %>
+          <%= f.label :name, "Username", style: "color: #676767;" %>
           <%= f.text_field :name, class:"form-control" %><br>
 
-          <%= f.label :email %>
+          <%= f.label :email, style: "color: #676767;" %>
           <%= f.email_field :email, class:"form-control" %><br>
 
-          <%= f.label :password %>
+          <%= f.label :password, style: "color: #676767;" %>
           <%= f.password_field :password, class:"form-control" %><br>
 
-          <%= f.label :password_confirmation, "Confirm Password" %>
+          <%= f.label :password_confirmation, "Confirm Password", style: "color: #676767;" %>
           <%= f.password_field :password_confirmation, class:"form-control" %><br>
 
-          <%= f.submit "Create Account", class: "btn btn-md btn-default", style: "float: right; margin-top: -10px;" %><br>
+          <%= f.submit "Create Account", class: "btn btn-md btn-danger", style: "float: right; margin-top: -10px; font-weight: bold;" %><br>
 
         <% end %>
 

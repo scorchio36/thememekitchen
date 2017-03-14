@@ -8,8 +8,10 @@
   position: fixed;
   height: 100%;
   width: 150px;
-  background-color: #444444;
+  //background-color: #992222;
+  background-color: #111111;
   z-index: 1000; //Make sure that the menu is always the frontmost div
+  //border: 1px solid white;
 
   li
   {
@@ -59,14 +61,32 @@ header
 }
 
 
+.memeBackground
+{
+  background: url(meme_background_dark.png) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+}
+
+.kitchenBackground
+{
+  background: url(kitchen_background_dark.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+}
+
 
 //login screen
 .loginBlock
 {
-  border: 1px solid black;
-  border-radius: 5px;
+  background-color: #eeeeee;
+  //border: 1px solid black;
+  border-radius:10px;
   padding: 15px;
   margin-top: 30%;
+
 
   h1
   {
@@ -79,10 +99,12 @@ header
 //signup screen
 .signupBlock
 {
-  border: 1px solid gray;
-  border-radius: 5px;
+  background-color: #eeeeee;
+  //border: 1px solid gray;
+  border-radius: 10px;
   padding: 15px;
-  margin-top: 20%;
+  margin-top: 3%;
+  margin-bottom: 6%;
 
   h1
   {
@@ -92,19 +114,35 @@ header
   }
 }
 
+.signupPageTitle
+{
+  color: #ffff00;
+  font-weight: bold;
+  font-size: 3.2em;
+  text-shadow: 2px 2px black;
+
+  small
+  {
+    margin-left: 5%;
+    color: #cccccc;
+  }
+}
+
 //Kitchen Page
 .kitchenBlock
 {
-  border: 1px solid gray;
-  border-radius: 5px;
+  //border: 1px solid gray;
+  border-radius: 10px;
   padding: 15px;
   margin-top: 5%;
   margin-bottom: 10%;
+  background-color: #eeeeee;
 
   h3
   {
+    color: #ee0000;
     font-weight: bold;
-    text-shadow: 1px 1px red;
+    text-shadow: 1px 1px black;
   }
 }
 
@@ -401,7 +439,7 @@ header
   border: 1px solid #cccccc;
   border-radius: 15px;
   margin-left: 5%;
-  background-color: #dddddd;
+  background-color: #cccccc;
 
   h2
   {
@@ -419,7 +457,7 @@ header
 .commentHeader
 {
   width: 300px;
-  background-color: #dddddd;
+  background-color: #cccccc;
   margin-top: 5px;
   float:left;
   border-bottom: 1px solid #999999;
@@ -429,7 +467,7 @@ header
 .commentBlock
 {
   width: 300px;
-  background-color: #dddddd;
+  background-color: #cccccc;
   float: left;
   height: 480px;
   overflow: auto;
@@ -510,7 +548,7 @@ header
 .commentTimestamp
 {
   float: right;
-  color: #aaaaaa;
+  color: #333333;
 }
 
 

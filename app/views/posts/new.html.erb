@@ -1,3 +1,4 @@
+<% provide(:background_image, "kitchenBackground") %>
 <% provide(:title, "Kitchen") %>
 <% provide(:subtitle, "Can you handle the heat?") %>
 <%= render :partial => 'layouts/sidebar' %>
@@ -24,11 +25,11 @@ $(function() {
 });
 </script>
 
-<div class="container">
+<div class="container-fluid">
   <div class="row">
     <div class="col-md-offset-3 col-md-6">
 
-      <h1 class="kitchenTitle">Welcome to the Kitchen</h1>
+      <h1 class="kitchenTitle" style="color:#dddd00; text-shadow: 2px 2px black;">Welcome to the Kitchen!</h1>
 
       <div class="kitchenBlock">
 
@@ -46,7 +47,7 @@ $(function() {
           <%= f.label :picture, "Throw that meme on the pan!", accept: 'image/jpeg,image/gif,image/png' %>
           <%= f.file_field :picture, id: "memePicture" %><br>
 
-          <%= f.label :description, "How about a spicy caption?:" %>
+          <%= f.label :description, "How about a spicy caption?" %>
           <%= f.text_area :description, class: "form-control" %><br>
 
           <%= f.submit "Send out this Meme", class:"btn btn-lg btn-danger", style: "float: right; font-weight: bold;", data: {disable_with: "Loading...".html_safe}  %>
