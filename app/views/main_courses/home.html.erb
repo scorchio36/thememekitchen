@@ -1,3 +1,4 @@
+<%= provide(:background_image, "mainCourseBackground") %>
 <% provide(:title, "Main Course") %>
 <% provide(:subtitle, "Top rated memes") %>
 <%= render(:partial => 'layouts/sidebar') %>
@@ -89,7 +90,7 @@
     <div class="col-md-2">
 
         <div class="commentHeader">
-          <h2 style="font-weight: bold; color: #676767;">Customer Reviews</h2>
+          <h2>Customer Reviews</h2>
 
             <% if logged_in? %>
               <%= form_for(@comment, remote: true) do |f| %>

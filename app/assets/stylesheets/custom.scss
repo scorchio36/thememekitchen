@@ -85,6 +85,20 @@ header
   background-size: cover;
 }
 
+.mainCourseBackground
+{
+  background: url(food18.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+}
+
+.profileBackground
+{
+  background-color: #444444;
+}
+
+
 
 //login screen
 .loginBlock
@@ -477,10 +491,19 @@ header
 {
   width: 300px;
   background-color: #cccccc;
-  margin-top: 5px;
+  margin-top: 3%;
   float:left;
   border-bottom: 1px solid #bbbbbb;
   padding: 3px;
+  border-radius: 10px 10px 0px 0px;
+
+  h2
+  {
+     font-weight: bold;
+     color: #676767;
+     text-align: center;
+  }
+
 }
 //div that contains all of the comments
 .commentBlock
@@ -488,8 +511,10 @@ header
   width: 300px;
   background-color: #cccccc;
   float: left;
-  height: 480px;
+  height: 70vh;
   overflow: auto;
+  border-radius: 0px 0px 10px 10px;
+
 }
 .commentPicture
 {
@@ -578,6 +603,7 @@ header
 .userProfileTitle
 {
   border: 2px solid black;
+  background-color: #eeeeee;
 }
 
 .userProfileTitleMedia
@@ -632,7 +658,7 @@ header
   width: 100%;
   height: 150px;
 
-  background-color: #444444;
+  background-color: #bbbbbb;
 
   img
   {
@@ -647,6 +673,7 @@ header
   border: 1px solid #333333;
   border-radius: 7px;
   margin-top: -15px;
+  background-color: #eeeeee;
 
   h4
   {
