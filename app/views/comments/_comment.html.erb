@@ -1,8 +1,9 @@
 <li>
   <div class="media commentMedia">
     <div class="media-left">
-
-      <%= image_tag @comment.user.picture.url, class: "img-rounded commentPicture" %>
+      <%= link_to(comment.user) do %>
+        <%= image_tag @comment.user.picture.url, class: "img-rounded commentPicture" %>
+      <% end %>
     </div>
 
     <div class="media-body">
