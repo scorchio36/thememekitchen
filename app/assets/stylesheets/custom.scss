@@ -405,7 +405,7 @@ header
 
   img
   {
-    max-width: 790px;
+    max-width: 787px;
     max-height: 425px;
     display: block;
     margin: auto;
@@ -641,10 +641,15 @@ header
   {
     .thumbnail
     {
-      background-color: #777777;
+      background-color: #dddddd;
     }
 
     .deleteProfilePostButton
+    {
+      visibility: visible;
+    }
+
+    .whiteCircle
     {
       visibility: visible;
     }
@@ -657,14 +662,17 @@ header
 {
   width: 100%;
   height: 150px;
+  border: 1px solid #bbbbbb;
+  padding: 5px;
 
-  background-color: #bbbbbb;
+  background-color: #bbbbbb88;
 
   img
   {
     max-width: 100%;
     max-height: 100%;
     vertical-align: middle;
+    border: 1px solid #bbbbbb;
   }
 }
 
@@ -709,10 +717,10 @@ header
   left: 7px;
   color: #2255ff;
   font-size: 2.0em;
-  background-color: #ffffff;
+  background-color: #44444400;
   visibility: hidden;
-  width: 25px;
-  height: 25px;
+  width: 15px;
+  height: 15px;
 
   &:hover
   {
@@ -720,6 +728,19 @@ header
     color: #ff2233;
   }
 
+}
+
+//stays behind deleteProfilePostButton to make it look pretty with a white X (no matter what background color)
+.whiteCircle
+{
+  background-color: white;
+  position: absolute;
+  top: 11px;
+  left: 9px;
+  width: 23px;
+  height: 23px;
+  border-radius: 25px;
+  visibility: hidden;
 }
 
 .postMainCourseButton

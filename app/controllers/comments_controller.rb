@@ -48,6 +48,9 @@ class CommentsController < ApplicationController
     @comment = Comment.find_by(id: params[:id])
     @post_comments = @comment.post.comments #used to rerender all of the comments with ajax
     @poster = @comment.post.user #used to rerender all of the comments with ajax
+    Notification.where(from_comment_id: @comment.id).each do |notification| #need to destroy a notificaiton associated with this comment if the comment is deleted
+      notification.destroy
+    end
     @comment.destroy
 
     respond_to do |format|

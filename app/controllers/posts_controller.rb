@@ -31,7 +31,11 @@ class PostsController < ApplicationController
     @post = Post.find_by(id: params[:post_id])
     @user = @post.user
     @posts = @user.posts #store the posts so that the destroy.js.erb file can render the rest of the posts properly
+    Notification.where(from_post_id: @post.id).each do |notification|
+      notification.destroy
+    end
     @post.destroy
+
 
 
     respond_to do |format|

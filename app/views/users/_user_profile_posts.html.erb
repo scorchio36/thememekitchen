@@ -6,6 +6,10 @@
       <div class="col-md-3 postThumbnail">
         <div class="thumbnail">
 
+          <!--We need this white circle to stay behind the X marks and keep them pretty -->
+          <div class="whiteCircle">
+          </div>
+
           <!--If this is the current_user's profile then let them delete posts -->
           <% if logged_in? %>
             <% if current_user.id == @user.id %>
@@ -25,7 +29,7 @@
           <% if post.title.nil? %>
             <h4>Dank Meme</h4>
           <% else %>
-            <h4><% if post.main_course %><b class="glyphicon glyphicon-star" style="position: absolute; right: 10%; top: 11%; color: #ffbb00; font-size: 1.75em;"></b><% end %><%= post.title %></h4>
+            <h4><% if post.main_course %><b class="glyphicon glyphicon-star" style="position: absolute; right: 9%; top: 11%; color: #ffff00; font-size: 1.75em; background-color: #5555ee; border-radius:25px; width: 25px; height: 25px;"></b><% end %><%= post.title %></h4>
           <% end %>
         </div>
       </div>
