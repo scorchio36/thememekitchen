@@ -6,9 +6,7 @@
       <div class="col-md-3 postThumbnail">
         <div class="thumbnail">
 
-          <!--We need this white circle to stay behind the X marks and keep them pretty -->
-          <div class="whiteCircle">
-          </div>
+
 
           <!--If this is the current_user's profile then let them delete posts -->
           <% if logged_in? %>
@@ -17,6 +15,9 @@
                 method: "delete", data: {confirm: "Are you sure you want to delete your dank meme?", remote: true}) do %>
                 <b class="glyphicon glyphicon-remove-sign"></b>
               <% end %>
+              <!--We need this white circle to stay behind the X marks and keep them pretty -->
+              <div class="whiteCircle">
+              </div>
             <% end %>
           <% end %>
 
