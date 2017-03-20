@@ -6,6 +6,11 @@ class UsersController < ApplicationController
   def show
     @user = User.find_by(id: params[:id])
     @posts = @user.posts
+
+    render 'show'
+
+    session[:show_username_changed] = false
+
   end
 
   def new
@@ -51,7 +56,7 @@ class UsersController < ApplicationController
     if(params[:change_username])
 
       if @user.update_attributes(user_params)
-        flash[:success] = "Username successfully updated"
+        session[:show_username_changed] = true
         redirect_to @user
       else
         render 'edit'
@@ -62,7 +67,7 @@ class UsersController < ApplicationController
     if(params[:change_email])
 
       if @user.update_attributes(user_params)
-        flash[:success] = "Email successfully updated"
+        session[:show_email_changed] = true
         redirect_to @user
       else
         render 'edit'
@@ -76,7 +81,7 @@ class UsersController < ApplicationController
       else
         if @user.update_attributes(user_params)
           if @user.update_attributes(user_params)
-            flash[:success] = "Password successfully updated"
+            session[:show_password_changed] = true
             redirect_to @user
           else
             render 'edit_password'
