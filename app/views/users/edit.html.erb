@@ -1,4 +1,7 @@
+<% provide(:title, "Edit Profile") %>
+<% provide(:subtitle, "Need a name change?") %>
 <%= render :partial => 'layouts/sidebar' %>
+
 
 
 <!-- Script code for preview generation. Credit: https://www.spencerdixon.com/blog/image-preview-with-carrierwave-and-rails.html -->
@@ -33,7 +36,25 @@ $(function() {
 
           <%= f.file_field :picture, id:"newProfilePicture" %>
           <%= f.submit "Submit New Profile Picture",
-                class:"btn btn-md btn-default", style: "margin-top: 5px;", name: 'change_picture' %>
+                class:"btn btn-md btn-default", style: "margin-top: 5px;", name: 'change_picture', id:"newProfilePictureButton" %>
+
+          <!--Script to prevent user from submitting a picture if they havnt uploaded yet -->
+          <script type="text/javascript">
+                $(document).ready(
+                  function(){
+                    $('#newProfilePictureButton').attr('disabled',true);
+                    $('input:file').change(
+                      function(){
+                        if ($(this).val()){
+                          $('#newProfilePictureButton').removeAttr('disabled');
+                        }
+                        else {
+                          $('#newProfilePictureButton').attr('disabled',true);
+                        }
+                      });
+                  });
+          </script>
+
         <% end %>
       </div>
     </div>
@@ -44,31 +65,24 @@ $(function() {
         <h1>Edit Profile</h1>
         <%= form_for @user do |f| %>
 
+          <%= render 'shared/error_messages', object:f.object %>
+
           <%= f.label :name, "New Username" %>
           <%= f.text_field :name, class: "form-control" %>
 
-          <%= f.submit "Submit New Username", class:"btn btn-md btn-default",
+          <%= submit_tag "Submit New Username", class:"btn btn-md btn-default",
                   style: "float: right; margin-top: 5px;", name: 'change_username' %><br><br>
 
 
           <%= f.label :email, "New Email" %>
           <%= f.email_field :email, class: "form-control" %>
 
-          <%= f.submit "Submit New Email", class:"btn btn-md btn-default",
+          <%= submit_tag "Submit New Email", class:"btn btn-md btn-default",
                   style: "float: right; margin-top: 5px;", name: 'change_email' %><br><br>
-
-
-          <%= f.label :password, "New Password" %>
-          <%= f.password_field :password, class: "form-control" %><br>
-
-          <%= f.label :password_confirmation, "Confirm New Password" %>
-          <%= f.password_field :password_confirmation, class: "form-control" %>
-
-          <%= f.submit "Submit New Password", class:"btn btn-md btn-default",
-                  style: "float: right; margin-top: 5px;", name: 'change_password' %><br><br><br>
 
         <% end %>
 
+        <%= link_to "Change Password", edit_password_user_path(@user), style: "display: block; float: right;" %><br>
         <%= link_to "< Back to Profile", @user, style: "display: block; float: right;" %>
 
         <!--<%= link_to "Change Email", "#", class: "btn btn-default btn-lg"%><br>

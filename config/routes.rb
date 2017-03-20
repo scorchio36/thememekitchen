@@ -50,6 +50,10 @@ Rails.application.routes.draw do
     member do
       get :subscribers
     end
+
+    member do
+      get :edit_password
+    end
   end
   resources :posts
   resources :comments, except: [:show]

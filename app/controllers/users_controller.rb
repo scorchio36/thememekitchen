@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
   before_action :post_like_dislike_filter, only: [:handle_post_like, :handle_post_dislike]
+  before_action :prevent_other_user_edits, only: [:edit]
 
   def show
     @user = User.find_by(id: params[:id])
@@ -49,38 +50,58 @@ class UsersController < ApplicationController
 
     if(params[:change_username])
 
-      if @user.update_attribute(:name, params[:user][:name])
+      if @user.update_attributes(user_params)
         flash[:success] = "Username successfully updated"
         redirect_to @user
+      else
+        render 'edit'
       end
 
     end
 
     if(params[:change_email])
 
-      if @user.update_attribute(:email, params[:user][:email])
+      if @user.update_attributes(user_params)
         flash[:success] = "Email successfully updated"
         redirect_to @user
+      else
+        render 'edit'
       end
     end
 
     if(params[:change_password])
-
-      if @user.update_attribute(:password, params[:user][:password])
-        if @user.update_attribute(:password_confirmation, params[:user][:password])
-          flash[:success] = "Password successfully updated"
-          redirect_to @user
+      if params[:user][:password].empty?
+        flash[:danger] = "Password fields are empty"
+        render 'edit_password'
+      else
+        if @user.update_attributes(user_params)
+          if @user.update_attributes(user_params)
+            flash[:success] = "Password successfully updated"
+            redirect_to @user
+          else
+            render 'edit_password'
+          end
+        else
+          render 'edit_password'
         end
       end
     end
 
-    if(params[:change_picture])
+    if(!(params[:change_picture].nil?))
 
       if @user.update_attribute(:picture, params[:user][:picture])
-          flash[:success] = "Profile Picture successfully updated"
-          redirect_to @user
+        flash[:success] = "Profile Picture successfully updated"
+        redirect_to @user
+      else
+        render 'edit'
       end
     end
+
+  end
+
+  def edit_password
+
+    @user = User.find(params[:id])
 
   end
 
@@ -261,6 +282,21 @@ class UsersController < ApplicationController
       flash[:danger] = "You must be logged in to like/dislike a post"
     end
 
+  end
+
+  def prevent_other_user_edits
+    @user = User.find(params[:id])
+
+    if !(logged_in?)
+      redirect_to login_path
+      flash[:danger] = "You must be logged in to visit this page"
+
+    else
+      if (current_user.id != @user.id)
+        redirect_to home_path
+        flash[:danger] = "You must be logged in as the correct user to visit this page"
+      end
+    end
   end
 
 end
