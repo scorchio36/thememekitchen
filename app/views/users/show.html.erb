@@ -1,7 +1,6 @@
 <%= provide(:background_image, "profileBackground") %>
 <% provide(:title, "Profile") %>
 <% provide(:subtitle, "Dank Memer") %>
-<%= render 'layouts/sidebar' %>
 
 <!-- notification modals for when users do something (Update profile, make a new post, signup, etc) -->
 <%= render 'users/user_modals' %>
@@ -10,59 +9,16 @@
 
   <div class="row">
     <div class="col-md-offset-1 col-md-11">
-      <div class="userProfileTitle">
-
-        <div class="media userProfileTitleMedia">
-          <div class="media-left">
-            <%= image_tag @user.picture.url, class: "userProfilePicture"%>
-          </div>
-
-          <div class="media-body">
-            <h1 class="media-heading"><%= @user.name %></h1>
-                <%= link_to({ :controller => 'static_pages', :action => 'subscribers', :user_id => @user.id},
-                            class:"userProfileSubscribersLink") do %>Subscribers: <span class="profileSubCount">
-                                                                          <%= @user.followers.count %></span><% end %>
-          </div>
-
-        </div>
-
-        <!-- Dont let other users edit another user's profile or make memes for them -->
-        <% if logged_in? %>
-          <% if current_user.id == @user.id %>
-            <%= link_to  kitchen_path, class: "btn btn-danger makeMemesProfileButton" do %>
-              <p><b class="glyphicon glyphicon-fire"></b> Cook up a new Meme!</p>
-              <% end %>
-              <%= link_to  edit_user_path(@user), class: "btn btn-default settingsProfileButton" do %>
-              <p><b class="glyphicon glyphicon-cog"></b> Edit Profile</p>
-              <% end %>
-              <%= link_to({:controller => 'notifications', :action => 'notification_list', :user_id => current_user.id}, style:"position: absolute; top: -2%; right:3%; font-weight: bold; text-decoration: none;") do %>
-                <h3>
-                  <b class="glyphicon glyphicon-bell"></b> Notifications
-                  <% if(current_user.notifications.where(seen: false).count != 0) %>
-                    <span class="badge" style="background-color:#3366BB; font-size:0.75em;"><%= current_user.notifications.where(seen: false).count %></span>
-                  <% end %>
-                </h3>
-              <% end %>
-
-          <% else %>
-            <div class="subButton">
-              <%= render 'users/sub_button' %>
-            </div>
-          <% end %>
-
-        <% else %>
-          <!-- Add a button here for subscribe and redirect it -->
-        <% end %>
-
-
-      </div>
+      <!--Header partial contains the upper block with all of the profile information and functionality -->
+      <%= render 'users/user_profile_header' %>
     </div>
   </div>
 
   <div class="row">
 
     <div class="userProfilePosts">
-      <%= render(:partial => 'user_profile_posts') %>
+      <!-- Partial renders all of the user's posts -->
+      <%= render 'users/user_profile_posts' %>
     </div>
 
   </div>

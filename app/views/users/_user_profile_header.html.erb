@@ -1,0 +1,46 @@
+<!-- Upper block of each user's profile that contains all the profile functionality -->
+<div class="userProfileTitle">
+
+  <div class="media userProfileTitleMedia">
+    <div class="media-left">
+      <%= image_tag @user.picture.url, class: "userProfilePicture"%>
+    </div>
+
+    <div class="media-body">
+      <h1 class="media-heading"><%= @user.name %></h1>
+          <%= link_to({ controller:'static_pages', action:'subscribers', :user_id => @user.id},
+                      class:"userProfileSubscribersLink") do %>Subscribers: <span class="profileSubCount">
+                                                                    <%= @user.followers.count %></span><% end %>
+    </div>
+
+  </div>
+
+  <!-- Dont let other users edit another user's profile or make memes for them -->
+  <% if logged_in? %>
+    <% if current_user.id == @user.id %>
+      <%= link_to  kitchen_path, class: "btn btn-danger makeMemesProfileButton" do %>
+        <p><b class="glyphicon glyphicon-fire"></b> Cook up a new Meme!</p>
+        <% end %>
+        <%= link_to  edit_user_path(@user), class: "btn btn-default settingsProfileButton" do %>
+        <p><b class="glyphicon glyphicon-cog"></b> Edit Profile</p>
+        <% end %>
+        <%= link_to({controller:'notifications', action:'notification_list', :user_id => current_user.id},
+              style:"position: absolute; top: -2%; right:3%; font-weight: bold; text-decoration: none;") do %>
+          <h3>
+            <b class="glyphicon glyphicon-bell"></b> Notifications
+            <% if(current_user.notifications.where(seen: false).count != 0) %>
+              <span class="badge" style="background-color:#3366BB; font-size:0.75em;"><%= current_user.notifications.where(seen: false).count %></span>
+            <% end %>
+          </h3>
+        <% end %>
+
+    <% else %>
+      <!-- Subscriber button - Displays how many subscribers a user have an whether or not current_user is subbed already -->
+      <div class="subButton">
+        <%= render 'users/sub_button' %>
+      </div>
+    <% end %>
+  <% end %>
+
+
+</div>
