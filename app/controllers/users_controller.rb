@@ -176,22 +176,6 @@ class UsersController < ApplicationController
 
   end
 
-  #ADMIN FUNCTION
-  #Allows an admin to add a post to the main course
-  def handle_main_course
-
-    @current_post = Post.find(session[:current_post_id])
-    @current_post.toggle_main_course #main course is a boolean
-
-    #notify the poster that their post has been added to the main_course post feed
-    @poster.notifications.create(description: "Your post has been added to the main course menu!!! Congratulations!",
-                                                                                          from_post_id: @current_post.id)
-
-    respond_to do |format|
-      format.js { render :file => 'shared/handle_main_course.js.erb' }
-    end
-
-  end
 
   #users can subscribe to other users
   def handle_subscribe

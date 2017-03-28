@@ -1,37 +1,24 @@
 class StaticPagesController < ApplicationController
 
+  include StaticPagesHelper
+
   before_action :post_like_dislike_filter, only: [:handle_like, :handle_dislike]
 
-  def buffet
-
-    @current_post = Post.first #always get the latest post from the buffet
-    @all_posts = Post.all
-    session[:currentIndex] = @all_posts.index(@current_post)
-    @poster = User.find_by(id: @current_post.user_id)
-
-    session[:current_post_id] = @current_post.id
-
-    if logged_in?
-      @comment = current_user.comments.build
-    end
-
-    @post_comments = @current_post.comments
-
+  #Kitchen view is just a form to create a new meme post
+  def kitchen
   end
 
-  def kitchen
+  #buffet contains every post contained by every user in a constant stream - constantly updating
+  #Everything for the buffet feed should be initialized here
+  def buffet
+    init_buffet
   end
 
   def handle_next
 
-    @all_posts = Post.all
-    session[:currentIndex] = (session[:currentIndex]+1)
-    @current_post = @all_posts[session[:currentIndex]]
-    @poster = User.find_by(id: @current_post.user_id)
-    @post_comments = @current_post.comments
+    init_next
 
-    session[:current_post_id] = @current_post.id
-
+    #handle the next arrow using AJAX
     respond_to do |format|
       format.js { render :file => 'shared/handle_next_prev.js.erb' }
     end
@@ -39,13 +26,7 @@ class StaticPagesController < ApplicationController
 
   def handle_prev
 
-    @all_posts = Post.all
-    (session[:currentIndex] = (session[:currentIndex]-1)) unless (session[:currentIndex] == 0)
-    @current_post = @all_posts[session[:currentIndex]]
-    @poster = User.find_by(id: @current_post.user_id)
-    @post_comments = @current_post.comments
-
-    session[:current_post_id] = @current_post.id
+    init_prev
 
     respond_to do |format|
       format.js { render :file => 'shared/handle_next_prev.js.erb' }
@@ -58,29 +39,13 @@ class StaticPagesController < ApplicationController
     @current_post = @all_posts[session[:currentIndex]]
     @poster = @current_post.user
 
-    if(@current_post.liked_by(current_user))
+    like_logic
 
-      @current_post.update_attribute(:likes, (@current_post.likes-1))
-      current_user.removeLikedPost(@current_post.id) #remove the post from the current user's liked posts
-
-    else
-
-      @current_post.update_attribute(:likes, (@current_post.likes+1))
-      current_user.pushLikedPost(@current_post.id) #add the post to the current_user's liked posts
-
-      if(@current_post.disliked_by(current_user))
-        @current_post.update_attribute(:dislikes, (@current_post.dislikes-1))
-        current_user.removeDislikedPost(@current_post.id)
-      end
-
-    end
-
+    #notify poster that someone liked their post
     @poster.notifications.create(description:"liked your post", from_user_id: current_user.id, from_post_id: @current_post.id)
 
     respond_to do |format|
-
       format.js
-
     end
 
   end
@@ -90,63 +55,28 @@ class StaticPagesController < ApplicationController
     @all_posts = Post.all
     @current_post = @all_posts[session[:currentIndex]]
 
-    if(@current_post.disliked_by(current_user))
-
-      @current_post.update_attribute(:dislikes, (@current_post.dislikes-1))
-      current_user.removeDislikedPost(@current_post.id) #remove the post from the current user's liked posts
-
-    else
-
-      @current_post.update_attribute(:dislikes, (@current_post.dislikes+1))
-      current_user.pushDislikedPost(@current_post.id) #add the post to the current_user's liked posts
-
-      if @current_post.liked_by(current_user)
-        @current_post.update_attribute(:likes, (@current_post.likes-1))
-        current_user.removeLikedPost(@current_post.id)
-      end
-
-    end
+    dislike_logic
 
     respond_to do |format|
-
       format.js
 
     end
 
   end
 
-  #admin function
-  def handle_main_course
-
-    @current_post = Post.find(session[:current_post_id])
-    @current_post.toggle_main_course
-    @poster = @current_post.user
-
-    @poster.notifications.create(description: "Your post has been added to the main course menu!!! Congratulations!",
-                                                                                          from_post_id: @current_post.id)
-
-    respond_to do |format|
-
-      format.js { render :file => 'shared/handle_main_course.js.erb' }
-
-    end
-
-  end
-
-
-
-
-
+  #This page displays all the people that the current user is currently subscribed to
   def personal_chefs
     @subscriptions = current_user.following
   end
 
+  #This page displays what users are currently subscribed to the current_user
   def subscribers
     @user = User.find(params[:user_id])
     @subscribers = @user.followers
   end
-  def bar
 
+  #This page will remain inactive until a certain amount of users are reached
+  def bar
   end
 
 

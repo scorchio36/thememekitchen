@@ -14,17 +14,17 @@ Rails.application.routes.draw do
 
   delete '/logout', to: 'sessions#destroy'
 
+  post 'application/handle_main_course' => 'application#handle_main_course'
+
   post 'static_pages/handle_next' => 'static_pages#handle_next'
   post 'static_pages/handle_prev' => 'static_pages#handle_prev'
   post 'static_pages/handle_like' => 'static_pages#handle_like'
   post 'static_pages/handle_dislike' => 'static_pages#handle_dislike'
-  post 'static_pages/handle_main_course' => 'static_pages#handle_main_course'
 
   post 'main_courses/handle_next' => 'main_courses#handle_next'
   post 'main_courses/handle_prev' => 'main_courses#handle_prev'
   post 'main_courses/handle_like' => 'main_courses#handle_like'
   post 'main_courses/handle_dislike' => 'main_courses#handle_dislike'
-  post 'main_courses/handle_main_course' => 'main_courses#handle_main_course'
 
 
   post 'users/handle_next' => 'users#handle_next'

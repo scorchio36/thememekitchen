@@ -2,11 +2,11 @@
 <% if logged_in? %>
   <% if current_user.admin? %>
     <% if @current_post.main_course? %>
-      <%= link_to({:controller => 'static_pages', :action => 'handle_main_course'},
+      <%= link_to({:controller => 'application', :action => 'handle_main_course'},
             class: "btn btn-lg btn-success", style: "float: left; margin:5px;", method: "post", remote: true) do %>
               <b class="glyphicon glyphicon-star"></b><% end %>
     <% else %>
-      <%= link_to({:controller => 'static_pages', :action => 'handle_main_course'},
+      <%= link_to({:controller => 'application', :action => 'handle_main_course'},
             class: "btn btn-lg btn-default", style: "float: left; margin:5px;", method: "post", remote: true) do %>
               <b class="glyphicon glyphicon-star"></b><% end %>
     <% end %>
