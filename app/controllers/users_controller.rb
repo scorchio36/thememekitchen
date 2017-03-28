@@ -1,21 +1,22 @@
 class UsersController < ApplicationController
 
-  before_action :post_like_dislike_filter, only: [:handle_post_like, :handle_post_dislike]
-  before_action :prevent_other_user_edits, only: [:edit]
+  include UsersHelper
 
+  before_action :post_like_dislike_filter, only: [:handle_post_like, :handle_post_dislike]
+  before_action :prevent_other_user_edits, only: [:edit, :edit_password]
+
+  #User profile page will show information about user and their posts
   def show
     @user = User.find_by(id: params[:id])
     @posts = @user.posts
-
-    render 'show'
-
-    session[:show_username_changed] = false
-
   end
 
   def new
     @user = User.new
-    session[:show_signup_message] = false #This is just a message to show or hide the signup modal
+
+    #This is a session variable that tells us whether or not the 'Thanks for signing up modal' should appear on the user profile screen
+    #I initialize it to false here and when they user is created it will be switched to true until the user clicks out
+    session[:show_signup_message] = false
   end
 
   def edit
@@ -29,40 +30,36 @@ class UsersController < ApplicationController
     if @user.save
 
       #handle success
-      log_in(@user)
-      session[:show_signup_message] = true
-      redirect_to @user
+      log_in(@user) #store the user_id as the current_user id
+      session[:show_signup_message] = true #show the signup message
+      redirect_to @user #redirect user to his/her profile page
 
     else
 
       #handle error
+      #rerender the page if the system detects an error. The corresponding view will display the errors
       render 'new'
-      session[:show_signup_message] = false
+      session[:show_signup_message] = false #make sure the modal stays false
 
     end
   end
 
   def update
 
-    #@user = User.find_by(id: params[:id])
-
-
-    #if @user.update_attribute(:picture, params[:user][:picture])
-    #  redirect_to @user
-    #end
-
     @user = User.find(params[:id])
 
+    #In this method, each corresponding user attribute can be change depending on which submit button is pressed on the edit page
     if(params[:change_username])
 
       if @user.update_attributes(user_params)
-        session[:show_username_changed] = true
+        session[:show_username_changed] = true #another modal to confirm that a username update happened
         redirect_to @user
       else
-        render 'edit'
+        render 'edit' #if we get an error then rerender the page
       end
 
     end
+    #each method changer in this update method is structured in the same manner as this change_username block
 
     if(params[:change_email])
 
@@ -74,8 +71,9 @@ class UsersController < ApplicationController
       end
     end
 
+    #edit_password is a different page from the edit page where you can update your password
     if(params[:change_password])
-      if params[:user][:password].empty?
+      if params[:user][:password].empty? #include an empty password check
         flash[:danger] = "Password fields are empty"
         render 'edit_password'
       else
@@ -104,37 +102,23 @@ class UsersController < ApplicationController
 
   end
 
-  def edit_password
+  def edit_password #separate page to let user update his/her password
 
     @user = User.find(params[:id])
 
   end
 
+  #This is the feed for each individual user's posts (Click on a thumbnail in a user profile and this feed is what will appear)
   def posts_feed
 
-    @poster = User.find(params[:id])
-    @all_posts = @poster.posts
-    @current_post = Post.find_by(id: params[:post_id])
-    session[:currentIndex] = @all_posts.index(@current_post)
-    if logged_in?
-      @comment = current_user.comments.build
-    end
-
-    @post_comments = @current_post.comments
-
-    session[:current_post_id] = @current_post.id
+    init_posts_feed
 
   end
 
+  #When the user presses the next arrow button, the next post from the user's profile will appear on the screen
   def handle_next
 
-    @poster = User.find(params[:user_id])
-    @all_posts = @poster.posts
-    session[:currentIndex] = session[:currentIndex]+1
-    @current_post = @all_posts[session[:currentIndex]]
-    @post_comments = @current_post.comments
-
-    session[:current_post_id] = @current_post.id
+    init_next
 
     respond_to do |format|
 
@@ -144,15 +128,10 @@ class UsersController < ApplicationController
 
   end
 
+  #When the user presses the previous arrow button, the previous post from the user's profile will appear on the screen
   def handle_prev
 
-    @poster = User.find(params[:user_id])
-    @all_posts = @poster.posts
-    (session[:currentIndex] = session[:currentIndex]-1) unless (session[:currentIndex] == 0)
-    @current_post = @all_posts[session[:currentIndex]]
-    @post_comments = @current_post.comments
-
-    session[:current_post_id] = @current_post.id
+    init_prev
 
     respond_to do |format|
 
@@ -164,33 +143,19 @@ class UsersController < ApplicationController
 
   def handle_post_like
 
+    #used by the like_logic function
     @poster = User.find(params[:user_id])
     @all_posts = @poster.posts
     @current_post = @all_posts[session[:currentIndex]]
 
-    if(@current_post.liked_by(current_user))
+    like_logic
 
-      @current_post.update_attribute(:likes, (@current_post.likes-1))
-      current_user.removeLikedPost(@current_post.id) #remove the post from the current user's liked posts
-
-    else
-
-      @current_post.update_attribute(:likes, (@current_post.likes+1))
-      current_user.pushLikedPost(@current_post.id) #add the post to the current_user's liked posts
-
-      if(@current_post.disliked_by(current_user))
-        @current_post.update_attribute(:dislikes, (@current_post.dislikes-1))
-        current_user.removeDislikedPost(@current_post.id)
-      end
-
-    end
-
+    #notify the poster that their post was liked
     @poster.notifications.create(description:"liked your post", from_user_id: current_user.id, from_post_id: @current_post.id)
 
+    #Use AJAX to update the like button
     respond_to do |format|
-
       format.js {render :file => 'users/handle_post_like_dislike.js.erb'}
-
     end
 
   end
@@ -202,60 +167,44 @@ class UsersController < ApplicationController
     @all_posts = @poster.posts
     @current_post = @all_posts[session[:currentIndex]]
 
-    if(@current_post.disliked_by(current_user))
+    dislike_logic
 
-      @current_post.update_attribute(:dislikes, (@current_post.dislikes-1))
-      current_user.removeDislikedPost(@current_post.id) #remove the post from the current user's liked posts
-
-    else
-
-      @current_post.update_attribute(:dislikes, (@current_post.dislikes+1))
-      current_user.pushDislikedPost(@current_post.id) #add the post to the current_user's liked posts
-
-      if @current_post.liked_by(current_user)
-        @current_post.update_attribute(:likes, (@current_post.likes-1))
-        current_user.removeLikedPost(@current_post.id)
-      end
-
-    end
-
+    #Use AJAX to update the dislike button
     respond_to do |format|
-
       format.js {render :file => 'users/handle_post_like_dislike.js.erb'}
-
     end
 
   end
 
-  #admin function
+  #ADMIN FUNCTION
+  #Allows an admin to add a post to the main course
   def handle_main_course
 
     @current_post = Post.find(session[:current_post_id])
+    @current_post.toggle_main_course #main course is a boolean
 
-    @current_post.toggle_main_course
-
+    #notify the poster that their post has been added to the main_course post feed
     @poster.notifications.create(description: "Your post has been added to the main course menu!!! Congratulations!",
                                                                                           from_post_id: @current_post.id)
 
     respond_to do |format|
-
       format.js { render :file => 'shared/handle_main_course.js.erb' }
-
     end
 
   end
 
+  #users can subscribe to other users
   def handle_subscribe
 
     @user = User.find(params[:user_id])
     current_user.follow(@user)
 
+    #update the subscribe button using AJAX
     respond_to do |format|
-
       format.js { render :file => 'users/handle_sub_unsub.js.erb' }
-
     end
 
+    #notify the user when someone subscribes to them
     @user.notifications.create(description:"has subscribed to your memes!", from_user_id: current_user.id)
 
   end
@@ -266,9 +215,7 @@ class UsersController < ApplicationController
     current_user.unfollow(@user)
 
     respond_to do |format|
-
       format.js { render :file => 'users/handle_sub_unsub.js.erb' }
-
     end
 
   end
@@ -289,6 +236,7 @@ class UsersController < ApplicationController
 
   end
 
+  #protect edit pages - keep anyone out who isnt the owner of the edit page
   def prevent_other_user_edits
     @user = User.find(params[:id])
 

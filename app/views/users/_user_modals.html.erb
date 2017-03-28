@@ -1,0 +1,54 @@
+<% if session[:show_signup_message] == true %>
+
+  <script>BootstrapDialog.show({
+            title: 'WELCOME ABOARD! :D',
+            message: 'Take a seat and enjoy the delicious memes we have to offer or get in the kitchen and cook up some of your own!'
+        });</script>
+
+        <% session[:show_signup_message] = false %>
+
+<% end %>
+
+<% if session[:show_new_post_dialog] == true %>
+
+  <script>BootstrapDialog.show({
+            title: "Post successful",
+            message: "Now that's a dope dish you dank memer"
+        });</script>
+
+        <% session[:show_new_post_dialog] = false %>
+
+<% end %>
+
+<% if session[:show_username_changed] == true %>
+
+  <script>BootstrapDialog.show({
+            title: "Username Updated Successfully",
+            message: "Rollin' around with a new name now, huh?"
+        });</script>
+
+        <% session[:show_username_changed] = false %>
+
+<% end %>
+
+<% if session[:show_email_changed] == true %>
+
+  <script>BootstrapDialog.show({
+            title: "Email Updated Successfully",
+            message: "Changin' your address? You hidin' somethin'?"
+        });</script>
+
+        <% session[:show_email_changed] = false %>
+
+<% end %>
+
+<% if session[:show_password_changed] == true %>
+
+  <script>BootstrapDialog.show({
+            title: "Password Updated Successfully",
+            message: "Don't worry, we won't tell anyone."
+        });</script>
+
+        <% session[:show_password_changed] = false %>
+
+<% end %>
