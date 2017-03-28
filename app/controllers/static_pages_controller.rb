@@ -4,10 +4,6 @@ class StaticPagesController < ApplicationController
 
   before_action :post_like_dislike_filter, only: [:handle_like, :handle_dislike]
 
-  #Kitchen view is just a form to create a new meme post
-  def kitchen
-  end
-
   #buffet contains every post contained by every user in a constant stream - constantly updating
   #Everything for the buffet feed should be initialized here
   def buffet

@@ -1,16 +1,17 @@
 class SessionsController < ApplicationController
+
+  #login form view
   def new
   end
 
   def create
-
     user = User.find_by(name: params[:session][:name])
 
     if user && user.authenticate(params[:session][:password])
-
       #log user in
       log_in(user)
 
+      #check if the user wants to be remembered and use the corresponding method to remember or forget the user
       if params[:session][:remember_me] == '1'
         remember user
       else
@@ -18,12 +19,10 @@ class SessionsController < ApplicationController
       end
 
       redirect_to user
-
     else
-
       #handle failure
       flash.now[:danger] = "Invalid Username/Password"
-      render 'new'
+      render 'new' #rerender the page if the login is incorrect
     end
 
   end
