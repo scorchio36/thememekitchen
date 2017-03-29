@@ -1,6 +1,11 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+@media screen and (max-width: 480) {
+  .sidebar {
+    visibility: hidden;
+  }
+}
 
 //Left-hand sidebar menu for the site
 .sidebar
