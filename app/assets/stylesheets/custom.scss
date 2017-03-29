@@ -7,8 +7,14 @@
   }
 
   .commentHeader {
-    width: 100%;
+    width: 100vh;
   }
+
+  .buffetNextButton {
+    height: 200px;
+  }
+
+
 
 }
 
@@ -221,52 +227,7 @@ header
     max-width: 180px;
 
   }
-
 }
-
-
-#myButtonMenu
-{
-  margin-top: -2px;
-  margin-right: -45px;
-  float: right;
-}
-
-
-
-
-#overheadList
-{
-
-  width: 50%;
-  margin: auto;
-
-  li
-  {
-    font-size: 1.4em;
-    padding-left: 12px;
-    padding-right:12px;
-  }
-}
-
-//Carousels
-
-#mainCarousel
-{
-
-  width: 820px;
-  height: 425px;
-  margin: auto;
-
-  .item img
-  {
-    max-width: 860px;
-    max-height: 425px;
-    margin: auto;
-  }
-}
-
-
 
 
 //Post feed stuff (Should be able to use these class for main course, buffet, profile, bar, and personal chef feeds)
