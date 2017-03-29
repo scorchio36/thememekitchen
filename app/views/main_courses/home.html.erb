@@ -1,6 +1,10 @@
+<!-- Main course page is the front page where all of the best posts will be featured. This is solely determined by
+an admin user, but in time I hope to automate the process of adding posts to the main course feed
+according to likes and popularity -->
 <%= provide(:background_image, "mainCourseBackground") %>
 <% provide(:title, "Main Course") %>
 <% provide(:subtitle, "Top rated memes") %>
+
 
 <% if session[:comment_blank_error] == true %>
 

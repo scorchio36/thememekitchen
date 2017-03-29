@@ -3,6 +3,7 @@
 <% provide(:title, "Buffet") %>
 <% provide(:subtitle, "All you can eat memes") %>
 
+<!-- show the comment modal if the session variable is true -->
 <% if session[:comment_blank_error] == true %>
 
   <script>BootstrapDialog.show({

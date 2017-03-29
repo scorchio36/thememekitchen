@@ -1,6 +1,8 @@
-
 <div class="notificationBlock">
 <ul class="list-group">
+  <!-- If the notification is not nil, then we need to fetch all of the available information related to each notification.
+  I will only retrieve a variable related to the notification if it is not nil - which is why I check each variable for nil
+  first -->
   <% if !(@notifications.nil?) %>
     <% @notifications.each do |notification| %>
     <% unless notification.from_user_id.nil? %>
@@ -12,34 +14,46 @@
     <% unless notification.from_comment_id.nil? %>
       <% @from_comment = Comment.find(notification.from_comment_id) %>
     <% end %>
+
+      <!-- Use the information obtained and print it out in a nice list format with pagination for the user.
+      The most recent notifications will be at the top of the list -->
       <li class="list-group-item"><div class="media">
         <div class="media-body">
           <div class="media-heading" style="margin-top: -15px;">
 
+            <!-- Used to remove notification with ajax -->
             <%= link_to "remove", {controller: 'notifications', action: 'destroy', notification_id: notification.id, page: params[:page]},
                 style: "float:right", class:"btn btn-default btn-sm", method: "delete", data: {confirm: "Remove notification?"},
                   remote: true %>
 
-            <h3><% unless notification.from_user_id.nil? %>
-              <%= link_to(@from_user) do %>
-                <%= image_tag(@from_user.picture.url, height: "40px", width: "40px", style:"border: 1px solid #aaaaaa; padding: 2px;") %>
-
-                <%= @from_user.name %><% end %>
-            <% end %>
-              <%= notification.description %>
-              <% unless notification.from_post_id.nil? %>
-                <%= link_to(posts_feed_user_path(current_user, :post_id => notification.from_post_id)) do %>
-                  <%= image_tag(@from_post.picture.url, height: "65px", width: "75px", style:"border: 1px solid #aaaaaa; padding: 2px;") %></h3>
+            <h3>
+              <% unless notification.from_user_id.nil? %>
+                <%= link_to(@from_user) do %>
+                  <%= image_tag(@from_user.picture.url, height: "40px", width: "40px",
+                    style:"border: 1px solid #aaaaaa; padding: 2px; margin: 5px;") %><%= @from_user.name %>
                 <% end %>
               <% end %>
+
+              <%= notification.description %>
+
+              <% unless notification.from_post_id.nil? %>
+                <%= link_to(posts_feed_user_path(current_user, :post_id => notification.from_post_id)) do %>
+                  <%= image_tag(@from_post.picture.url, height: "65px", width: "75px",
+                    style:"border: 1px solid #aaaaaa; padding: 2px;") %>
+                <% end %>
+              <% end %>
+            </h3>
+
               <% unless notification.from_comment_id.nil? %>
                   <h5>Comment: <%= @from_comment.comment %></h5>
               <% end %>
           </div>
         </div>
 
+        <!-- Notification timestamp -->
         <div class="media-bottom">
-          <h5 style="position: absolute; bottom: -5%; right: 2%;"><small><%= time_ago_in_words(notification.created_at) %> ago</small></h5>
+          <h5 style="position: absolute; bottom: -5%; right: 2%;">
+            <small><%= time_ago_in_words(notification.created_at) %> ago</small></h5>
       </div></li>
     <% end %>
   <% end %>
