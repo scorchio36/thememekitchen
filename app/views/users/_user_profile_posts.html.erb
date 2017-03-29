@@ -7,17 +7,15 @@
         <div class="thumbnail">
 
 
-
           <!--If this is the current_user's profile then let them delete posts -->
           <% if logged_in? %>
             <% if current_user.id == @user.id %>
-              <div class="whiteCircle">
+              <div class="whiteCircle"> <!--Helps make sure the background of the 'X' is white-->
               </div>
-              <%= link_to({:controller => "posts", :action => "destroy", :post_id => post.id}, class:" deleteProfilePostButton",
+              <%= link_to({controller:"posts", action:"destroy", :post_id => post.id}, class:" deleteProfilePostButton",
                 method: "delete", data: {confirm: "Are you sure you want to delete your dank meme?", remote: true}) do %>
                 <b class="glyphicon glyphicon-remove-sign"></b>
               <% end %>
-              <!--We need this white circle to stay behind the X marks and keep them pretty -->
 
             <% end %>
           <% end %>
@@ -28,10 +26,16 @@
         </div>
 
         <div class="caption">
-          <% if post.title.nil? %>
+          <% if post.title.nil? %> <!-- Add default title just in case -->
             <h4>Dank Meme</h4>
           <% else %>
-            <h4><% if post.main_course %><b class="glyphicon glyphicon-star" style="position: absolute; right: 9%; top: 11%; color: #ffff00; font-size: 1.75em; background-color: #5555ee; border-radius:25px; width: 25px; height: 25px;"></b><% end %><%= post.title %></h4>
+            <h4>
+              <% if post.main_course %>
+                <b class="glyphicon glyphicon-star"
+                  style="position: absolute; right: 9%; top: 10%; color: #ffff00; font-size: 1.75em;
+                  background-color: #5555ee; border-radius:25px; width: 25px; height: 25px;"></b>
+              <% end %><%= post.title %>
+          </h4>
           <% end %>
         </div>
       </div>
