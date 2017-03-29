@@ -58,8 +58,8 @@ Used when all comments must be updated-->
           <% if logged_in? %>
             <% if comment.user.id == current_user.id %>
 
-                <%= link_to "delete", {:controller => "comments", :action => "destroy", :id => comment.id}, style:"float: right; margin-left: 5px;",
-                      method: "delete", data: {confirm: "You really wanna delete your sweet comment?"}, remote: true %>
+                <%= link_to "delete", {controller:"comments", action:"destroy", :id => comment.id},
+                  style:"float: right; margin-left: 5px;", method: "delete", data: {confirm: "You really wanna delete your sweet comment?"}, remote: true %>
 
             <% end %>
           <% end %>
