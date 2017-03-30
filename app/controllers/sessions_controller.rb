@@ -1,5 +1,7 @@
 class SessionsController < ApplicationController
 
+  before_action :if_logged_in_redirect, only:[:new]
+
   #login form view
   def new
   end
@@ -37,5 +39,14 @@ class SessionsController < ApplicationController
     end
     redirect_to home_path
 
+  end
+
+  private
+
+  #dont let the user visit the login page if they are already logged in
+  def if_logged_in_redirect
+    if logged_in?
+      redirect_to current_user
+    end
   end
 end

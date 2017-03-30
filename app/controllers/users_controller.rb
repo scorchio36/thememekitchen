@@ -4,6 +4,7 @@ class UsersController < ApplicationController
 
   before_action :post_like_dislike_filter, only: [:handle_post_like, :handle_post_dislike]
   before_action :prevent_other_user_edits, only: [:edit, :edit_password]
+  before_action :if_logged_in_redirect, only:[:new]
 
   #User profile page will show information about user and their posts
   def show
@@ -233,6 +234,13 @@ class UsersController < ApplicationController
         redirect_to home_path
         flash[:danger] = "You must be logged in as the correct user to visit this page"
       end
+    end
+  end
+
+  #dont let the user visit the signup page if they are already logged in
+  def if_logged_in_redirect
+    if logged_in?
+      redirect_to current_user
     end
   end
 
