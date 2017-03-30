@@ -22,12 +22,12 @@ Used when all comments must be updated-->
 
             <% if comment.liked_by(current_user) %>
               <%= link_to({:controller => 'comments', :action => 'handle_like', :comment_id => comment.id, :user_id => @poster.id},
-                class: "btn btn-success btn-xs commentLikeButton", remote: true, method: "post") do %>
+                class: "btn btn-success btn-sm commentLikeButton", remote: true, method: "post") do %>
                   <b class="glyphicon glyphicon-thumbs-up"></b> <small class="commentLikes" style="color: white;"><%= comment.likes %></small>
                 <% end %>
             <% else %>
             <%= link_to({:controller => 'comments', :action => 'handle_like', :comment_id => comment.id, :user_id => @poster.id},
-              class: "btn btn-default btn-xs commentLikeButton", remote: true, method: "post") do %>
+              class: "btn btn-default btn-sm commentLikeButton", remote: true, method: "post") do %>
                 <b class="glyphicon glyphicon-thumbs-up"></b> <small class="commentLikes" style="color: black;"><%= comment.likes %></small>
               <% end %>
             <% end %>
@@ -35,12 +35,12 @@ Used when all comments must be updated-->
 
             <% if comment.disliked_by(current_user) %>
               <%= link_to({:controller => 'comments', :action => 'handle_dislike', :comment_id => comment.id, :user_id => @poster.id},
-                class: "btn btn-danger btn-xs commentDislikeButton", remote: true, method: "post") do %>
+                class: "btn btn-danger btn-sm commentDislikeButton", remote: true, method: "post") do %>
                   <b class="glyphicon glyphicon-thumbs-down"></b> <small class="commentLikes" style="color: white;"><%= comment.dislikes %></small>
               <% end %>
             <% else %>
               <%= link_to({:controller => 'comments', :action => 'handle_dislike', :comment_id => comment.id, :user_id => @poster.id},
-                class: "btn btn-default btn-xs commentDislikeButton", remote: true, method: "post") do %>
+                class: "btn btn-default btn-sm commentDislikeButton", remote: true, method: "post") do %>
                   <b class="glyphicon glyphicon-thumbs-down"></b> <small class="commentLikes" style="color: black;"><%= comment.dislikes %></small>
               <% end %>
             <% end %>

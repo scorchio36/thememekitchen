@@ -790,7 +790,8 @@ header
   }
 
   .commentTextArea {
-    width: 90%;
+    width: 95%;
+    margin: auto;
     font-size: 2.0em;
   }
 
@@ -799,8 +800,14 @@ header
     height: 125px;
   }
 
+  .buffetNextButton {
+    height: 125px;
+  }
+
   .buffetPrevButton {
     left: 3%;
+
+    height: 125px;
   }
 
   .commentMedia {
