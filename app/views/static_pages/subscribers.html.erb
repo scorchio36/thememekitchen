@@ -35,7 +35,7 @@
         <h3>No one is currently subscribed.</h3>
       </div>
     <% else %>
-      <div class="row col-md-offset-2 col-sm-offset-2">
+      <div class="row col-md-offset-2 col-sm-offset-2 col-sm-3">
       <% @subscribers.each do |sub| %>
 
         <%= link_to(user_path(sub)) do %>
