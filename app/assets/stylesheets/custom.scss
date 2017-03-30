@@ -757,6 +757,11 @@ header
     h2 {
       font-size: 1.5em;
     }
+
+    button {
+      width: 100px;
+      height: 100px;
+    }
   }
 
   /*.buffetNextButton {
@@ -764,11 +769,11 @@ header
   }*/
 
   .mainPostImage {
-    height: 500px;
+    height: 480px;
     margin-left: 0%;
 
     img {
-      max-height:490;
+      max-height:473;
     }
   }
 
@@ -786,6 +791,7 @@ header
 
   .commentTextArea {
     width: 100%;
+    font-size: 2.0em;
   }
 
   .commentPicture {
