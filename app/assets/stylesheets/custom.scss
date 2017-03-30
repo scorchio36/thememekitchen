@@ -747,12 +747,16 @@ header
 }
 
 @media screen and (min-width: 0px) and (max-width: 1023px) {
-  .sidebar {
+  /*.sidebar {
     visibility: hidden;
-  }
+  }*/
 
   .commentHeader {
     width: 100%;
+
+    h2 {
+      font-size: 1.5em;
+    }
   }
 
   /*.buffetNextButton {
@@ -760,10 +764,10 @@ header
   }*/
 
   .mainPostImage {
-    height: 750px;
+    height: 500px;
 
     img {
-      max-height:740;
+      max-height:490;
     }
   }
 
