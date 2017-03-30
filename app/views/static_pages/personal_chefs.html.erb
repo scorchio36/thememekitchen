@@ -16,15 +16,15 @@
     </div>
 
     <% if @subscriptions.count == 0 %>
-      <div class="row col-md-offset-1">
+      <div class="row col-md-offset-1 cold-sm-offset-1">
         <h3>You have not subscribed to any other chefs.</h3>
       </div>
     <% else %>
-      <div class="row col-md-offset-2">
+      <div class="row col-md-offset-2 col-sm-offset-2">
       <% @subscriptions.each do |sub| %>
 
         <%= link_to(user_path(sub)) do %>
-          <div class="col-md-3">
+          <div class="col-md-3 col-sm-4">
             <%= image_tag(sub.picture.url, class:"personalChefsSubPicture thumbnail") %>
             <h4 class="personalChefsSubName"><%= sub.name %></h4>
           </div>

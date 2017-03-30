@@ -39,7 +39,7 @@
       <% @subscribers.each do |sub| %>
 
         <%= link_to(user_path(sub)) do %>
-          <div class="col-md-3 col-sm-3">
+          <div class="col-md-3 col-sm-4">
             <%= image_tag(sub.picture.url, class:"personalChefsSubPicture thumbnail") %>
             <h4 class="personalChefsSubName"><%= sub.name %></h4>
           </div>
