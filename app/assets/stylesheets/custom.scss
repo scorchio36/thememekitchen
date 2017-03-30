@@ -751,7 +751,7 @@ header
     visibility: hidden;
   }
 
-  .commentHeader .commentBlock {
+  .commentHeader {
     width: 100%;
   }
 
@@ -760,10 +760,14 @@ header
   }*/
 
   .mainPostImage {
-    height: 500px;
+    height: 750px;
 
     img {
-      max-height:490px;
+      max-height:740;
     }
+  }
+
+  .commentBlock {
+    width: 100%;
   }
 }
