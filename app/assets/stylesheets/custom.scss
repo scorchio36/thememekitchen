@@ -772,11 +772,23 @@ header
     }
   }
 
+  .postCaption {
+    margin-left: 0%;
+  }
+
+  .postHeading {
+    margin-left: 0%;
+  }
+
   .commentBlock {
     width: 100%;
   }
 
   .commentTextArea {
     width: 100%;
+  }
+
+  .buffetPrevButton {
+    left: 3%;
   }
 }
