@@ -1,20 +1,6 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-@media screen and (min-width: 0px) and (max-width: 1023px) {
-  /*.sidebar {
-    visibility: hidden;
-  }*/
-
-  .commentHeader {
-    width: 100%;
-  }
-
-  /*.buffetNextButton {
-    height: 200px;
-  }*/
-}
-
 //Left-hand sidebar menu for the site
 .sidebar
 {
@@ -758,4 +744,18 @@ header
     color: red;
     margin-bottom: 10px;
   }
+}
+
+@media screen and (min-width: 0px) and (max-width: 1023px) {
+  /*.sidebar {
+    visibility: hidden;
+  }*/
+
+  .commentHeader {
+    width: 100%;
+  }
+
+  /*.buffetNextButton {
+    height: 200px;
+  }*/
 }
