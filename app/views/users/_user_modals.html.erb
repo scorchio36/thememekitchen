@@ -52,3 +52,14 @@
         <% session[:show_password_changed] = false %>
 
 <% end %>
+
+<% if session[:show_profile_pic_changed] == true %>
+
+  <script>BootstrapDialog.show({
+            title: "Profile Pic Updated Successfully",
+            message: "Damn, you aint as ugly as I thought you'd be"
+        });</script>
+
+        <% session[:show_profile_pic_changed] = false %>
+
+<% end %>

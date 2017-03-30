@@ -94,10 +94,11 @@ class UsersController < ApplicationController
     if(!(params[:change_picture].nil?))
 
       if @user.update_attribute(:picture, params[:user][:picture])
-        flash[:success] = "Profile Picture successfully updated"
+        session[:show_profile_pic_changed] = true
         redirect_to @user
       else
         render 'edit'
+        session[:show_profile_pic_changed] = false
       end
     end
 
