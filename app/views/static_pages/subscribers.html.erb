@@ -6,7 +6,7 @@
 <div class="container">
 
     <div class="row">
-      <div class="col-md-offset-2">
+      <div class="col-md-offset-2 col-sm-offset-2">
         <h1 style="text-align: center; font-weight: bold;">Subscribers
           <% if logged_in? %>
             <% if current_user.id == @user.id %>
@@ -31,11 +31,11 @@
     </div>
 
     <% if @subscribers.count == 0 %>
-      <div class="row col-md-offset-1">
+      <div class="row col-md-offset-1 col-sm-offset-1">
         <h3>No one is currently subscribed.</h3>
       </div>
     <% else %>
-      <div class="row col-md-offset-2">
+      <div class="row col-md-offset-2 col-sm-offset-2">
       <% @subscribers.each do |sub| %>
 
         <%= link_to(user_path(sub)) do %>
