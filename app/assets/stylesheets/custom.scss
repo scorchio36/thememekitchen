@@ -751,11 +751,19 @@ header
     visibility: hidden;
   }
 
-  .commentHeader {
+  .commentHeader .commentBlock {
     width: 100%;
   }
 
   /*.buffetNextButton {
     height: 200px;
   }*/
+
+  .mainPostImage {
+    height: 500px;
+
+    img {
+      max-height:490px;
+    }
+  }
 }
