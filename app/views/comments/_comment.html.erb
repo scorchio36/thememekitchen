@@ -14,13 +14,13 @@
         <% if logged_in? %>
 
           <%= link_to({:controller => 'comments', :action => 'handle_like', :comment_id => @comment.id},
-            class: "btn btn-default btn-xs commentLikeButton", remote: true, method: "post") do %>
+            class: "btn btn-default btn-sm commentLikeButton", remote: true, method: "post") do %>
               <b class="glyphicon glyphicon-thumbs-up"></b>
               <small class="commentLikes" style="color: black;"><%= @comment.likes %></small>
           <% end %>
 
           <%= link_to({:controller => 'comments', :action => 'handle_dislike', :comment_id => @comment.id},
-              class: "btn btn-default btn-xs commentDislikeButton", remote: true, method: "post") do %>
+              class: "btn btn-default btn-sm commentDislikeButton", remote: true, method: "post") do %>
                 <b class="glyphicon glyphicon-thumbs-down"></b>
                 <small class="commentLikes" style="color: black;"><%= @comment.dislikes %></small>
           <% end %>
