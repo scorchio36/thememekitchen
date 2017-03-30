@@ -765,6 +765,7 @@ header
 
   .mainPostImage {
     height: 500px;
+    margin-left: 0%;
 
     img {
       max-height:490;
@@ -772,6 +773,10 @@ header
   }
 
   .commentBlock {
+    width: 100%;
+  }
+
+  .commentTextArea {
     width: 100%;
   }
 }
